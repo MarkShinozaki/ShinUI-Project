@@ -252,6 +252,32 @@ export const authors: Author[] = [
     name: "ReUI",
     site: "https://reui.io",
   },
+  {
+    id: "shuding",
+    name: "Shu Ding",
+    handle: "@shuding",
+    github: "https://github.com/shuding",
+    site: "https://shud.in",
+  },
+  {
+    id: "mengto",
+    name: "Meng To",
+    handle: "@MengTo",
+    github: "https://github.com/MengTo",
+    site: "https://designcode.io",
+  },
+  {
+    id: "jakub-antalik",
+    name: "Jakub Antalík",
+    site: "https://jakubantalik.com",
+  },
+  {
+    id: "lochie",
+    name: "Lochie Ashcroft",
+    handle: "@lochieashcroft",
+    github: "https://github.com/lochie",
+    site: "https://lochie.me",
+  },
 ];
 
 export const authorById = new Map(authors.map((a) => [a.id, a]));

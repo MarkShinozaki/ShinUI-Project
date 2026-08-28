@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { getAuthor } from "@/data/authors";
 import { getCategory } from "@/data/categories";
 import { getResource, resources } from "@/data/resources";
+import { getRegistryItem } from "@/registry";
 import { faviconFor, hostnameOf } from "@/lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -46,6 +47,9 @@ export default async function ResourcePage({ params }: Props) {
 
   const category = getCategory(resource.category);
   const author = getAuthor(resource.authorId);
+  const liveComponent = resource.componentSlug
+    ? getRegistryItem(resource.componentSlug)
+    : undefined;
 
   const related = resources
     .filter((r) => r.slug !== resource.slug && r.category === resource.category)
@@ -81,12 +85,22 @@ export default async function ResourcePage({ params }: Props) {
         title={resource.name}
         description={resource.tagline}
         actions={
-          <Button asChild>
-            <a href={resource.url} target="_blank" rel="noreferrer">
-              Visit site
-              <ExternalLink className="size-3.5" />
-            </a>
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            {liveComponent && (
+              <Button variant="outline" asChild>
+                <Link href={`/components/${liveComponent.slug}`}>
+                  Try live on ShinUI
+                  <ArrowRight className="size-3.5" />
+                </Link>
+              </Button>
+            )}
+            <Button asChild>
+              <a href={resource.url} target="_blank" rel="noreferrer">
+                Visit site
+                <ExternalLink className="size-3.5" />
+              </a>
+            </Button>
+          </div>
         }
       />
 

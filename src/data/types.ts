@@ -33,5 +33,7 @@ export type Resource = {
   featured?: boolean;
   /** Shown in the "Install" tab when the resource ships a CLI. */
   install?: string;
+  /** When ShinUI ships a live reimplementation, link to /components/[slug]. */
+  componentSlug?: string;
   addedAt: string;
 };

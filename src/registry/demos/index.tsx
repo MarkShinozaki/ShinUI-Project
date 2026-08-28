@@ -37,6 +37,10 @@ import { DotPattern } from "@/registry/components/dot-pattern";
 import { ProgressRing } from "@/registry/components/progress-ring";
 import { StatusBadge } from "@/registry/components/status-badge";
 import { FlipCard } from "@/registry/components/flip-card";
+import { LdrsRing } from "@/registry/components/ldrs-ring";
+import { GlassCard } from "@/registry/components/glass-card";
+import { CookieConsent } from "@/registry/components/cookie-consent";
+import { Timeline } from "@/registry/components/timeline";
 
 export function SpotlightCardDemo() {
   return (
@@ -293,6 +297,59 @@ export function FlipCardDemo() {
           </p>
         </>
       }
+    />
+  );
+}
+
+export function LdrsRingDemo() {
+  return (
+    <div className="flex items-center gap-4">
+      <LdrsRing />
+      <LdrsRing size={28} stroke={2.5} />
+      <span className="text-sm text-muted-foreground">Loading…</span>
+    </div>
+  );
+}
+
+export function GlassCardDemo() {
+  return (
+    <div className="relative w-full max-w-sm overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#6366f1,#ec4899,#f59e0b)] p-8">
+      <GlassCard>
+        <p className="text-xs tracking-[0.18em] text-white/70 uppercase">GlassCN style</p>
+        <p className="mt-2 text-lg font-semibold text-white">Frosted card</p>
+        <p className="mt-1 text-sm text-white/75">
+          Backdrop blur and a soft border over any colourful surface.
+        </p>
+      </GlassCard>
+    </div>
+  );
+}
+
+export function CookieConsentDemo() {
+  return <CookieConsent />;
+}
+
+export function TimelineDemo() {
+  return (
+    <Timeline
+      className="max-w-sm text-left"
+      items={[
+        {
+          date: "Aug 2026",
+          title: "Public launch",
+          description: "Ship the searchable index and live component registry.",
+        },
+        {
+          date: "Jul 2026",
+          title: "Registry grows",
+          description: "Add docks, loaders, glass cards and AI chat patterns.",
+        },
+        {
+          date: "Jun 2026",
+          title: "First commit",
+          description: "Seed the index from the original ShinUI README list.",
+        },
+      ]}
     />
   );
 }

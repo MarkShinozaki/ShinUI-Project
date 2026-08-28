@@ -291,6 +291,64 @@ export const registry: RegistryItem[] = [
     dependencies: ["react"],
     authorId: "shinozaki",
   },
+  {
+    slug: "ldrs-ring",
+    name: "LDRS Ring",
+    description:
+      "A minimal SVG ring loader with a dashed arc sweep — the kind of spinner LDRS popularised, without pulling in the full library.",
+    category: "component-libraries",
+    tags: ["loader", "spinner", "svg", "css"],
+    file: "registry/components/ldrs-ring.tsx",
+    demoExport: "LdrsRingDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+    inspiredBy: { name: "LDRS", url: "https://uiball.com/ldrs/" },
+  },
+  {
+    slug: "glass-card",
+    name: "Glass Card",
+    description:
+      "Frosted glass surface with backdrop blur, a subtle highlight gradient and a hairline border — the glasscn look in one div.",
+    category: "component-libraries",
+    tags: ["glassmorphism", "card", "blur"],
+    file: "registry/components/glass-card.tsx",
+    demoExport: "GlassCardDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+    inspiredBy: { name: "GlassCN", url: "https://www.glasscn.dev/docs/components/card" },
+  },
+  {
+    slug: "cookie-consent",
+    name: "Cookie Consent",
+    description:
+      "A compact consent banner with accept and decline actions. Dismisses inline — wire it to your analytics gate when you ship it.",
+    category: "product-infra",
+    tags: ["consent", "legal", "banner", "gdpr"],
+    file: "registry/components/cookie-consent.tsx",
+    demoExport: "CookieConsentDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+    inspiredBy: {
+      name: "Shadcn Cookie Consent",
+      url: "https://shadcn-cookie-consent.vercel.app/",
+    },
+  },
+  {
+    slug: "timeline",
+    name: "Timeline",
+    description:
+      "A vertical timeline with a brand dot per milestone and a left rule — enough structure for changelogs, roadmaps and onboarding steps.",
+    category: "blocks-templates",
+    tags: ["timeline", "roadmap", "changelog", "layout"],
+    file: "registry/components/timeline.tsx",
+    demoExport: "TimelineDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+    inspiredBy: {
+      name: "Aceternity Timeline",
+      url: "https://ui.aceternity.com/components/timeline",
+    },
+  },
 ];
 
 export const registryBySlug = new Map(registry.map((item) => [item.slug, item]));
