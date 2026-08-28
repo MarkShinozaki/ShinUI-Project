@@ -215,6 +215,43 @@ export const authors: Author[] = [
     handle: "@MarkShinozaki",
     github: "https://github.com/MarkShinozaki",
   },
+  {
+    id: "maze-heart",
+    name: "Maze Heart",
+    site: "https://desengs.com",
+  },
+  {
+    id: "vuesax",
+    name: "Vuesax",
+    site: "https://iconsax.io",
+  },
+  {
+    id: "fayaz",
+    name: "Fayaz Ahmed",
+    handle: "@fayazahmed",
+    github: "https://github.com/fayazahmed",
+    site: "https://fayaz.work",
+  },
+  {
+    id: "nucleo",
+    name: "Nucleo",
+    site: "https://nucleoapp.com",
+  },
+  {
+    id: "iconly",
+    name: "Iconly",
+    site: "https://iconly.pro",
+  },
+  {
+    id: "coss",
+    name: "coss.com",
+    site: "https://coss.com",
+  },
+  {
+    id: "reui",
+    name: "ReUI",
+    site: "https://reui.io",
+  },
 ];
 
 export const authorById = new Map(authors.map((a) => [a.id, a]));
