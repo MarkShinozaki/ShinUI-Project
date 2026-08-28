@@ -18,6 +18,9 @@ Thumbs.db
 .env
 .env*.local
 
+AGENTS.md
+CLAUDE.md
+
 .vercel
 .idea
 .vscode/*

@@ -2,13 +2,11 @@
 
 A searchable, mobile-friendly index of UI and design resources — component libraries, blocks, motion systems, shaders, themes, icons, mockups, iOS patterns and design tools — with live previews, real source code and credit to the people who built them.
 
-Seeded from [MarkShinozaki/ShinUI](https://github.com/MarkShinozaki/ShinUI).
-
 ## What it does
 
 - **Browse** every resource with full-text search plus category, pricing and stack filters.
 - **Preview external sites inline** in a browser frame, switchable between desktop and mobile widths.
-- **Render components live** — the registry components run on the page, and their source is read off disk at build time so the code you copy is byte-for-byte the code producing the preview.
+- **Render components live** — registry components run on the page, and their source is read off disk at build time so the code you copy matches the preview.
 - **Credit makers** — an author is listed only where the maker is publicly and unambiguously credited on the project itself.
 - **Works on a phone** — bottom tab bar, slide-over navigation, bottom-sheet filters, safe-area insets.
 - **Dark, light and system themes** via CSS variables and `next-themes`.
@@ -30,6 +28,8 @@ No CMS and no database. The whole index is typed data, so the build fails if a c
 
 ## Getting started
 
+This project uses **pnpm**. Do not use `npm install` — it will fail on this repo.
+
 ```bash
 pnpm install
 pnpm dev
@@ -38,7 +38,7 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
-pnpm build      # production build (fully static, ~164 prerendered pages)
+pnpm build      # production build (fully static)
 pnpm start      # serve the production build
 pnpm lint       # eslint
 pnpm typecheck  # tsc --noEmit
@@ -48,6 +48,27 @@ pnpm typecheck  # tsc --noEmit
 
 - `typescript` is pinned to 6.x because `typescript-eslint` does not yet support the TS 7 API.
 - `eslint` is pinned to 9.x because `eslint-plugin-react` is not yet compatible with the ESLint 10 rule API.
+
+## Repo files (what matters)
+
+You only need to touch a few files day to day. Everything else is standard Next.js / tooling config.
+
+| File | Purpose |
+| --- | --- |
+| `package.json` | Dependencies and scripts. Required for any Node project. |
+| `pnpm-lock.yaml` | Locks dependency versions so installs are reproducible. Keep this in git. |
+| `.npmrc` | Tells contributors to use pnpm. |
+| `components.json` | shadcn/ui config — only needed if you add more shadcn components via the CLI. |
+| `src/data/resources.ts` | The resource index. Add new links here. |
+| `src/data/categories.ts` | Category definitions. |
+| `src/data/authors.ts` | Verified attribution records. |
+| `src/registry/` | Live components, demos and registry metadata. |
+| `next.config.ts` | Next.js settings. |
+| `tsconfig.json` | TypeScript settings. |
+| `eslint.config.mjs` | Lint rules. |
+| `postcss.config.mjs` | Tailwind v4 PostCSS hookup. |
+
+There is intentionally **one** markdown file (`README.md`) and **no** workspace yaml — config that used to live in extra files has been folded into `package.json`.
 
 ## Project structure
 
@@ -109,10 +130,14 @@ Append an object to `src/data/resources.ts`. It appears in search, browse, its c
 
 The detail page picks up the source, derives the usage snippet from the file's exports, and lists dependencies automatically.
 
+## Contributing
+
+Pull requests welcome. Add resources or live components following the patterns above. Keep attribution accurate — only add `authorId` values backed by public credits on the source project.
+
 ## Attribution
 
 Every listed resource belongs to its own author. This site indexes and links to them; it does not host or redistribute their code. If a byline is wrong or missing, please open an issue or a pull request.
 
 ## License
 
-MIT for the site's own code. Listed resources are governed by their own licenses.
+MIT for this repository's code. Listed third-party resources are governed by their own licenses.

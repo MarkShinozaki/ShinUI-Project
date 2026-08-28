@@ -1,7 +1,18 @@
 {
   "name": "shinui",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "A searchable index of UI and design resources with live component previews.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkShinozaki/ShinUI-Project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarkShinozaki/ShinUI-Project/issues"
+  },
+  "homepage": "https://github.com/MarkShinozaki/ShinUI-Project#readme",
+  "packageManager": "pnpm@10.0.0",
   "type": "module",
   "scripts": {
     "dev": "next dev",
