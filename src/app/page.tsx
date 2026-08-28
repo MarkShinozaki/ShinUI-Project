@@ -43,9 +43,9 @@ export default function HomePage() {
             </h1>
 
             <p className="text-muted-foreground mx-auto mt-5 max-w-2xl text-base text-pretty sm:text-lg">
-              Component libraries, blocks, motion systems, shaders, icons and
-              design tools — indexed, searchable, credited to whoever built
-              them, and shown with a live preview and the actual code.
+              {resources.length} external tools and libraries — indexed, searchable
+              and credited to whoever built them. Plus {registry.length} components
+              you can preview live and copy straight into your project.
             </p>
 
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

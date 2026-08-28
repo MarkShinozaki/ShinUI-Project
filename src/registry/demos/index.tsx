@@ -28,6 +28,15 @@ import { Marquee } from "@/registry/components/marquee";
 import { SegmentedControl } from "@/registry/components/segmented-control";
 import { ShimmerText } from "@/registry/components/shimmer-text";
 import { SpotlightCard } from "@/registry/components/spotlight-card";
+import { ThinkingOrbs } from "@/registry/components/thinking-orbs";
+import { TypingDots } from "@/registry/components/typing-dots";
+import { CopyButton } from "@/registry/components/copy-button";
+import { KbdGroup } from "@/registry/components/kbd";
+import { GradientBorder } from "@/registry/components/gradient-border";
+import { DotPattern } from "@/registry/components/dot-pattern";
+import { ProgressRing } from "@/registry/components/progress-ring";
+import { StatusBadge } from "@/registry/components/status-badge";
+import { FlipCard } from "@/registry/components/flip-card";
 
 export function SpotlightCardDemo() {
   return (
@@ -156,9 +165,9 @@ export function AvatarStackDemo() {
 export function CounterStatDemo() {
   return (
     <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-3">
-      <CounterStat value={128} label="Resources indexed" />
+      <CounterStat value={140} label="Resources indexed" />
       <CounterStat value={17} label="Categories" />
-      <CounterStat value={98} suffix="%" label="Lighthouse score" />
+      <CounterStat value={22} label="Live components" />
     </div>
   );
 }
@@ -193,6 +202,97 @@ export function SegmentedControlDemo() {
         { value: "list", label: "List", icon: <List /> },
         { value: "rows", label: "Rows", icon: <Rows3 /> },
       ]}
+    />
+  );
+}
+
+export function ThinkingOrbsDemo() {
+  return (
+    <div className="flex items-center gap-3">
+      <ThinkingOrbs />
+      <span className="text-sm text-muted-foreground">Agent is thinking…</span>
+    </div>
+  );
+}
+
+export function TypingDotsDemo() {
+  return <TypingDots />;
+}
+
+export function CopyButtonDemo() {
+  return <CopyButton value="pnpm dlx shadcn@latest add button" label="Copy install" />;
+}
+
+export function KbdDemo() {
+  return (
+    <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+      <span>Search</span>
+      <KbdGroup keys={["⌘", "K"]} />
+      <span className="text-border">·</span>
+      <span>Save</span>
+      <KbdGroup keys={["⌘", "S"]} />
+    </div>
+  );
+}
+
+export function GradientBorderDemo() {
+  return (
+    <GradientBorder className="max-w-xs">
+      <p className="text-xs tracking-[0.18em] text-brand uppercase">Featured</p>
+      <p className="mt-2 font-semibold">Gradient border card</p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        One pixel of brand colour around the edge, no extra wrapper divs.
+      </p>
+    </GradientBorder>
+  );
+}
+
+export function DotPatternDemo() {
+  return (
+    <DotPattern className="grid h-40 w-full place-items-center">
+      <p className="text-sm font-medium">Dot pattern surface</p>
+    </DotPattern>
+  );
+}
+
+export function ProgressRingDemo() {
+  return (
+    <div className="flex items-center gap-6">
+      <ProgressRing value={68} label="Upload progress" />
+      <ProgressRing value={92} size={56} stroke={5} label="Sync progress" />
+    </div>
+  );
+}
+
+export function StatusBadgeDemo() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <StatusBadge status="online" label="Live" />
+      <StatusBadge status="away" label="Away" />
+      <StatusBadge status="busy" label="In a call" />
+      <StatusBadge status="offline" label="Offline" />
+    </div>
+  );
+}
+
+export function FlipCardDemo() {
+  return (
+    <FlipCard
+      front={
+        <>
+          <p className="text-xs text-muted-foreground uppercase tracking-wide">Hover to flip</p>
+          <p className="mt-2 text-lg font-semibold">ShinUI</p>
+          <p className="mt-1 text-sm text-muted-foreground">Design resources, indexed.</p>
+        </>
+      }
+      back={
+        <>
+          <p className="text-lg font-semibold">Copy the source</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Every component ships with the exact file that renders above it.
+          </p>
+        </>
+      }
     />
   );
 }

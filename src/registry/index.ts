@@ -174,6 +174,123 @@ export const registry: RegistryItem[] = [
     dependencies: [],
     authorId: "shinozaki",
   },
+  {
+    slug: "thinking-orbs",
+    name: "Thinking Orbs",
+    description:
+      "Three staggered dots for agent and AI chat loading states. Lightweight CSS keyframes with a reduced-motion opt-out.",
+    category: "ai-chat-ui",
+    tags: ["loading", "ai", "agent", "chat"],
+    file: "registry/components/thinking-orbs.tsx",
+    demoExport: "ThinkingOrbsDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+    inspiredBy: {
+      name: "Thinking orbs",
+      url: "https://thinkingorbs.com/",
+    },
+  },
+  {
+    slug: "typing-dots",
+    name: "Typing Dots",
+    description:
+      "A compact typing indicator pill — the pattern every chat UI needs, without pulling in a full messaging library.",
+    category: "ai-chat-ui",
+    tags: ["chat", "typing", "loading", "messaging"],
+    file: "registry/components/typing-dots.tsx",
+    demoExport: "TypingDotsDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "copy-button",
+    name: "Copy Button",
+    description:
+      "One-click clipboard copy with a checkmark confirmation. Uses the Clipboard API and resets after 1.6 seconds.",
+    category: "component-libraries",
+    tags: ["clipboard", "button", "feedback"],
+    file: "registry/components/copy-button.tsx",
+    demoExport: "CopyButtonDemo",
+    dependencies: ["react", "lucide-react"],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "kbd",
+    name: "Kbd",
+    description:
+      "Keyboard shortcut chips with a raised border treatment. Includes a KbdGroup helper for multi-key combos like ⌘K.",
+    category: "component-libraries",
+    tags: ["keyboard", "shortcut", "accessibility"],
+    file: "registry/components/kbd.tsx",
+    demoExport: "KbdDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "gradient-border",
+    name: "Gradient Border",
+    description:
+      "A card wrapped in a 1px brand gradient ring using a padding-box trick — no extra DOM layers or mask hacks.",
+    category: "backgrounds",
+    tags: ["border", "gradient", "card", "highlight"],
+    file: "registry/components/gradient-border.tsx",
+    demoExport: "GradientBorderDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+    inspiredBy: {
+      name: "Gradient Border Plugin",
+      url: "https://gradient-border.vercel.app/",
+    },
+  },
+  {
+    slug: "dot-pattern",
+    name: "Dot Pattern",
+    description:
+      "A subtle radial-dot background for empty states, hero sections and preview frames. Pure CSS, no image asset.",
+    category: "backgrounds",
+    tags: ["pattern", "background", "dots", "css-only"],
+    file: "registry/components/dot-pattern.tsx",
+    demoExport: "DotPatternDemo",
+    dependencies: [],
+    previewClassName: "p-0",
+    authorId: "shinozaki",
+  },
+  {
+    slug: "progress-ring",
+    name: "Progress Ring",
+    description:
+      "An SVG circular progress indicator with animated stroke offset and an accessible progressbar role.",
+    category: "data-viz",
+    tags: ["progress", "ring", "svg", "stats"],
+    file: "registry/components/progress-ring.tsx",
+    demoExport: "ProgressRingDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "status-badge",
+    name: "Status Badge",
+    description:
+      "Presence pill with a ping animation for online, away, busy and offline states. Hides the ping under reduced motion.",
+    category: "component-libraries",
+    tags: ["status", "presence", "badge", "live"],
+    file: "registry/components/status-badge.tsx",
+    demoExport: "StatusBadgeDemo",
+    dependencies: [],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "flip-card",
+    name: "Flip Card",
+    description:
+      "A 3D card flip on hover using preserve-3d and backface-visibility. Disabled entirely when prefers-reduced-motion is on.",
+    category: "animation-motion",
+    tags: ["card", "3d", "hover", "flip"],
+    file: "registry/components/flip-card.tsx",
+    demoExport: "FlipCardDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+  },
 ];
 
 export const registryBySlug = new Map(registry.map((item) => [item.slug, item]));

@@ -11,7 +11,7 @@ import { registry } from "@/registry";
 export const metadata: Metadata = {
   title: "Components",
   description:
-    "Live, interactive components with their real source code — docks, spotlight cards, iOS toggles, mesh gradients and more.",
+    "Live, interactive components with their real source code — docks, AI loaders, iOS toggles, mesh gradients and more.",
 };
 
 export default function ComponentsPage() {
