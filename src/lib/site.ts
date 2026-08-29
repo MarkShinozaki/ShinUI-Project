@@ -4,7 +4,7 @@ export const SITE = {
   description:
     "A curated, searchable index of UI component libraries, blocks, animation systems, shaders, icons and design tools — with live previews, source code and credit to the people who made them.",
   url: "https://shinui.dev",
-  repo: "https://github.com/MarkShinozaki/ShinUI",
+  repo: "https://github.com/MarkShinozaki/ShinUI-Project",
   author: {
     name: "Mark Shinozaki",
     github: "https://github.com/MarkShinozaki",

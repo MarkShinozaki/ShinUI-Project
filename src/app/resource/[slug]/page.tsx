@@ -16,6 +16,7 @@ import { getCategory } from "@/data/categories";
 import { getResource, resources } from "@/data/resources";
 import { getRegistryItem } from "@/registry";
 import { faviconFor, hostnameOf } from "@/lib/utils";
+import { SITE } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -205,7 +206,7 @@ export default async function ResourcePage({ params }: Props) {
               <p className="text-muted-foreground mt-2 text-sm">
                 No verified attribution yet. If you know who built this,{" "}
                 <a
-                  href="https://github.com/MarkShinozaki/ShinUI"
+                  href={SITE.repo}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-foreground underline underline-offset-4"
