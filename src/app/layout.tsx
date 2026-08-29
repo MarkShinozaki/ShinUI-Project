@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { BottomNav } from "@/components/bottom-nav";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_ASSETS } from "@/lib/site";
 
 import "./globals.css";
 
@@ -30,17 +30,40 @@ export const metadata: Metadata = {
     "design systems",
   ],
   authors: [{ name: SITE.author.name, url: SITE.author.github }],
+  manifest: SITE_ASSETS.manifest,
+  icons: {
+    icon: [
+      { url: SITE_ASSETS.favicon },
+      { url: SITE_ASSETS.favicon16, sizes: "16x16", type: "image/png" },
+      { url: SITE_ASSETS.favicon32, sizes: "32x32", type: "image/png" },
+    ],
+    apple: SITE_ASSETS.appleTouchIcon,
+  },
+  appleWebApp: {
+    capable: true,
+    title: SITE.name,
+    statusBarStyle: "default",
+  },
   openGraph: {
     type: "website",
     url: SITE.url,
     title: SITE.title,
     description: SITE.description,
     siteName: SITE.name,
+    images: [
+      {
+        url: SITE_ASSETS.icon512,
+        width: 512,
+        height: 512,
+        alt: SITE.name,
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: SITE.title,
     description: SITE.description,
+    images: [SITE_ASSETS.icon512],
   },
 };
 
