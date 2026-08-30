@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, Layers, Search, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { GitHubIcon } from "@/components/icons";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CategoryIcon } from "@/components/category-icon";
+import { HeroSection } from "@/components/hero-section";
 import { ResourceCard } from "@/components/resource-card";
 import { RegistryDemo } from "@/registry/demo-map";
 import { categories } from "@/data/categories";
@@ -19,60 +19,11 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b">
-        <div
-          aria-hidden
-          className="grid-pattern absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
-        />
-        <div
-          aria-hidden
-          className="bg-brand/20 absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full blur-[120px]"
-        />
-
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="outline" className="bg-background/60 backdrop-blur">
-              <Sparkles className="size-3" />
-              {resources.length} resources · {categories.length} categories ·{" "}
-              {registry.length} live components
-            </Badge>
-
-            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-              Every design resource you keep losing,{" "}
-              <span className="text-brand">in one place</span>
-            </h1>
-
-            <p className="text-muted-foreground mx-auto mt-5 max-w-2xl text-base text-pretty sm:text-lg">
-              {resources.length} external tools and libraries — indexed, searchable
-              and credited to whoever built them. Plus {registry.length} components
-              you can preview live and copy straight into your project.
-            </p>
-
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button size="xl" asChild>
-                <Link href="/browse">
-                  <Search className="size-4" />
-                  Browse resources
-                </Link>
-              </Button>
-              <Button size="xl" variant="outline" asChild>
-                <Link href="/components">
-                  <Layers className="size-4" />
-                  See live components
-                </Link>
-              </Button>
-            </div>
-
-            <p className="text-muted-foreground mt-4 text-xs">
-              Press{" "}
-              <kbd className="bg-muted rounded border px-1.5 py-0.5 font-mono">
-                ⌘K
-              </kbd>{" "}
-              anywhere to search
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroSection
+        resourceCount={resources.length}
+        categoryCount={categories.length}
+        registryCount={registry.length}
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <SectionHeading
