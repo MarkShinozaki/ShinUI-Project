@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { SaveButton } from "@/components/save-button";
 import { getAuthor } from "@/data/authors";
 import { getCategory } from "@/data/categories";
 import type { Resource } from "@/data/types";
@@ -23,6 +26,9 @@ export function ResourceCard({
 }) {
   const author = getAuthor(resource.authorId);
   const category = getCategory(resource.category);
+  const href = resource.userSubmitted
+    ? `/resource/added/${resource.slug}`
+    : `/resource/${resource.slug}`;
 
   return (
     <article
@@ -33,7 +39,6 @@ export function ResourceCard({
     >
       <div className="flex items-start gap-3">
         <span className="bg-muted grid size-10 shrink-0 place-items-center overflow-hidden rounded-lg border">
-          {/* Favicons keep the grid recognisable without hosting logo assets. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={faviconFor(resource.url)}
@@ -47,10 +52,7 @@ export function ResourceCard({
 
         <div className="min-w-0 flex-1">
           <h3 className="leading-tight font-semibold tracking-tight">
-            <Link
-              href={`/resource/${resource.slug}`}
-              className="after:absolute after:inset-0"
-            >
+            <Link href={href} className="after:absolute after:inset-0">
               {resource.name}
             </Link>
           </h3>
@@ -59,7 +61,10 @@ export function ResourceCard({
           </p>
         </div>
 
-        <ArrowUpRight className="text-muted-foreground size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <SaveButton kind="resource" id={resource.slug} url={resource.url} />
+          <ArrowUpRight className="text-muted-foreground size-4 opacity-0 transition-opacity group-hover:opacity-100" />
+        </div>
       </div>
 
       <p className="text-muted-foreground mt-3 line-clamp-2 text-sm">
@@ -67,6 +72,11 @@ export function ResourceCard({
       </p>
 
       <div className="mt-4 flex flex-wrap items-center gap-1.5">
+        {resource.userSubmitted && (
+          <Badge variant="secondary" className="text-[11px]">
+            Yours
+          </Badge>
+        )}
         {category && (
           <Badge variant="muted" className="text-[11px]">
             {category.short}

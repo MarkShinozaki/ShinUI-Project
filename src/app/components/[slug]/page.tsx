@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, ExternalLink, Package } from "lucide-react";
 
 import { ComponentPreview } from "@/components/component-preview";
+import { SavedPanel, SaveButton } from "@/components/save-button";
 import { CodeBlock } from "@/components/code-block";
 import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
@@ -53,14 +54,17 @@ export default async function ComponentPage({ params }: Props) {
         title={item.name}
         description={item.description}
         actions={
-          category && (
-            <Button variant="outline" size="sm" asChild>
-              <Link href={`/categories/${category.slug}`}>
-                {category.short}
-                <ArrowRight className="size-3.5" />
-              </Link>
-            </Button>
-          )
+          <div className="flex flex-wrap items-center gap-2">
+            <SaveButton kind="component" id={item.slug} showLabel size="sm" />
+            {category && (
+              <Button variant="outline" size="sm" asChild>
+                <Link href={`/categories/${category.slug}`}>
+                  {category.short}
+                  <ArrowRight className="size-3.5" />
+                </Link>
+              </Button>
+            )}
+          </div>
         }
       />
 
@@ -167,6 +171,8 @@ export default async function ComponentPage({ params }: Props) {
               </a>
             </div>
           )}
+
+          <SavedPanel kind="component" id={item.slug} />
 
           <div className="bg-card rounded-xl border p-4">
             <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, ExternalLink, Globe, Tag } from "lucide-react";
 
 import { CodeBlock } from "@/components/code-block";
+import { SavedPanel } from "@/components/save-button";
 import { GitHubIcon } from "@/components/icons";
 import { PageHeader } from "@/components/page-header";
 import { ResourceCard } from "@/components/resource-card";
@@ -238,6 +239,8 @@ export default async function ResourcePage({ params }: Props) {
               })}
             </p>
           </div>
+
+          <SavedPanel kind="resource" id={resource.slug} url={resource.url} />
         </aside>
       </div>
 

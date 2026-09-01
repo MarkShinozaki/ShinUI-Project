@@ -18,7 +18,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Logo } from "@/components/logo";
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
@@ -35,9 +34,8 @@ export function SiteHeader() {
   return (
     <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Logo />
-          <span className="tracking-tight">ShinUI</span>
+        <Link href="/" className="font-semibold tracking-tight">
+          ShinUI
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 md:flex">
@@ -93,10 +91,7 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[86vw] p-0 sm:max-w-sm">
               <SheetHeader className="border-b">
-                <SheetTitle className="flex items-center gap-2">
-                  <Logo />
-                  ShinUI
-                </SheetTitle>
+                <SheetTitle>ShinUI</SheetTitle>
               </SheetHeader>
 
               <div className="flex-1 overflow-y-auto px-4 pb-8">

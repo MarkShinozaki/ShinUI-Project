@@ -3,6 +3,7 @@
 import * as React from "react";
 import { SlidersHorizontal, Search, X } from "lucide-react";
 
+import { AddResourceDialog } from "@/components/add-resource-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,8 +17,16 @@ import {
 } from "@/components/ui/sheet";
 import { ResourceCard } from "@/components/resource-card";
 import { CategoryIcon } from "@/components/category-icon";
+import { useSavedItems } from "@/components/save-button";
 import { categories } from "@/data/categories";
 import type { Pricing, Resource } from "@/data/types";
+import { isSaved } from "@/lib/saved-items";
+import {
+  getServerUserResourcesSnapshot,
+  getUserResourcesSnapshot,
+  mergeBrowsableResources,
+  subscribeUserResources,
+} from "@/lib/user-resources";
 import { cn } from "@/lib/utils";
 
 const pricingOptions: { value: Pricing; label: string }[] = [
@@ -27,7 +36,7 @@ const pricingOptions: { value: Pricing; label: string }[] = [
   { value: "paid", label: "Paid" },
 ];
 
-type Sort = "featured" | "name" | "newest";
+type Sort = "featured" | "saved" | "name" | "newest";
 
 export function BrowseExplorer({
   resources,
@@ -45,19 +54,33 @@ export function BrowseExplorer({
   const [activePricing, setActivePricing] = React.useState<Pricing[]>([]);
   const [activeStacks, setActiveStacks] = React.useState<string[]>([]);
   const [sort, setSort] = React.useState<Sort>("featured");
+  const [savedOnly, setSavedOnly] = React.useState(false);
+  const [refreshKey, setRefreshKey] = React.useState(0);
+
+  const userResources = React.useSyncExternalStore(
+    subscribeUserResources,
+    getUserResourcesSnapshot,
+    getServerUserResourcesSnapshot
+  );
+  const saved = useSavedItems();
+
+  const allResources = React.useMemo(() => {
+    void refreshKey;
+    return mergeBrowsableResources(resources);
+  }, [resources, userResources, refreshKey]);
 
   const stacks = React.useMemo(
     () =>
-      Array.from(new Set(resources.flatMap((r) => r.stack)))
+      Array.from(new Set(allResources.flatMap((r) => r.stack)))
         .sort()
         .slice(0, 14),
-    [resources]
+    [allResources]
   );
 
   const availableCategories = React.useMemo(
     () =>
-      categories.filter((c) => resources.some((r) => r.category === c.slug)),
-    [resources]
+      categories.filter((c) => allResources.some((r) => r.category === c.slug)),
+    [allResources]
   );
 
   function toggle<T>(list: T[], value: T, set: (next: T[]) => void) {
@@ -67,7 +90,10 @@ export function BrowseExplorer({
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
 
-    const result = resources.filter((resource) => {
+    const result = allResources.filter((resource) => {
+      if (savedOnly && !isSaved("resource", resource.slug)) {
+        return false;
+      }
       if (
         activeCategories.length > 0 &&
         !activeCategories.includes(resource.category)
@@ -101,23 +127,43 @@ export function BrowseExplorer({
     });
 
     return result.sort((a, b) => {
+      if (sort === "saved") {
+        const aSaved = isSaved("resource", a.slug);
+        const bSaved = isSaved("resource", b.slug);
+        if (aSaved !== bSaved) return aSaved ? -1 : 1;
+        if (a.featured !== b.featured) return a.featured ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      }
       if (sort === "name") return a.name.localeCompare(b.name);
       if (sort === "newest") return b.addedAt.localeCompare(a.addedAt);
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
       return a.name.localeCompare(b.name);
     });
-  }, [resources, query, activeCategories, activePricing, activeStacks, sort]);
+  }, [
+    allResources,
+    query,
+    activeCategories,
+    activePricing,
+    activeStacks,
+    sort,
+    savedOnly,
+    saved,
+  ]);
 
   const filterCount =
     (lockCategory ? 0 : activeCategories.length) +
     activePricing.length +
-    activeStacks.length;
+    activeStacks.length +
+    (savedOnly ? 1 : 0);
+
+  const userCount = allResources.filter((r) => r.userSubmitted).length;
 
   function clearAll() {
     setActiveCategories(lockCategory && initialCategory ? [initialCategory] : []);
     setActivePricing([]);
     setActiveStacks([]);
     setQuery("");
+    setSavedOnly(false);
   }
 
   const filterPanel = (
@@ -144,7 +190,7 @@ export function BrowseExplorer({
                   <CategoryIcon name={category.icon} className="size-4" />
                   <span className="truncate">{category.short}</span>
                   <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                    {resources.filter((r) => r.category === category.slug).length}
+                    {allResources.filter((r) => r.category === category.slug).length}
                   </span>
                 </button>
               );
@@ -183,6 +229,12 @@ export function BrowseExplorer({
         </div>
       </FilterGroup>
 
+      <FilterGroup title="Saved">
+        <FilterChip active={savedOnly} onClick={() => setSavedOnly((v) => !v)}>
+          Saved only
+        </FilterChip>
+      </FilterGroup>
+
       {filterCount > 0 && (
         <Button variant="outline" size="sm" onClick={clearAll} className="w-full">
           <X className="size-3.5" />
@@ -212,6 +264,8 @@ export function BrowseExplorer({
           </div>
 
           <div className="flex items-center gap-2">
+            <AddResourceDialog onAdded={() => setRefreshKey((k) => k + 1)} />
+
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" className="h-10 lg:hidden">
@@ -239,19 +293,27 @@ export function BrowseExplorer({
               className="border-input bg-background h-10 rounded-md border px-3 text-sm shadow-xs outline-none"
             >
               <option value="featured">Featured first</option>
+              <option value="saved">Saved first</option>
               <option value="name">A–Z</option>
               <option value="newest">Newest</option>
             </select>
           </div>
         </div>
 
-        <div className="text-muted-foreground mt-4 flex items-center justify-between text-sm">
+        <div className="text-muted-foreground mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">
           <p>
             <span className="text-foreground font-medium tabular-nums">
               {filtered.length}
             </span>{" "}
             {filtered.length === 1 ? "resource" : "resources"}
+            {userCount > 0 && (
+              <span className="ml-2">
+                · <span className="text-foreground font-medium">{userCount}</span>{" "}
+                added by you
+              </span>
+            )}
           </p>
+          <p className="text-xs">Bookmark sites — saved only in your browser on this device</p>
         </div>
 
         <Separator className="mt-3 mb-5" />

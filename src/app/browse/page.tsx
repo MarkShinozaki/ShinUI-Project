@@ -15,7 +15,7 @@ export default function BrowsePage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
       <PageHeader
         title="Browse everything"
-        description={`${resources.length} curated resources across ${new Set(resources.map((r) => r.category)).size} categories. Filter by stack, pricing or category — or just start typing.`}
+        description={`${resources.length} curated resources across ${new Set(resources.map((r) => r.category)).size} categories. Save sites you use often, add your own URLs, and filter by stack or pricing.`}
       />
       <div className="mt-8">
         <BrowseExplorer resources={resources} />

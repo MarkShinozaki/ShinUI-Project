@@ -36,4 +36,6 @@ export type Resource = {
   /** When ShinUI ships a live reimplementation, link to /components/[slug]. */
   componentSlug?: string;
   addedAt: string;
+  /** Saved in the browser by the visitor — not in the curated index. */
+  userSubmitted?: boolean;
 };

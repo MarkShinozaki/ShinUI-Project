@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { GitHubIcon } from "@/components/icons";
-import { Logo } from "@/components/logo";
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
@@ -11,9 +10,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-2 font-semibold">
-              <Logo />
-              <span className="tracking-tight">ShinUI</span>
+            <Link href="/" className="font-semibold tracking-tight">
+              ShinUI
             </Link>
             <p className="text-muted-foreground mt-3 max-w-sm text-sm">
               {SITE.description}

@@ -2655,6 +2655,60 @@ export const resources: Resource[] = [
     install: "npx expo install expo-glass-effect",
     addedAt: "2026-08-28",
   },
+
+  // ── Added 2026-08-31 ────────────────────────────────────────────────────
+  {
+    slug: "design-books",
+    name: "Design Books",
+    tagline: "Curated design book recommendations",
+    description:
+      "A hand-picked library of design, typography and product books — useful when you want depth beyond UI pattern galleries and component registries.",
+    url: "https://design-books.com/",
+    category: "inspiration",
+    tags: ["books", "reading", "curated"],
+    stack: ["Design"],
+    pricing: "free",
+    addedAt: "2026-08-31",
+  },
+  {
+    slug: "refero-styles",
+    name: "Refero Styles",
+    tagline: "UI style references from real products",
+    description:
+      "Browse shipped interfaces by visual style — color, density and layout patterns from Refero's screenshot archive, focused on aesthetic direction rather than page type.",
+    url: "https://styles.refero.design/",
+    category: "inspiration",
+    tags: ["saas", "screenshots", "styles"],
+    stack: ["Web"],
+    pricing: "freemium",
+    addedAt: "2026-08-31",
+  },
+  {
+    slug: "chanhdai-blocks",
+    name: "ChanhDai Blocks",
+    tagline: "Copy-paste blocks from chanhdai.com",
+    description:
+      "A growing set of landing and marketing blocks — heroes, feature grids and CTAs from the ChanhDai design-engineering practice, ready to adapt for your own pages.",
+    url: "https://chanhdai.com/blocks",
+    category: "blocks-templates",
+    tags: ["blocks", "landing-page", "copy-paste"],
+    stack: ["React", "Tailwind"],
+    pricing: "open-source",
+    addedAt: "2026-08-31",
+  },
+  {
+    slug: "seesaw",
+    name: "Seesaw",
+    tagline: "Playful web design inspiration",
+    description:
+      "A gallery of distinctive marketing and product sites with strong art direction — useful when you want references that break out of the default SaaS template look.",
+    url: "https://seesaw.website/",
+    category: "inspiration",
+    tags: ["gallery", "marketing", "art-direction"],
+    stack: ["Web", "Design"],
+    pricing: "free",
+    addedAt: "2026-08-31",
+  },
 ];
 
 export const resourceBySlug = new Map(resources.map((r) => [r.slug, r]));

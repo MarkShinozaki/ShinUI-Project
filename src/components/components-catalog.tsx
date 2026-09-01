@@ -4,9 +4,11 @@ import * as React from "react";
 import Link from "next/link";
 import { ExternalLink, Package, Search } from "lucide-react";
 
+import { SaveButton } from "@/components/save-button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import type { CatalogItem } from "@/lib/registry-catalog";
+import { catalogSavedId } from "@/lib/saved-items";
 import { cn } from "@/lib/utils";
 
 type SourceMeta = {
@@ -119,9 +121,14 @@ function FilterChip({
 }
 
 function CatalogCard({ item }: { item: CatalogItem }) {
+  const catalogId = catalogSavedId(item.sourceId, item.name);
+
   return (
-    <div className="bg-card flex flex-col rounded-xl border p-4">
-      <div className="flex items-start gap-2">
+    <div className="bg-card relative flex flex-col rounded-xl border p-4">
+      <div className="absolute top-3 right-3">
+        <SaveButton kind="catalog" id={catalogId} />
+      </div>
+      <div className="flex items-start gap-2 pr-8">
         <Package className="text-muted-foreground mt-0.5 size-4 shrink-0" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
