@@ -6,6 +6,7 @@ import { GitHubIcon } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CategoryIcon } from "@/components/category-icon";
+import { HeroBackdrop } from "@/components/hero-backdrop";
 import { ResourceCard } from "@/components/resource-card";
 import { RegistryDemo } from "@/registry/demo-map";
 import { categories } from "@/data/categories";
@@ -20,18 +21,14 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden border-b">
-        <div
-          aria-hidden
-          className="grid-pattern absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
-        />
-        <div
-          aria-hidden
-          className="bg-brand/20 absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full blur-[120px]"
-        />
+        <HeroBackdrop />
 
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-28">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="outline" className="bg-background/60 backdrop-blur">
+            <Badge
+              variant="outline"
+              className="bg-background/70 border-border/60 shadow-xs backdrop-blur-md"
+            >
               <Sparkles className="size-3" />
               {resources.length} resources · {categories.length} categories ·{" "}
               {registry.length} live components
