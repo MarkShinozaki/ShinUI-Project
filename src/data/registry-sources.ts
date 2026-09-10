@@ -1,4 +1,7 @@
-export type RegistrySourceFormat = "shadcn-index" | "smoothui-llms";
+export type RegistrySourceFormat =
+  | "shadcn-index"
+  | "shadcn-registry"
+  | "smoothui-llms";
 
 export type RegistrySource = {
   id: string;
@@ -30,6 +33,22 @@ export const registrySources: RegistrySource[] = [
     indexUrl: "https://smoothui.dev/llms-components.json",
     format: "smoothui-llms",
     siteUrl: "https://smoothui.dev/docs/components",
+  },
+  {
+    id: "interior-dev",
+    resourceSlug: "interior-dev",
+    name: "interior.dev",
+    indexUrl: "https://www.interior.dev/r/registry.json",
+    format: "shadcn-registry",
+    siteUrl: "https://www.interior.dev/docs",
+  },
+  {
+    id: "sona-ui",
+    resourceSlug: "sona-ui",
+    name: "Sona UI",
+    indexUrl: "https://sonaui.com/r/registry.json",
+    format: "shadcn-registry",
+    siteUrl: "https://sonaui.com/docs/components",
   },
 ];
 

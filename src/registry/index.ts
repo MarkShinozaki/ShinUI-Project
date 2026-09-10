@@ -349,6 +349,35 @@ export const registry: RegistryItem[] = [
       url: "https://ui.aceternity.com/components/timeline",
     },
   },
+  {
+    slug: "ripple-surface",
+    name: "Ripple Surface",
+    description:
+      "Touch feedback from the pointer origin — a CSS ripple bloom on press without pulling in Motion. The effect respects prefers-reduced-motion.",
+    category: "animation-motion",
+    tags: ["ripple", "touch", "feedback", "button"],
+    file: "registry/components/ripple-surface.tsx",
+    demoExport: "RippleSurfaceDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+    inspiredBy: { name: "interior.dev", url: "https://www.interior.dev/docs/ripple" },
+  },
+  {
+    slug: "press-depth",
+    name: "Press Depth",
+    description:
+      "The feeling that the press landed — scales from the pointer origin with a subtle inner shadow while held. Pointer capture keeps the state honest on drag-off.",
+    category: "animation-motion",
+    tags: ["press", "depth", "button", "micro-interaction"],
+    file: "registry/components/press-depth.tsx",
+    demoExport: "PressDepthDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+    inspiredBy: {
+      name: "interior.dev",
+      url: "https://www.interior.dev/docs/press-depth",
+    },
+  },
 ];
 
 export const registryBySlug = new Map(registry.map((item) => [item.slug, item]));

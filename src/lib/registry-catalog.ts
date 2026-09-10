@@ -25,6 +25,17 @@ type ShadcnIndexEntry = {
   description?: string;
 };
 
+type ShadcnRegistry = {
+  items?: Array<{
+    name: string;
+    type?: string;
+    title?: string;
+    description?: string;
+    categories?: string[];
+    docs?: string;
+  }>;
+};
+
 type SmoothUiLlms = {
   components?: Array<{
     name: string;
@@ -91,6 +102,35 @@ function parseShadcnIndex(source: RegistrySource, data: ShadcnIndexEntry[]) {
     }));
 }
 
+function parseShadcnRegistry(source: RegistrySource, data: ShadcnRegistry) {
+  const registryBase = source.indexUrl.replace(/\/registry\.json$/, "");
+
+  return (data.items ?? [])
+    .filter((entry) => {
+      const type = entry.type ?? "";
+      return (
+        type === "registry:ui" ||
+        type === "registry:block" ||
+        type === "registry:component"
+      );
+    })
+    .map((entry) => ({
+      sourceId: source.id,
+      sourceName: source.name,
+      resourceSlug: source.resourceSlug,
+      name: entry.name,
+      displayName: entry.title ?? titleCase(entry.name),
+      description: entry.description,
+      category: entry.categories?.[0],
+      installCommand: `npx shadcn@latest add ${registryBase}/${entry.name}.json`,
+      docUrl: entry.docs ?? `${source.siteUrl}/${entry.name}`,
+      kind:
+        entry.type === "registry:block"
+          ? ("block" as const)
+          : ("component" as const),
+    }));
+}
+
 function parseSmoothUiLlms(source: RegistrySource, data: SmoothUiLlms) {
   const mapEntry = (
     entry: NonNullable<SmoothUiLlms["components"]>[number],
@@ -121,6 +161,12 @@ async function fetchSourceCatalog(source: RegistrySource): Promise<CatalogItem[]
     const data = await fetchJson<ShadcnIndexEntry[]>(source.indexUrl);
     if (!data) return [];
     return parseShadcnIndex(source, data);
+  }
+
+  if (source.format === "shadcn-registry") {
+    const data = await fetchJson<ShadcnRegistry>(source.indexUrl);
+    if (!data) return [];
+    return parseShadcnRegistry(source, data);
   }
 
   const data = await fetchJson<SmoothUiLlms>(source.indexUrl);
