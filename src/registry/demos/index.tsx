@@ -41,6 +41,8 @@ import { LdrsRing } from "@/registry/components/ldrs-ring";
 import { GlassCard } from "@/registry/components/glass-card";
 import { CookieConsent } from "@/registry/components/cookie-consent";
 import { Timeline } from "@/registry/components/timeline";
+import { RippleSurface } from "@/registry/components/ripple-surface";
+import { PressDepth } from "@/registry/components/press-depth";
 
 export function SpotlightCardDemo() {
   return (
@@ -352,4 +354,12 @@ export function TimelineDemo() {
       ]}
     />
   );
+}
+
+export function RippleSurfaceDemo() {
+  return <RippleSurface>Tap for ripple</RippleSurface>;
+}
+
+export function PressDepthDemo() {
+  return <PressDepth>Press and hold</PressDepth>;
 }

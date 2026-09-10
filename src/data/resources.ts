@@ -2869,6 +2869,150 @@ export const resources: Resource[] = [
     install: "pnpm dlx shadcn@latest add @heroicons-animated/",
     addedAt: "2026-09-03",
   },
+
+  // ── Added 2026-09-10 — Component libraries ─────────────────────────────
+  {
+    slug: "sona-ui",
+    name: "Sona UI",
+    tagline: "Animated React components you own",
+    description:
+      "Well-crafted animated React components with purposeful motion and accessible interaction. Installs through the shadcn registry — spotlight cards, magnetic buttons, fluid tabs, shader surfaces and more.",
+    url: "https://www.sonaui.com/",
+    category: "component-libraries",
+    tags: ["registry", "animated", "shadcn-compatible", "motion"],
+    stack: ["React", "Tailwind", "Motion"],
+    pricing: "open-source",
+    featured: true,
+    install: "npx shadcn@latest add https://sonaui.com/r/ripple-button.json",
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "interior-dev",
+    name: "interior.dev",
+    tagline: "54 micro-interaction components",
+    description:
+      "Free animated React components for the half-second after a click — copy buttons, hold-to-confirm, like bursts, skeleton swaps and segmented controls. MIT licensed, installs via shadcn registry.",
+    url: "https://www.interior.dev/",
+    category: "animation-motion",
+    tags: ["micro-interactions", "registry", "shadcn-compatible", "motion"],
+    stack: ["React", "Tailwind", "Motion"],
+    pricing: "open-source",
+    featured: true,
+    install:
+      "npx shadcn@latest add https://www.interior.dev/r/copy-button.json",
+    componentSlug: "ripple-surface",
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "bencho",
+    name: "Bencho",
+    tagline: "Interactive UI blocks, live not mocked",
+    description:
+      "A library of interactive UI blocks you can explore, tweak and take straight into projects — slide confirms, toggles, loaders and composed patterns, all rendered live in the browser.",
+    url: "https://bencho.dev/",
+    category: "blocks-templates",
+    tags: ["interactive", "blocks", "copy-paste"],
+    stack: ["React", "Tailwind"],
+    pricing: "open-source",
+    addedAt: "2026-09-10",
+  },
+
+  // ── Added 2026-09-10 — Design inspiration galleries ────────────────────
+  {
+    slug: "navbar-gallery",
+    name: "Navbar Gallery",
+    tagline: "Navigation design inspiration",
+    description:
+      "A curated collection of the best website navbar designs on the web — filter by style and layout to find the navigation pattern that fits your product.",
+    url: "https://www.navbar.gallery/",
+    category: "inspiration",
+    tags: ["gallery", "navigation", "navbar", "patterns"],
+    stack: ["Web", "Design"],
+    pricing: "free",
+    featured: true,
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "supahero",
+    name: "Supahero",
+    tagline: "Handpicked hero section library",
+    description:
+      "A curated library of stunning website hero sections designed to captivate and engage — useful reference when you need landing-page direction beyond generic SaaS templates.",
+    url: "https://supahero.io/",
+    category: "inspiration",
+    tags: ["gallery", "hero", "landing-page", "marketing"],
+    stack: ["Web", "Design"],
+    pricing: "free",
+    featured: true,
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "cta-gallery",
+    name: "CTA.gallery",
+    tagline: "Call-to-action design inspiration",
+    description:
+      "The web's best call-to-action patterns in one searchable gallery — ideal for designers and UI engineers looking for conversion-focused section references.",
+    url: "https://www.cta.gallery/",
+    category: "inspiration",
+    tags: ["gallery", "cta", "conversion", "patterns"],
+    stack: ["Web", "Design"],
+    pricing: "free",
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "footer-design",
+    name: "Footer.design",
+    tagline: "The footer gallery on earth",
+    description:
+      "A curated gallery of top website footer designs — sort by type and style to find footer layouts for marketing sites, SaaS products and portfolios.",
+    url: "https://www.footer.design/",
+    category: "inspiration",
+    tags: ["gallery", "footer", "patterns"],
+    stack: ["Web", "Design"],
+    pricing: "free",
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "404s-design",
+    name: "404s.design",
+    tagline: "Creative error page gallery",
+    description:
+      "A curated collection of 404 page designs that turn dead ends into delightful experiences — fresh ideas for designers who refuse to let a lost page be boring.",
+    url: "https://www.404s.design/",
+    category: "inspiration",
+    tags: ["gallery", "404", "error-pages", "patterns"],
+    stack: ["Web", "Design"],
+    pricing: "free",
+    addedAt: "2026-09-10",
+  },
+
+  // ── Added 2026-09-10 — Design tools & AI ───────────────────────────────
+  {
+    slug: "rams-ai",
+    name: "Rams",
+    tagline: "Design eval for agents",
+    description:
+      "Agents write UI, Rams judges it. Every change is scored 0–100 against 313 design rules, with fixes handed back as patches your agents can apply.",
+    url: "https://www.rams.ai/",
+    category: "design-tools",
+    tags: ["ai", "design-system", "lint", "agents"],
+    stack: ["AI", "Design"],
+    pricing: "freemium",
+    addedAt: "2026-09-10",
+  },
+  {
+    slug: "plane-agent-avatar-lab",
+    name: "Plane Agent Avatar Lab",
+    tagline: "Agent avatar playground",
+    description:
+      "Plane's agent avatar lab — explore and customize agent avatars for AI product surfaces and team workflows.",
+    url: "https://agents.plane.so/",
+    category: "ai-chat-ui",
+    tags: ["agents", "avatars", "ai", "product"],
+    stack: ["React", "AI"],
+    pricing: "free",
+    addedAt: "2026-09-10",
+  },
 ];
 
 export const resourceBySlug = new Map(resources.map((r) => [r.slug, r]));
