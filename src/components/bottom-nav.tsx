@@ -18,7 +18,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bg-background/85 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden"
+      className="bg-background fixed inset-x-0 bottom-0 z-40 border-t md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="Primary"
     >

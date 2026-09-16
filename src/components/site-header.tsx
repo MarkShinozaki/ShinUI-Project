@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { CommandMenu } from "@/components/command-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
@@ -32,7 +31,8 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur-xl">
+    // Solid bg so iOS Safari 26+ can sample edge chrome when theme flips.
+    <header className="bg-background sticky top-0 z-40 w-full border-b">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <Link href="/" className="font-semibold tracking-tight">
           ShinUI
@@ -75,8 +75,6 @@ export function SiteHeader() {
               <GitHubIcon className="size-4" />
             </a>
           </Button>
-
-          <ThemeToggle />
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>

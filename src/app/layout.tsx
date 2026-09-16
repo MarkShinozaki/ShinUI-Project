@@ -5,6 +5,7 @@ import { GeistSans } from "geist/font/sans";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeColorSync } from "@/components/theme-color-sync";
+import { SafariChromeTint } from "@/components/safari-chrome-tint";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BottomNav } from "@/components/bottom-nav";
@@ -44,7 +45,8 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: SITE.name,
-    statusBarStyle: "default",
+    // Let html/body background fill the notch under viewport-fit=cover.
+    statusBarStyle: "black-translucent",
   },
   openGraph: {
     type: "website",
@@ -70,13 +72,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
-  ],
+  // Single default; ThemeColorSync updates this on toggle (media queries
+  // only track OS preference and fight a manual light/dark choice).
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -92,11 +94,12 @@ export default function RootLayout({
       <body className="min-h-dvh font-sans">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <ThemeColorSync />
+          <SafariChromeTint />
           <TooltipProvider>
             <div className="flex min-h-dvh flex-col">
               <SiteHeader />

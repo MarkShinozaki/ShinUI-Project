@@ -3,15 +3,31 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 
-/** Matches `viewport.themeColor` in `app/layout.tsx`. */
-const THEME_COLORS = {
+/** Matches light/dark page backgrounds used for Safari chrome sampling. */
+export const THEME_COLORS = {
   light: "#ffffff",
   dark: "#09090b",
 } as const;
 
+function applyThemeColor(color: string) {
+  // Recreate the tag — some WebKit builds ignore in-place content updates.
+  document
+    .querySelectorAll('meta[name="theme-color"]')
+    .forEach((meta) => meta.remove());
+
+  const meta = document.createElement("meta");
+  meta.setAttribute("name", "theme-color");
+  meta.setAttribute("content", color);
+  document.head.appendChild(meta);
+}
+
 /**
- * Keeps iOS Safari / PWA chrome (`theme-color` + status-bar-style) in sync
- * with the next-themes class, not only `prefers-color-scheme`.
+ * Sync browser chrome with the class-based theme.
+ *
+ * iOS Safari 26+ largely ignores `theme-color` and instead samples solid
+ * `background-color` on `html`/`body` and fixed/sticky edge elements. We still
+ * update the meta tag for Chrome/Android and older iOS, and force opaque
+ * document backgrounds so Liquid Glass chrome follows a one-tap toggle.
  */
 export function ThemeColorSync() {
   const { resolvedTheme } = useTheme();
@@ -21,23 +37,13 @@ export function ThemeColorSync() {
 
     const isDark = resolvedTheme === "dark";
     const color = isDark ? THEME_COLORS.dark : THEME_COLORS.light;
+    const root = document.documentElement;
 
-    const metas = Array.from(
-      document.querySelectorAll('meta[name="theme-color"]')
-    );
-    // Collapse media-query variants into one tag so a manual theme wins
-    // over prefers-color-scheme.
-    const [primary, ...extras] = metas;
-    extras.forEach((meta) => meta.remove());
-    if (primary) {
-      primary.removeAttribute("media");
-      primary.setAttribute("content", color);
-    } else {
-      const meta = document.createElement("meta");
-      meta.setAttribute("name", "theme-color");
-      meta.setAttribute("content", color);
-      document.head.appendChild(meta);
-    }
+    root.style.colorScheme = isDark ? "dark" : "light";
+    root.style.backgroundColor = color;
+    document.body.style.backgroundColor = color;
+
+    applyThemeColor(color);
 
     let statusBar = document.querySelector(
       'meta[name="apple-mobile-web-app-status-bar-style"]'
@@ -47,12 +53,10 @@ export function ThemeColorSync() {
       statusBar.setAttribute("name", "apple-mobile-web-app-status-bar-style");
       document.head.appendChild(statusBar);
     }
-    // `black-translucent` lets the page background fill the notch; `default`
-    // keeps a light status bar that would clash after switching to dark.
-    statusBar.setAttribute(
-      "content",
-      isDark ? "black-translucent" : "default"
-    );
+    // With viewport-fit=cover, translucent lets the page background fill the
+    // notch/home-indicator. Dynamic swaps of this value are unreliable on
+    // installed PWAs, but keep it translucent so html/body paint shows through.
+    statusBar.setAttribute("content", "black-translucent");
   }, [resolvedTheme]);
 
   return null;
