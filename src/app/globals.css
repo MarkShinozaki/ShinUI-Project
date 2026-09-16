@@ -113,6 +113,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    /* Fill iOS safe-area chrome with the active theme background. */
+    @apply bg-background;
   }
 
   body {
