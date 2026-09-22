@@ -165,6 +165,14 @@
     transition: background-color 0.3s ease;
   }
 
+  html.dark {
+    background-color: #09090b;
+  }
+
+  html.light {
+    background-color: #ffffff;
+  }
+
   body {
     background-color: var(--background);
   }

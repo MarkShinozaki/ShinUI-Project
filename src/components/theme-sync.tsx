@@ -32,6 +32,19 @@ export function ThemeSync() {
         document.head.appendChild(metaStatusBar);
       }
       metaStatusBar.setAttribute("content", currentTheme === "dark" ? "black-translucent" : "default");
+
+      // Update CSS custom property for html background
+      document.documentElement.style.setProperty('--safe-area-bg', color);
+
+      // Force iOS safe area update by toggling viewport-fit
+      const viewport = document.querySelector('meta[name="viewport"]') as HTMLMetaElement;
+      if (viewport) {
+        const originalContent = viewport.getAttribute('content');
+        viewport.setAttribute('content', originalContent + ', viewport-fit=cover');
+        setTimeout(() => {
+          viewport.setAttribute('content', originalContent || '');
+        }, 0);
+      }
     };
 
     updateThemeColor();
