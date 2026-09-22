@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
 /**
@@ -9,11 +9,18 @@ import { useTheme } from "next-themes";
  */
 export function ThemeSync() {
   const { theme, resolvedTheme } = useTheme();
+  const lastThemeRef = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     const updateThemeColor = () => {
       const currentTheme = theme === "system" ? resolvedTheme : theme;
+      if (!currentTheme) return;
+
       const color = currentTheme === "dark" ? "#09090b" : "#ffffff";
+
+      // Only trigger reflow if theme actually changed
+      if (lastThemeRef.current === currentTheme) return;
+      lastThemeRef.current = currentTheme;
 
       // Update meta theme-color for iOS
       let metaThemeColor = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
@@ -33,21 +40,23 @@ export function ThemeSync() {
       }
       metaStatusBar.setAttribute("content", currentTheme === "dark" ? "black-translucent" : "default");
 
-      // Update CSS custom property for html background
-      document.documentElement.style.setProperty('--safe-area-bg', color);
+      // Force iOS to repaint safe areas by manipulating the body
+      document.body.style.display = 'none';
+      // Force a reflow
+      void document.body.offsetHeight;
+      document.body.style.display = '';
 
-      // Force iOS safe area update by toggling viewport-fit
-      const viewport = document.querySelector('meta[name="viewport"]') as HTMLMetaElement;
-      if (viewport) {
-        const originalContent = viewport.getAttribute('content');
-        viewport.setAttribute('content', originalContent + ', viewport-fit=cover');
-        setTimeout(() => {
-          viewport.setAttribute('content', originalContent || '');
-        }, 0);
-      }
+      // Also try toggling a class on html to force repaint
+      document.documentElement.classList.add('ios-theme-change');
+      requestAnimationFrame(() => {
+        document.documentElement.classList.remove('ios-theme-change');
+      });
     };
 
-    updateThemeColor();
+    // Small delay to ensure theme is resolved
+    const timeoutId = setTimeout(updateThemeColor, 50);
+
+    return () => clearTimeout(timeoutId);
   }, [theme, resolvedTheme]);
 
   return null;

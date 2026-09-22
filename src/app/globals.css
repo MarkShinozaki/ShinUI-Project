@@ -173,6 +173,10 @@
     background-color: #ffffff;
   }
 
+  html.ios-theme-change {
+    transition: none !important;
+  }
+
   body {
     background-color: var(--background);
   }
