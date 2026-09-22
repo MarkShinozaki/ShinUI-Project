@@ -14,13 +14,19 @@ import { registry } from "@/registry";
 import { SITE } from "@/lib/site";
 
 // Lazy load heavy sections for better mobile scrolling performance
-const LiveComponentsSection = dynamic(() => import("./components/live-components-section"), {
-  loading: () => <div className="h-64 animate-pulse bg-muted/30 rounded-xl" />
-});
+const LiveComponentsSection = dynamic(
+  () => import("./components/live-components-section"),
+  {
+    loading: () => <div className="h-64 animate-pulse bg-muted/30 rounded-xl" />
+  }
+);
 
-const FeaturedResourcesSection = dynamic(() => import("./components/featured-resources-section"), {
-  loading: () => <div className="h-96 animate-pulse bg-muted rounded-xl" />
-});
+const FeaturedResourcesSection = dynamic(
+  () => import("./components/featured-resources-section"),
+  {
+    loading: () => <div className="h-96 animate-pulse bg-muted rounded-xl" />
+  }
+);
 
 export default function HomePage() {
 

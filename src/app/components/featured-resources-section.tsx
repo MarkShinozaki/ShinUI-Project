@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ResourceCard } from "@/components/resource-card";
 import { resources } from "@/data/resources";
 
-export function FeaturedResourcesSection() {
+function FeaturedResourcesSection() {
   const featured = resources.filter((r) => r.featured).slice(0, 6);
 
   return (
@@ -53,3 +53,5 @@ function SectionHeading({
     </div>
   );
 }
+
+export default FeaturedResourcesSection;

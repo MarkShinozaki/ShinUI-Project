@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { RegistryDemo } from "@/registry/demo-map";
 import { registry } from "@/registry";
 
-export function LiveComponentsSection() {
+function LiveComponentsSection() {
   const showcase = registry.slice(0, 4);
 
   return (
@@ -76,3 +76,5 @@ function SectionHeading({
     </div>
   );
 }
+
+export default LiveComponentsSection;
