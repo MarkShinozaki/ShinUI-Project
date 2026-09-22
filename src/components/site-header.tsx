@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { CommandMenu } from "@/components/command-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
+
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
@@ -75,8 +75,6 @@ export function SiteHeader() {
               <GitHubIcon className="size-4" />
             </a>
           </Button>
-
-          <ThemeToggle />
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>

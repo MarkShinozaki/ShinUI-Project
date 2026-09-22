@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GitHubIcon } from "@/components/icons";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
@@ -10,9 +11,12 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Link href="/" className="font-semibold tracking-tight">
-              ShinUI
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href="/" className="font-semibold tracking-tight">
+                ShinUI
+              </Link>
+              <ThemeToggle />
+            </div>
             <p className="text-muted-foreground mt-3 max-w-sm text-sm">
               {SITE.description}
             </p>
@@ -60,7 +64,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="text-muted-foreground mt-10 flex flex-col gap-2 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-muted-foreground mt-10 flex flex-col gap-2 border-t pt-6 pb-16 text-xs sm:flex-row sm:items-center sm:justify-between sm:pb-6">
           <p>
             Built by{" "}
             <a
