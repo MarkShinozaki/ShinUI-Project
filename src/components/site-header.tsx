@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { CommandMenu } from "@/components/command-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
@@ -89,7 +90,10 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[86vw] p-0 sm:max-w-sm">
               <SheetHeader className="border-b">
-                <SheetTitle>ShinUI</SheetTitle>
+                <div className="flex items-center gap-2">
+                  <SheetTitle>ShinUI</SheetTitle>
+                  <ThemeToggle />
+                </div>
               </SheetHeader>
 
               <div className="flex-1 overflow-y-auto px-4 pb-8">
