@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Layers, Search, Sparkles } from "lucide-react";
+import dynamic from "next/dynamic";
 
 import { GitHubIcon } from "@/components/icons";
 
@@ -7,16 +8,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CategoryIcon } from "@/components/category-icon";
 import { HeroBackdrop } from "@/components/hero-backdrop";
-import { ResourceCard } from "@/components/resource-card";
-import { RegistryDemo } from "@/registry/demo-map";
 import { categories } from "@/data/categories";
 import { resources } from "@/data/resources";
 import { registry } from "@/registry";
 import { SITE } from "@/lib/site";
 
+// Lazy load heavy sections for better mobile scrolling performance
+const LiveComponentsSection = dynamic(() => import("./components/live-components-section"), {
+  loading: () => <div className="h-64 animate-pulse bg-muted/30 rounded-xl" />
+});
+
+const FeaturedResourcesSection = dynamic(() => import("./components/featured-resources-section"), {
+  loading: () => <div className="h-96 animate-pulse bg-muted rounded-xl" />
+});
+
 export default function HomePage() {
-  const featured = resources.filter((r) => r.featured).slice(0, 6);
-  const showcase = registry.slice(0, 4);
 
   return (
     <>
@@ -72,12 +78,22 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-        <SectionHeading
-          title="Browse by category"
-          description="Seventeen buckets, from headless primitives to shader playgrounds."
-          href="/categories"
-          linkLabel="All categories"
-        />
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+              Browse by category
+            </h2>
+            <p className="text-muted-foreground mt-1 text-sm">
+              Seventeen buckets, from headless primitives to shader playgrounds.
+            </p>
+          </div>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/categories">
+              All categories
+              <ArrowRight className="size-4" />
+            </Link>
+          </Button>
+        </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {categories.map((category) => {
@@ -114,58 +130,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-          <SectionHeading
-            title="Live components"
-            description="Not screenshots. These render right here, and the source is one tab away."
-            href="/components"
-            linkLabel="All components"
-          />
+      <LiveComponentsSection />
 
-          <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {showcase.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/components/${item.slug}`}
-                className="group bg-background overflow-hidden rounded-xl border transition-shadow hover:shadow-md"
-              >
-                <div className="flex min-h-44 items-center justify-center overflow-hidden p-6">
-                  <div className="pointer-events-none w-full">
-                    <div className="flex w-full justify-center">
-                      <RegistryDemo name={item.demoExport} />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 border-t px-4 py-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium">{item.name}</p>
-                    <p className="text-muted-foreground truncate text-xs">
-                      {item.tags.slice(0, 3).join(" · ")}
-                    </p>
-                  </div>
-                  <ArrowRight className="text-muted-foreground ml-auto size-4 transition-transform group-hover:translate-x-0.5" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-        <SectionHeading
-          title="Featured resources"
-          description="The ones worth knowing about even if you never use them."
-          href="/browse"
-          linkLabel="Browse all"
-        />
-
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((resource) => (
-            <ResourceCard key={resource.slug} resource={resource} />
-          ))}
-        </div>
-      </section>
+      <FeaturedResourcesSection />
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
         <div className="relative overflow-hidden rounded-2xl border p-8 text-center sm:p-12">
@@ -191,34 +158,5 @@ export default function HomePage() {
         </div>
       </section>
     </>
-  );
-}
-
-function SectionHeading({
-  title,
-  description,
-  href,
-  linkLabel,
-}: {
-  title: string;
-  description: string;
-  href: string;
-  linkLabel: string;
-}) {
-  return (
-    <div className="flex flex-wrap items-end justify-between gap-3">
-      <div>
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-          {title}
-        </h2>
-        <p className="text-muted-foreground mt-1 text-sm">{description}</p>
-      </div>
-      <Button variant="ghost" size="sm" asChild>
-        <Link href={href}>
-          {linkLabel}
-          <ArrowRight className="size-4" />
-        </Link>
-      </Button>
-    </div>
   );
 }

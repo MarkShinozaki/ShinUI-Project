@@ -115,6 +115,13 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Disable smooth scrolling on mobile for better performance */
+  @media (max-width: 768px) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     /* Reserve room for the mobile bottom navigation bar. */
