@@ -18,8 +18,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bg-background/85 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      className="bg-background/85 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden pb-safe"
       aria-label="Primary"
     >
       <ul className="grid grid-cols-4">

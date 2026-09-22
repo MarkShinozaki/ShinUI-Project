@@ -126,11 +126,14 @@
     @apply bg-background text-foreground antialiased;
     /* Reserve room for the mobile bottom navigation bar. */
     padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
+    /* iOS safe area top padding */
+    padding-top: env(safe-area-inset-top);
   }
 
   @media (min-width: 768px) {
     body {
       padding-bottom: env(safe-area-inset-bottom);
+      padding-top: 0;
     }
   }
 
@@ -138,6 +141,35 @@
   img {
     content-visibility: auto;
   }
+
+  /* iOS safe area theme color fix */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
+    }
+  }
+
+  /* Ensure safe areas match theme */
+  .dark {
+    color-scheme: dark;
+  }
+
+  :root {
+    color-scheme: light;
+  }
+
+  /* iOS safe area background color fix */
+  html {
+    background-color: var(--background);
+    transition: background-color 0.3s ease;
+  }
+
+  body {
+    background-color: var(--background);
+  }
+
+
 }
 
 @utility grid-pattern {
@@ -167,4 +199,20 @@
 
 ::selection {
   background: color-mix(in oklch, var(--brand) 30%, transparent);
+}
+
+/* iOS safe area utilities */
+@supports (padding: max(0px)) {
+  .pt-safe {
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
+  .pb-safe {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+  .pl-safe {
+    padding-left: max(0px, env(safe-area-inset-left));
+  }
+  .pr-safe {
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
 }

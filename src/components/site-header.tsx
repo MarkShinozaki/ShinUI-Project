@@ -32,7 +32,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur-xl">
+    <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur-xl pt-safe">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <Link href="/" className="font-semibold tracking-tight">
           ShinUI
