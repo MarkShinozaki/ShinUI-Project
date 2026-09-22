@@ -173,8 +173,35 @@
     background-color: #ffffff;
   }
 
-  html.ios-theme-change {
-    transition: none !important;
+  /* Fixed edge strips for iOS safe area theming */
+  .safe-area-top {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: max(env(safe-area-inset-top), 12px);
+    background: var(--background);
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .safe-area-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: max(env(safe-area-inset-bottom), 12px);
+    background: var(--background);
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* Hide safe area strips on desktop */
+  @media (min-width: 768px) {
+    .safe-area-top,
+    .safe-area-bottom {
+      display: none;
+    }
   }
 
   body {

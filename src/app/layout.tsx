@@ -103,9 +103,11 @@ export default function RootLayout({
           <ThemeSync />
           <TooltipProvider>
             <div className="flex min-h-dvh flex-col">
+              <div className="safe-area-top" />
               <SiteHeader />
               <main className="flex-1 pb-14 md:pb-0">{children}</main>
               <SiteFooter />
+              <div className="safe-area-bottom" />
             </div>
             <BottomNav />
             <Toaster />
