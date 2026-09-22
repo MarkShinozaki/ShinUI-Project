@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 export function CommandMenu({ className }: { className?: string }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const [query, setQuery] = React.useState("");
 
   React.useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -42,6 +43,36 @@ export function CommandMenu({ className }: { className?: string }) {
     [router]
   );
 
+  // Filter items based on query to reduce rendering
+  const filteredRegistry = React.useMemo(() => {
+    if (!query) return registry.slice(0, 10); // Show only first 10 when no query
+    const lowerQuery = query.toLowerCase();
+    return registry.filter(
+      (item) =>
+        item.name.toLowerCase().includes(lowerQuery) ||
+        item.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
+    ).slice(0, 20);
+  }, [query]);
+
+  const filteredResources = React.useMemo(() => {
+    if (!query) return resources.slice(0, 10); // Show only first 10 when no query
+    const lowerQuery = query.toLowerCase();
+    return resources.filter(
+      (resource) =>
+        resource.name.toLowerCase().includes(lowerQuery) ||
+        resource.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)) ||
+        resource.stack.some((stack) => stack.toLowerCase().includes(lowerQuery))
+    ).slice(0, 20);
+  }, [query]);
+
+  const filteredCategories = React.useMemo(() => {
+    if (!query) return categories;
+    const lowerQuery = query.toLowerCase();
+    return categories.filter((category) =>
+      category.name.toLowerCase().includes(lowerQuery)
+    );
+  }, [query]);
+
   return (
     <>
       <Button
@@ -60,12 +91,16 @@ export function CommandMenu({ className }: { className?: string }) {
       </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Search components, resources, categories…" />
+        <CommandInput
+          placeholder="Search components, resources, categories…"
+          value={query}
+          onValueChange={setQuery}
+        />
         <CommandList>
           <CommandEmpty>Nothing matched that.</CommandEmpty>
 
           <CommandGroup heading="Components">
-            {registry.map((item) => (
+            {filteredRegistry.map((item) => (
               <CommandItem
                 key={item.slug}
                 value={`component ${item.name} ${item.tags.join(" ")}`}
@@ -83,7 +118,7 @@ export function CommandMenu({ className }: { className?: string }) {
           <CommandSeparator />
 
           <CommandGroup heading="Resources">
-            {resources.map((resource) => (
+            {filteredResources.map((resource) => (
               <CommandItem
                 key={resource.slug}
                 value={`resource ${resource.name} ${resource.tags.join(" ")} ${resource.stack.join(" ")}`}
@@ -101,7 +136,7 @@ export function CommandMenu({ className }: { className?: string }) {
           <CommandSeparator />
 
           <CommandGroup heading="Categories">
-            {categories.map((category) => (
+            {filteredCategories.map((category) => (
               <CommandItem
                 key={category.slug}
                 value={`category ${category.name}`}

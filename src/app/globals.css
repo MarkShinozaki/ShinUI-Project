@@ -120,6 +120,11 @@
     /* Reserve room for the mobile bottom navigation bar. */
     padding-bottom: env(safe-area-inset-bottom);
   }
+
+  /* Performance optimizations for better paint */
+  img {
+    content-visibility: auto;
+  }
 }
 
 @utility grid-pattern {

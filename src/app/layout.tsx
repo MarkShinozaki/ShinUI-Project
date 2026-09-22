@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   manifest: SITE_ASSETS.manifest,
   icons: {
     icon: [
-      { url: SITE_ASSETS.favicon },
       { url: SITE_ASSETS.favicon16, sizes: "16x16", type: "image/png" },
       { url: SITE_ASSETS.favicon32, sizes: "32x32", type: "image/png" },
+      { url: SITE_ASSETS.favicon },
     ],
     apple: SITE_ASSETS.appleTouchIcon,
   },
@@ -88,6 +88,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-dvh font-sans">
         <ThemeProvider
           attribute="class"

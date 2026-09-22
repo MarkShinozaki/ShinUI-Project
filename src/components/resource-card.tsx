@@ -46,6 +46,7 @@ export function ResourceCard({
             width={20}
             height={20}
             loading="lazy"
+            decoding="async"
             className="size-5"
           />
         </span>
