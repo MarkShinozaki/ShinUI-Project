@@ -2975,6 +2975,74 @@ export const resources: Resource[] = [
     pricing: "open-source",
     addedAt: "2026-09-21",
   },
+
+  // ── Added 2026-09-23 ────────────────────────────────────────────────────
+  {
+    slug: "shadcn-animated",
+    name: "shadcn/ui Animated Components",
+    tagline: "Animated shadcn/ui components for React",
+    description:
+      "A collection of animated shadcn/ui components for React, combining familiar copy-paste primitives with Motion-powered interactions.",
+    url: "https://shadcn-animated.vercel.app/",
+    category: "animation-motion",
+    tags: ["animated", "shadcn-compatible", "react", "copy-paste"],
+    stack: ["React", "Tailwind", "Motion"],
+    pricing: "open-source",
+    addedAt: "2026-09-23",
+  },
+  {
+    slug: "loading-dev",
+    name: "loading.dev",
+    tagline: "Loading animations for interfaces",
+    description:
+      "A collection of loading states and animated indicators for adding clear, polished feedback while content or actions are in progress.",
+    url: "https://loading.dev/",
+    category: "icons-assets",
+    tags: ["loading", "loaders", "animation", "ui"],
+    stack: ["CSS", "SVG"],
+    pricing: "free",
+    addedAt: "2026-09-23",
+  },
+  {
+    slug: "detail-design",
+    name: "Detail",
+    tagline: "Small interface decisions worth noticing",
+    description:
+      "A curated collection of the small design decisions that make products feel considered — useful references for interaction details, polish and product craft.",
+    url: "https://detail.design/",
+    category: "inspiration",
+    tags: ["micro-interactions", "product-design", "curated", "craft"],
+    stack: ["Design", "Web"],
+    pricing: "free",
+    addedAt: "2026-09-23",
+  },
+  {
+    slug: "collectui-todo-list",
+    name: "Collect UI — Todo List",
+    tagline: "Task and productivity list UI inspiration",
+    description:
+      "A focused Collect UI reference for todo-list and productivity interfaces, useful for exploring task organization, list layouts and completion states.",
+    url: "https://collectui.com/designs/todo-list-ui-design-inspiration",
+    category: "inspiration",
+    tags: ["todo", "productivity", "patterns", "gallery"],
+    stack: ["Design"],
+    pricing: "free",
+    addedAt: "2026-09-23",
+  },
+  {
+    slug: "godly-resources",
+    name: "Godly Resources",
+    tagline: "Curated design resources for creators",
+    description:
+      "A curated collection of design assets, inspiration, typography and other resources for creators.",
+    url: "https://godly.design/resources/",
+    category: "inspiration",
+    tags: ["curated", "resources", "typography", "design-assets"],
+    stack: ["Design", "Web"],
+    pricing: "free",
+    addedAt: "2026-09-23",
+  },
+
   {
     slug: "evilbuttons",
     name: "Evil Buttons",
