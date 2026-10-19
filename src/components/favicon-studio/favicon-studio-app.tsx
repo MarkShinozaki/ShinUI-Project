@@ -32,6 +32,7 @@ import {
 } from "@/lib/favicon-studio/export";
 import { loadSourceImage } from "@/lib/favicon-studio/load";
 import { renderDataUrl, type RenderSources } from "@/lib/favicon-studio/render";
+import { TEXT_PRESETS } from "@/lib/favicon-studio/presets";
 import {
   DEFAULT_SETTINGS,
   FONTS,
@@ -42,20 +43,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-const EMOJI = [
-  "🚀",
-  "🔥",
-  "✨",
-  "⚡",
-  "🎨",
-  "💡",
-  "🧠",
-  "🌈",
-  "🍕",
-  "🦊",
-  "🎧",
-  "📚",
-];
 const SWATCHES = [
   "#7c3aed",
   "#2563eb",
@@ -73,6 +60,7 @@ const PREVIEW_SIZES = Array.from(
 
 export function FaviconStudioApp() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
+  const [presetTab, setPresetTab] = useState(TEXT_PRESETS[0].id);
   const [main, setMain] = useState<SourceImage | null>(null);
   const [small, setSmall] = useState<SourceImage | null>(null);
   const [bgImage, setBgImage] = useState<SourceImage | null>(null);
@@ -296,22 +284,39 @@ export function FaviconStudioApp() {
                     onChange={(v) => set("text", v)}
                     className="text-lg"
                   />
-                  <div className="flex flex-wrap gap-1.5">
-                    {EMOJI.map((e) => (
-                      <button
-                        key={e}
-                        type="button"
-                        onClick={() => set("text", e)}
-                        className={cn(
-                          "hover:bg-brand/10 h-9 w-9 rounded-lg text-lg transition",
-                          settings.text === e
-                            ? "bg-brand/15 ring-brand ring-1"
-                            : "bg-muted"
-                        )}
-                      >
-                        {e}
-                      </button>
-                    ))}
+                  <div className="space-y-2">
+                    <Label className="text-xs">Quick picks</Label>
+                    <Segmented
+                      value={presetTab}
+                      onChange={setPresetTab}
+                      options={TEXT_PRESETS.map((g) => ({
+                        value: g.id,
+                        label: g.label,
+                      }))}
+                    />
+                    <div className="bg-muted/40 max-h-44 overflow-y-auto rounded-xl p-2">
+                      <div className="flex flex-wrap gap-1.5">
+                        {(
+                          TEXT_PRESETS.find((g) => g.id === presetTab)?.items ??
+                          []
+                        ).map((item) => (
+                          <button
+                            key={`${presetTab}-${item}`}
+                            type="button"
+                            title={item}
+                            onClick={() => set("text", item)}
+                            className={cn(
+                              "hover:bg-brand/10 grid h-9 w-9 place-items-center rounded-lg text-lg transition",
+                              settings.text === item
+                                ? "bg-brand/15 ring-brand ring-1"
+                                : "bg-background/80"
+                            )}
+                          >
+                            {item}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   <div>
                     <Label className="mb-1.5 text-xs">Font</Label>
