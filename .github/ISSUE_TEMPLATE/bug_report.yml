@@ -1,0 +1,53 @@
+name: Bug report
+description: Something broken on shinozaki.design or in the repo
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please avoid pasting secrets or personal data.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect vs. what you saw?
+      placeholder: On /browse, filtering by … shows …
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Page URL (if applicable)
+      placeholder: https://shinozaki.design/browse
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser / device
+      options:
+        - Desktop Chrome
+        - Desktop Firefox
+        - Desktop Safari
+        - Mobile Safari (iOS)
+        - Mobile Chrome (Android)
+        - Other
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to …
+        2. Click …
+        3. See error
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues before opening this one
+          required: true

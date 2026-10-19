@@ -1,0 +1,49 @@
+name: Resource suggestion
+description: Suggest a UI/design resource for the index
+title: "[Resource]: "
+labels: ["resource"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Prefer opening a PR that adds the entry to `src/data/resources.ts` — see [CONTRIBUTING.md](../../CONTRIBUTING.md).
+        Use this form if you are not sure how to contribute yet.
+
+  - type: input
+    id: name
+    attributes:
+      label: Resource name
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Resource URL
+      placeholder: https://
+    validations:
+      required: true
+
+  - type: input
+    id: category
+    attributes:
+      label: Suggested category slug
+      description: Must match a slug in `src/data/categories.ts` (e.g. `component-libraries`).
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it worth listing?
+      description: Factual, neutral description — no marketing copy.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affiliation
+    attributes:
+      label: Affiliation
+      options:
+        - label: I work on or am affiliated with this product (please say how in the description)
+        - label: I have no affiliation
