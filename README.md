@@ -1,6 +1,14 @@
 # ShinUI
 
+[![MIT license](https://img.shields.io/github/license/MarkShinozaki/ShinUI-Project)](LICENSE)
+[![pnpm](https://img.shields.io/badge/package%20manager-pnpm-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Live site](https://img.shields.io/badge/site-shinozaki.design-111?logo=vercel&logoColor=white)](https://shinozaki.design)
+
 A searchable, mobile-friendly index of UI and design resources — component libraries, blocks, motion systems, shaders, themes, icons, mockups, iOS patterns and design tools — with live previews, real source code and credit to the people who built them.
+
+**Live:** [shinozaki.design](https://shinozaki.design)
 
 ## What it does
 
@@ -28,7 +36,7 @@ No CMS and no database. The whole index is typed data, so the build fails if a c
 
 ## Getting started
 
-This project uses **pnpm**. Do not use `npm install` — it will fail on this repo.
+This project uses **pnpm** (`packageManager` is set in `package.json`). Do not use `npm install` — it will fail on this repo.
 
 ```bash
 pnpm install
@@ -65,7 +73,7 @@ You only need to touch a few files day to day. Everything else is standard Next.
 | --- | --- |
 | `package.json` | Dependencies and scripts. Required for any Node project. |
 | `pnpm-lock.yaml` | Locks dependency versions so installs are reproducible. Keep this in git. |
-| `.npmrc` | Tells contributors to use pnpm. |
+| `pnpm-workspace.yaml` | pnpm workspace metadata and build allowances (minimal in this repo). |
 | `components.json` | shadcn/ui config — only needed if you add more shadcn components via the CLI. |
 | `src/data/resources.ts` | The resource index. Add new links here. |
 | `src/data/categories.ts` | Category definitions. |
@@ -76,7 +84,7 @@ You only need to touch a few files day to day. Everything else is standard Next.
 | `eslint.config.mjs` | Lint rules. |
 | `postcss.config.mjs` | Tailwind v4 PostCSS hookup. |
 
-There is intentionally **one** markdown file (`README.md`) and **no** workspace yaml — config that used to live in extra files has been folded into `package.json`.
+Community docs: [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## Project structure
 
@@ -130,6 +138,8 @@ Append an object to `src/data/resources.ts`. It appears in search, browse, its c
 }
 ```
 
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for slugs, tone, affiliation, and PR expectations.
+
 ## Adding a live component
 
 1. Create `src/registry/components/<slug>.tsx` exporting a named component.
@@ -140,7 +150,9 @@ The detail page picks up the source, derives the usage snippet from the file's e
 
 ## Contributing
 
-Pull requests welcome. Add resources or live components following the patterns above. Keep attribution accurate — only add `authorId` values backed by public credits on the source project.
+Pull requests welcome — resources, live components, docs, and fixes.
+
+Read **[CONTRIBUTING.md](CONTRIBUTING.md)** for setup, style, and what gets merged. Security issues: **[SECURITY.md](SECURITY.md)** (private reporting).
 
 ## Attribution
 

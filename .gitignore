@@ -16,8 +16,9 @@ next-env.d.ts
 Thumbs.db
 
 .env
-.env*.local
+.env.*
 !.env.example
+.env*.local
 
 AGENTS.md
 CLAUDE.md
