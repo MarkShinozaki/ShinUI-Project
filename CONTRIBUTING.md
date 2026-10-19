@@ -26,10 +26,11 @@ Handy scripts:
 ```bash
 pnpm lint       # ESLint
 pnpm typecheck  # TypeScript (tsc --noEmit)
+pnpm test       # Vitest (unit tests)
 pnpm build      # production build
 ```
 
-There is **no test runner wired up yet** — CI runs lint + typecheck only.
+CI runs lint, typecheck, and test on every pull request.
 
 ## What to contribute
 
