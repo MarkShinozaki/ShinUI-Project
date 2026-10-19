@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 import {
@@ -11,7 +11,6 @@ import {
 import {
   fetchOpenRouterConfig,
   generateAiImage,
-  getAiModels,
   loadSavedApiKey,
   loadSavedModel,
   saveApiKey,
@@ -32,10 +31,9 @@ export function FaviconAiGenerate({
   purpose = "icon",
   compact = false,
 }: Props) {
-  const models = useMemo(() => getAiModels(), []);
   const [prompt, setPrompt] = useState("");
   const [apiKey, setApiKey] = useState(() => loadSavedApiKey());
-  const [model, setModel] = useState(() => loadSavedModel(models));
+  const [model, setModel] = useState(() => loadSavedModel());
   const [remember, setRemember] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -85,10 +83,10 @@ export function FaviconAiGenerate({
         <div>
           <p className="text-xs font-medium">Generate with AI</p>
           <p className="text-muted-foreground mt-0.5 text-[11px] leading-relaxed">
-            Optional OpenRouter image models. Paste your own API key (stored in
-            this browser only), or rely on a server{" "}
-            <code className="bg-muted rounded px-1">OPENROUTER</code> key if the
-            host configured one — the secret never ships to the client bundle.
+            Paste any OpenRouter image model id and your API key. Both stay in
+            this browser only (unless a host{" "}
+            <code className="bg-muted rounded px-1">OPENROUTER</code> key is
+            configured — that secret never ships to the client).
           </p>
         </div>
       )}
@@ -107,19 +105,13 @@ export function FaviconAiGenerate({
         />
       </FieldRow>
 
-      <FieldRow label="Model">
-        <select
-          value={model}
-          onChange={(e) => onModelChange(e.target.value)}
-          className="border-input bg-background h-9 w-full rounded-md border px-3 text-sm"
-        >
-          {models.map((m) => (
-            <option key={m.id} value={m.id}>
-              {m.label}
-            </option>
-          ))}
-        </select>
-      </FieldRow>
+      <TextField
+        label="OpenRouter model"
+        value={model}
+        onChange={onModelChange}
+        placeholder="provider/model-id  e.g. google/gemini-2.5-flash-image"
+        autoComplete="off"
+      />
 
       <div className="space-y-2">
         <TextField
@@ -154,7 +146,7 @@ export function FaviconAiGenerate({
 
       <ToolButton
         variant="primary"
-        disabled={busy || !prompt.trim() || !effectiveKey || !model}
+        disabled={busy || !prompt.trim() || !effectiveKey || !model.trim()}
         onClick={() => void generate()}
         className="w-full"
       >

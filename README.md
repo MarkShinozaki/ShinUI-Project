@@ -43,7 +43,7 @@ The built-in tool at `/design-tools/favicon-studio` runs entirely in the browser
 
 - **Bring your own key (default):** visitors paste an OpenRouter API key in the UI; it is stored in `localStorage` on their device only.
 - **Hosted key (optional):** set server-only `OPENROUTER` in `.env` so the proxy can authenticate when the UI field is empty. The key is never bundled into client JavaScript.
-- **Model list:** configure `NEXT_PUBLIC_FAVICON_STUDIO_MODEL1`–`MODEL3` (see `.env.example`).
+- **Model:** visitors type any OpenRouter image model id (e.g. `google/gemini-2.5-flash-image`); it is saved in `localStorage` on their device.
 
 ```bash
 pnpm build      # production build (fully static)

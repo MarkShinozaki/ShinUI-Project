@@ -6,47 +6,6 @@ const MODEL_STORAGE = "favicon-studio-openrouter-model";
 const LEGACY_KEY_STORAGE = "favicon-studio-openai-key";
 const LEGACY_PROVIDER_STORAGE = "favicon-studio-ai-provider";
 
-export interface AiModelOption {
-  id: string;
-  label: string;
-}
-
-function publicModel(envKey: string, fallback: string): string {
-  const raw = process.env[envKey]?.trim();
-  return raw || fallback;
-}
-
-function labelFor(id: string): string {
-  const slug = id.split("/").pop() ?? id;
-  return slug.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-/** Models offered in the picker — from NEXT_PUBLIC_FAVICON_STUDIO_MODEL* at build time. */
-export function getAiModels(): AiModelOption[] {
-  const ids = [
-    publicModel(
-      "NEXT_PUBLIC_FAVICON_STUDIO_MODEL1",
-      "tencent/hy-image-v3.5-preview"
-    ),
-    publicModel(
-      "NEXT_PUBLIC_FAVICON_STUDIO_MODEL2",
-      "google/gemini-2.5-flash-image"
-    ),
-    publicModel(
-      "NEXT_PUBLIC_FAVICON_STUDIO_MODEL3",
-      "microsoft/mai-image-2.6-flash"
-    ),
-  ];
-  const seen = new Set<string>();
-  return ids
-    .filter((id) => {
-      if (!id || seen.has(id)) return false;
-      seen.add(id);
-      return true;
-    })
-    .map((id) => ({ id, label: labelFor(id) }));
-}
-
 export async function fetchOpenRouterConfig(): Promise<{
   serverKeyConfigured: boolean;
 }> {
@@ -87,19 +46,20 @@ export function saveApiKey(key: string): void {
   }
 }
 
-export function loadSavedModel(models: AiModelOption[]): string {
+/** OpenRouter model id the user typed — stored in this browser only. */
+export function loadSavedModel(): string {
   try {
-    const saved = localStorage.getItem(MODEL_STORAGE);
-    if (saved && models.some((m) => m.id === saved)) return saved;
+    return localStorage.getItem(MODEL_STORAGE)?.trim() ?? "";
   } catch {
-    /* ignore */
+    return "";
   }
-  return models[0]?.id ?? "";
 }
 
 export function saveModel(model: string): void {
   try {
-    if (model) localStorage.setItem(MODEL_STORAGE, model);
+    const trimmed = model.trim();
+    if (trimmed) localStorage.setItem(MODEL_STORAGE, trimmed);
+    else localStorage.removeItem(MODEL_STORAGE);
   } catch {
     /* ignore */
   }
