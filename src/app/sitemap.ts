@@ -8,7 +8,15 @@ import { SITE } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const staticRoutes = ["", "/browse", "/components", "/portfolios", "/design-tools", "/categories"];
+  const staticRoutes = [
+    "",
+    "/browse",
+    "/components",
+    "/portfolios",
+    "/design-tools",
+    "/design-tools/favicon-studio",
+    "/categories",
+  ];
 
   return [
     ...staticRoutes.map((route) => ({

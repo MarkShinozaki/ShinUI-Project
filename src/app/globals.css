@@ -240,6 +240,31 @@
   background: color-mix(in oklch, var(--brand) 30%, transparent);
 }
 
+.favicon-pixelated {
+  image-rendering: pixelated;
+}
+
+.favicon-range {
+  accent-color: var(--brand);
+}
+.favicon-range::-webkit-slider-thumb {
+  appearance: none;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 9999px;
+  border: 2px solid var(--background);
+  background: var(--brand);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+}
+.favicon-range::-moz-range-thumb {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 9999px;
+  border: 2px solid var(--background);
+  background: var(--brand);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+}
+
 /* iOS safe area utilities */
 @supports (padding: max(0px)) {
   .pt-safe {
