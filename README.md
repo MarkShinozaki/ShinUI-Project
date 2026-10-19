@@ -37,6 +37,14 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+### Favicon Studio (optional AI)
+
+The built-in tool at `/design-tools/favicon-studio` runs entirely in the browser for editing and export. Optional AI generation calls OpenRouter through a same-origin proxy at `/api/openrouter/*` (OpenRouter blocks direct browser calls with CORS).
+
+- **Bring your own key (default):** visitors paste an OpenRouter API key in the UI; it is stored in `localStorage` on their device only.
+- **Hosted key (optional):** set server-only `OPENROUTER` in `.env` so the proxy can authenticate when the UI field is empty. The key is never bundled into client JavaScript.
+- **Model list:** configure `NEXT_PUBLIC_FAVICON_STUDIO_MODEL1`–`MODEL3` (see `.env.example`).
+
 ```bash
 pnpm build      # production build (fully static)
 pnpm start      # serve the production build

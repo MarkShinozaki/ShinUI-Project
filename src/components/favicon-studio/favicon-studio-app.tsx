@@ -10,6 +10,7 @@ import {
 import { Sparkles } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { FaviconAiGenerate } from "@/components/favicon-studio/ai-generate";
 import { FaviconDropzone } from "@/components/favicon-studio/dropzone";
 import { FaviconExportPanel } from "@/components/favicon-studio/export-panel";
 import { FaviconPreviews } from "@/components/favicon-studio/previews";
@@ -74,6 +75,7 @@ export function FaviconStudioApp() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [main, setMain] = useState<SourceImage | null>(null);
   const [small, setSmall] = useState<SourceImage | null>(null);
+  const [bgImage, setBgImage] = useState<SourceImage | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [files, setFiles] = useState<OutputFile[]>([]);
   const [busy, setBusy] = useState(false);
@@ -87,8 +89,8 @@ export function FaviconStudioApp() {
   );
 
   const sources: RenderSources = useMemo(
-    () => ({ main, small }),
-    [main, small]
+    () => ({ main, small, background: bgImage }),
+    [main, small, bgImage]
   );
   const deferredSettings = useDeferredValue(settings);
 
@@ -125,7 +127,7 @@ export function FaviconStudioApp() {
   }, [settings, sources]);
 
   const handleFile = useCallback(
-    async (file: File, which: "main" | "small") => {
+    async (file: File, which: "main" | "small" | "background") => {
       setError(null);
       try {
         const img = await loadSourceImage(file);
@@ -139,6 +141,9 @@ export function FaviconStudioApp() {
             offsetY: 0,
             background: "transparent",
           }));
+        } else if (which === "background") {
+          setBgImage(img);
+          set("background", "image");
         } else {
           setSmall(img);
           set("useSmallImage", true);
@@ -146,6 +151,28 @@ export function FaviconStudioApp() {
       } catch (e) {
         setError(e instanceof Error ? e.message : String(e));
       }
+    },
+    [set]
+  );
+
+  const applyAiImage = useCallback((img: SourceImage) => {
+    setMain(img);
+    setSettings((s) => ({
+      ...s,
+      mode: "image",
+      zoom: 1,
+      offsetX: 0,
+      offsetY: 0,
+      background: "transparent",
+    }));
+    setError(null);
+  }, []);
+
+  const applyAiBackground = useCallback(
+    (img: SourceImage) => {
+      setBgImage(img);
+      set("background", "image");
+      setError(null);
     },
     [set]
   );
@@ -195,6 +222,7 @@ export function FaviconStudioApp() {
       appName: s.appName,
       shortName: s.shortName,
     }));
+    setBgImage(null);
   };
 
   return (
@@ -205,7 +233,8 @@ export function FaviconStudioApp() {
           100% in your browser
         </Badge>
         <span className="text-muted-foreground text-xs">
-          Images are processed locally with the Canvas API and never uploaded.
+          Editing and export stay in your browser. AI generation (optional)
+          sends only your prompt to the chosen provider.
         </span>
       </div>
 
@@ -231,6 +260,7 @@ export function FaviconStudioApp() {
                     onFile={(f) => handleFile(f, "main")}
                     onClear={() => setMain(null)}
                   />
+                  <FaviconAiGenerate onGenerated={applyAiImage} />
                   <div className="bg-muted/50 rounded-xl p-3">
                     <p className="text-muted-foreground mb-2 text-xs font-medium">
                       Small sizes image{" "}
@@ -415,9 +445,11 @@ export function FaviconStudioApp() {
                   options={[
                     { value: "transparent", label: "Transparent" },
                     { value: "color", label: "Color" },
+                    { value: "image", label: "Image" },
                   ]}
                 />
-                {settings.background === "color" && (
+                {(settings.background === "color" ||
+                  settings.background === "image") && (
                   <div className="space-y-2">
                     <div className="flex flex-wrap gap-1.5">
                       {SWATCHES.map((c) => (
@@ -436,9 +468,30 @@ export function FaviconStudioApp() {
                       ))}
                     </div>
                     <ColorField
-                      label="Custom color"
+                      label={
+                        settings.background === "image"
+                          ? "Fill under image"
+                          : "Custom color"
+                      }
                       value={settings.bgColor}
                       onChange={(v) => set("bgColor", v)}
+                    />
+                  </div>
+                )}
+                {settings.background === "image" && (
+                  <div className="space-y-3">
+                    <FaviconDropzone
+                      compact
+                      image={bgImage}
+                      title="Background image"
+                      hint="Upload · or generate with AI below"
+                      onFile={(f) => handleFile(f, "background")}
+                      onClear={() => setBgImage(null)}
+                    />
+                    <FaviconAiGenerate
+                      purpose="background"
+                      compact
+                      onGenerated={applyAiBackground}
                     />
                   </div>
                 )}
@@ -500,7 +553,7 @@ export function FaviconStudioApp() {
                   placeholder="/"
                 />
               </div>
-              {settings.background === "transparent" && (
+              {settings.background !== "color" && (
                 <div className="bg-muted/50 space-y-2 rounded-xl p-3">
                   <ToggleRow
                     label="Solid background for apple-touch-icon"

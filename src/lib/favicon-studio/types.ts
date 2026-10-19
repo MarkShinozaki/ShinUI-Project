@@ -33,7 +33,7 @@ export interface Settings {
   textScale: number // 0.3 - 1.2
   // Common
   padding: number // 0 - 40 (% of icon size, per side)
-  background: 'transparent' | 'color'
+  background: 'transparent' | 'color' | 'image'
   bgColor: string
   shape: Shape
   radius: number // 0 - 50 (% of icon size)

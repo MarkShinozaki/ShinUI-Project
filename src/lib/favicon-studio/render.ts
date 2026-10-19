@@ -4,6 +4,8 @@ import { SMALL_SIZE_MAX } from './types'
 export interface RenderSources {
   main: SourceImage | null
   small: SourceImage | null
+  /** Optional background image (cover-fit behind the source). */
+  background: SourceImage | null
 }
 
 export interface RenderOptions {
@@ -118,10 +120,15 @@ export function renderIcon(
   shapePath(ctx, size, radiusPx)
   ctx.clip()
 
-  const bg = opts.forceBackground ?? (s.background === 'color' ? s.bgColor : null)
-  if (bg) {
-    ctx.fillStyle = bg
+  const underlay =
+    opts.forceBackground ?? (s.background === 'color' || s.background === 'image' ? s.bgColor : null)
+  if (underlay) {
+    ctx.fillStyle = underlay
     ctx.fillRect(0, 0, size, size)
+  }
+
+  if (s.background === 'image' && src.background) {
+    drawCover(ctx, src.background, size)
   }
 
   if (s.mode === 'image') {
@@ -147,6 +154,19 @@ export function renderIcon(
   }
 
   ctx.restore()
+}
+
+/** Draw an image covering the full size (object-fit: cover), centered. */
+function drawCover(ctx: CanvasRenderingContext2D, source: SourceImage, size: number) {
+  const w0 = source.width || 512
+  const h0 = source.height || 512
+  const scale = size / Math.min(w0, h0)
+  const w = w0 * scale
+  const h = h0 * scale
+  const x = (size - w) / 2
+  const y = (size - h) / 2
+  const drawable = stepDown(source.img, w0, h0, w, h)
+  ctx.drawImage(drawable, x, y, w, h)
 }
 
 /**

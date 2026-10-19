@@ -191,6 +191,8 @@ export function TextField({
   placeholder,
   maxLength,
   className,
+  type = "text",
+  autoComplete,
 }: {
   label: string;
   value: string;
@@ -198,13 +200,17 @@ export function TextField({
   placeholder?: string;
   maxLength?: number;
   className?: string;
+  type?: "text" | "password";
+  autoComplete?: string;
 }) {
   return (
     <FieldRow label={label}>
       <Input
+        type={type}
         value={value}
         placeholder={placeholder}
         maxLength={maxLength}
+        autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
         className={className}
       />

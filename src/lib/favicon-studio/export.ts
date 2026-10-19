@@ -72,7 +72,14 @@ export function buildSvg(s: Settings, src: RenderSources): string | null {
   parts.push(`<defs><clipPath id="fs-shape">${shapeElement(s, '')}</clipPath>`)
   parts.push(`<clipPath id="fs-inner"><rect x="${round(pad)}" y="${round(pad)}" width="${round(inner)}" height="${round(inner)}"/></clipPath></defs>`)
   parts.push(`<g clip-path="url(#fs-shape)">`)
-  if (s.background === 'color') parts.push(shapeElement(s, `fill="${escapeXml(s.bgColor)}"`))
+  if (s.background === 'color' || s.background === 'image') {
+    parts.push(shapeElement(s, `fill="${escapeXml(s.bgColor)}"`))
+  }
+  if (s.background === 'image' && src.background) {
+    parts.push(
+      `<image href="${escapeXml(src.background.url)}" x="0" y="0" width="${size}" height="${size}" preserveAspectRatio="xMidYMid slice"/>`,
+    )
+  }
 
   if (s.mode === 'text') {
     const canvas = document.createElement('canvas')
@@ -105,7 +112,7 @@ export function buildManifest(s: Settings): string {
       { src: joinPath(s.pathPrefix, 'android-chrome-512x512.png'), sizes: '512x512', type: 'image/png' },
     ],
     theme_color: s.themeColor,
-    background_color: s.background === 'color' ? s.bgColor : '#ffffff',
+    background_color: s.background === 'transparent' ? '#ffffff' : s.bgColor,
     display: 'standalone',
   }
   return JSON.stringify(manifest, null, 2) + '\n'
@@ -148,7 +155,7 @@ export async function buildAllFiles(s: Settings, src: RenderSources): Promise<Ou
   for (const out of PNG_OUTPUTS) {
     const isApple = out.file === 'apple-touch-icon.png'
     const opts =
-      isApple && s.appleSolidBg && s.background === 'transparent' ? { forceBackground: s.appleBgColor } : undefined
+      isApple && s.appleSolidBg && s.background !== 'color' ? { forceBackground: s.appleBgColor } : undefined
     files.push({ name: out.file, blob: await renderPng(out.size, s, src, opts), description: `${out.size}x${out.size} · ${out.label}` })
   }
 
