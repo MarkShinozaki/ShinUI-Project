@@ -27,6 +27,38 @@ function isSvg(file: File): boolean {
   return file.type === 'image/svg+xml' || file.name.toLowerCase().endsWith('.svg')
 }
 
+/** Load a data URL (or blob URL) into a SourceImage. */
+export async function loadSourceFromUrl(
+  url: string,
+  name: string,
+  type = 'image/png',
+  svgText?: string,
+): Promise<SourceImage> {
+  const img = await loadImage(url)
+  let width = img.naturalWidth
+  let height = img.naturalHeight
+  if (svgText && (!width || !height)) {
+    const vb = /viewBox\s*=\s*["']\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(svgText)
+    const vw = vb ? parseFloat(vb[1]) : 1
+    const vh = vb ? parseFloat(vb[2]) : 1
+    width = 512
+    height = Math.round((512 * vh) / vw) || 512
+  }
+  return { img, name, type, url, width: width || 512, height: height || 512, svgText }
+}
+
+/** Load raw image bytes (e.g. from an AI API) into a SourceImage. */
+export async function loadSourceFromBlob(blob: Blob, name: string): Promise<SourceImage> {
+  const type = blob.type || 'image/png'
+  const url = await new Promise<string>((resolve, reject) => {
+    const r = new FileReader()
+    r.onload = () => resolve(String(r.result))
+    r.onerror = () => reject(r.error ?? new Error('Could not read image'))
+    r.readAsDataURL(blob)
+  })
+  return loadSourceFromUrl(url, name, type)
+}
+
 /** Load a user file into something we can draw on a canvas. Never leaves the browser. */
 export async function loadSourceImage(file: File): Promise<SourceImage> {
   const svg = isSvg(file)
@@ -41,18 +73,7 @@ export async function loadSourceImage(file: File): Promise<SourceImage> {
   } else {
     url = await readAs(file, 'dataUrl')
   }
-  const img = await loadImage(url)
-  let width = img.naturalWidth
-  let height = img.naturalHeight
-  if (svg && (!width || !height)) {
-    // SVG without intrinsic size: derive aspect ratio from viewBox if possible.
-    const vb = /viewBox\s*=\s*["']\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(svgText ?? '')
-    const vw = vb ? parseFloat(vb[1]) : 1
-    const vh = vb ? parseFloat(vb[2]) : 1
-    width = 512
-    height = Math.round((512 * vh) / vw) || 512
-  }
-  return { img, name: file.name, type: svg ? 'image/svg+xml' : file.type, url, width, height, svgText }
+  return loadSourceFromUrl(url, file.name, svg ? 'image/svg+xml' : file.type, svgText)
 }
 
 /**
