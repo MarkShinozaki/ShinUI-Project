@@ -2,7 +2,15 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Blocks, Compass, LayoutGrid, PenTool, Search, UserRound } from "lucide-react";
+import {
+  Blocks,
+  Compass,
+  LayoutGrid,
+  PenTool,
+  Search,
+  Sparkles,
+  UserRound,
+} from "lucide-react";
 
 import {
   CommandDialog,
@@ -107,6 +115,13 @@ export function CommandMenu({ className }: { className?: string }) {
             <CommandItem value="page design tools spline three rive" onSelect={() => go("/design-tools")}>
               <PenTool />
               <span>Design Tools</span>
+            </CommandItem>
+            <CommandItem
+              value="page favicon studio ico generator icon maker"
+              onSelect={() => go("/design-tools/favicon-studio")}
+            >
+              <Sparkles />
+              <span>Favicon Studio</span>
             </CommandItem>
           </CommandGroup>
 
