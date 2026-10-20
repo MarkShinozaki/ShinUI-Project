@@ -133,8 +133,8 @@ export function SiteFooter() {
           </div>
         </div>
       </footer>
-      <div className="h-44 w-full overflow-hidden sm:h-64">
-        <GreatWave cell={3} />
+      <div className="h-48 w-full overflow-hidden sm:h-96 xl:h-[576px]">
+        <GreatWave />
       </div>
     </div>
   );
