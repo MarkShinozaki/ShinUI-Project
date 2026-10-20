@@ -21,18 +21,28 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { Button } from "@/components/ui/button";
 import { categories } from "@/data/categories";
 import { resources } from "@/data/resources";
 import { registry } from "@/registry";
 import { cn } from "@/lib/utils";
 
-export function CommandMenu({ className }: { className?: string }) {
+export function CommandMenu({
+  className,
+  hotkey = true,
+  variant = "field",
+}: {
+  className?: string;
+  /** "field": search box trigger. "cell": filled accent cell for the grid navbar. */
+  variant?: "field" | "cell";
+  /** Listen for ⌘K / Ctrl+K. Only one mounted menu should own the shortcut. */
+  hotkey?: boolean;
+}) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
 
   React.useEffect(() => {
+    if (!hotkey) return;
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();
@@ -41,7 +51,7 @@ export function CommandMenu({ className }: { className?: string }) {
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [hotkey]);
 
   const go = React.useCallback(
     (href: string) => {
@@ -83,20 +93,29 @@ export function CommandMenu({ className }: { className?: string }) {
 
   return (
     <>
-      <Button
-        variant="outline"
+      <button
+        type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "text-muted-foreground relative h-9 w-full justify-start gap-2 pr-2 pl-3 font-normal sm:w-64",
+          variant === "cell"
+            ? "relative flex cursor-pointer items-center gap-2.5 bg-(--fo-accent) px-5 font-mono text-[11px] tracking-wider whitespace-nowrap text-(--fo-on-accent) uppercase transition-opacity hover:opacity-90"
+            : "relative flex h-9 w-full cursor-pointer items-center justify-start gap-2 border border-(--fo-line) bg-(--fo-well) pr-1.5 pl-3 text-left font-mono text-[11px] tracking-[0.08em] text-(--fo-soft) uppercase transition-colors hover:border-(--fo-line-strong) hover:text-(--fo-ink) sm:w-64",
           className
         )}
       >
-        <Search className="size-4" />
-        <span className="truncate">Search everything…</span>
-        <kbd className="bg-muted pointer-events-none ml-auto hidden h-5 items-center gap-0.5 rounded border px-1.5 font-mono text-[10px] font-medium select-none sm:flex">
+        <Search className="size-3.5 shrink-0" />
+        <span className="truncate">Search</span>
+        <kbd
+          className={cn(
+            "pointer-events-none hidden h-5 items-center gap-0.5 border px-1.5 font-mono text-[10px] select-none sm:flex",
+            variant === "cell"
+              ? "border-(--fo-on-accent)/40 bg-transparent"
+              : "ml-auto border-(--fo-line) bg-(--fo-paper)"
+          )}
+        >
           <span className="text-xs">⌘</span>K
         </kbd>
-      </Button>
+      </button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput

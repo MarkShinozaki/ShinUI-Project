@@ -45,7 +45,7 @@ export default async function ComponentPage({ params }: Props) {
   const usage = buildUsageSnippet(item.file, source);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+    <div className="mx-auto max-w-5xl px-6 pb-12 md:px-10">
       <PageHeader
         breadcrumbs={[
           { href: "/components", label: "Components" },
@@ -127,7 +127,7 @@ export default async function ComponentPage({ params }: Props) {
         </div>
 
         <aside className="space-y-6">
-          <div className="bg-card rounded-xl border p-4">
+          <div className="border border-(--fo-line) bg-(--fo-paper) p-4">
             <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
               Built by
             </p>
@@ -156,7 +156,7 @@ export default async function ComponentPage({ params }: Props) {
           </div>
 
           {item.inspiredBy && (
-            <div className="bg-card rounded-xl border p-4">
+            <div className="border border-(--fo-line) bg-(--fo-paper) p-4">
               <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                 Inspired by
               </p>
@@ -174,7 +174,7 @@ export default async function ComponentPage({ params }: Props) {
 
           <SavedPanel kind="component" id={item.slug} />
 
-          <div className="bg-card rounded-xl border p-4">
+          <div className="border border-(--fo-line) bg-(--fo-paper) p-4">
             <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
               Dependencies
             </p>
@@ -205,7 +205,7 @@ export default async function ComponentPage({ params }: Props) {
                 <Link
                   key={other.slug}
                   href={`/components/${other.slug}`}
-                  className="group bg-card rounded-xl border p-4 transition-shadow hover:shadow-md"
+                  className="group border border-(--fo-line) bg-(--fo-paper) p-4 transition-shadow hover:border-(--fo-accent)"
                 >
                   <p className="font-medium">{other.name}</p>
                   <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">

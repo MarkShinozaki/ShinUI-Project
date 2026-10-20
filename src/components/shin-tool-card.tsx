@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+import { DitherField } from "@/components/folio/dither-field";
+import { ArrowUpRight, FolioLabel } from "@/components/folio/kit";
 import { cn } from "@/lib/utils";
 
+/** A built-in tool, as a folio feature tile: dithered sakura swatch beside short copy. */
 export function ShinToolCard({
   href,
   title,
@@ -17,37 +18,34 @@ export function ShinToolCard({
   title: string;
   description: string;
   badge?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   className?: string;
 }) {
   return (
     <article
       className={cn(
-        "group bg-card relative flex flex-col rounded-xl border p-5 transition-all hover:shadow-md",
+        "group relative flex gap-5 border border-(--fo-line) bg-(--fo-paper) p-5 transition-colors duration-200 hover:border-(--fo-accent)",
         className
       )}
     >
-      <div className="flex items-start gap-3">
-        <span className="bg-muted text-brand grid size-11 shrink-0 place-items-center rounded-lg border">
-          {icon}
-        </span>
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="leading-tight font-semibold tracking-tight">
-              <Link href={href} className="after:absolute after:inset-0">
-                {title}
-              </Link>
-            </h3>
-            <Badge variant="secondary" className="text-[10px] font-normal">
-              {badge}
-            </Badge>
-          </div>
-          <p className="text-muted-foreground mt-1 text-sm text-pretty">
-            {description}
-          </p>
-        </div>
-        <ArrowRight className="text-muted-foreground size-4 shrink-0 transition group-hover:translate-x-0.5 group-hover:text-foreground" />
+      <div className="relative size-14 shrink-0 overflow-hidden transition-transform duration-300 group-hover:-translate-y-0.5">
+        <DitherField shape="orb" cell={2} inverse />
+        {icon && (
+          <span className="absolute inset-0 grid place-items-center text-(--fo-on-accent) [&_svg]:size-4">
+            {icon}
+          </span>
+        )}
       </div>
+      <div className="min-w-0 flex-1">
+        <FolioLabel className="text-(--fo-accent)">{badge}</FolioLabel>
+        <h3 className="mt-2 text-[15.5px] font-medium tracking-[-0.01em]">
+          <Link href={href} className="after:absolute after:inset-0">
+            {title}
+          </Link>
+        </h3>
+        <p className="mt-1.5 text-[14.5px] leading-relaxed text-pretty text-(--fo-soft)">{description}</p>
+      </div>
+      <ArrowUpRight className="size-3.5 shrink-0 text-(--fo-faint) transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-(--fo-accent)" />
     </article>
   );
 }

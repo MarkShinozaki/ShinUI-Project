@@ -111,7 +111,7 @@ function drawFabric(
 }
 
 /** Embossed 篠崎 under the hero surface. Pond code lives in `src/components/pond/`. */
-export function HeroKanjiPond() {
+export function HeroKanjiPond({ className }: { className?: string } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const fabricRef = useRef<HTMLCanvasElement>(null);
 
@@ -156,7 +156,7 @@ export function HeroKanjiPond() {
     <div
       ref={rootRef}
       aria-hidden
-      className="relative mx-auto mt-4 h-52 w-full max-w-5xl sm:mt-6 sm:h-72"
+      className={className ?? "relative mx-auto mt-4 h-52 w-full max-w-5xl sm:mt-6 sm:h-72"}
     >
       <canvas className="pointer-events-none absolute inset-0 size-full" ref={fabricRef} />
     </div>

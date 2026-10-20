@@ -41,7 +41,7 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "bg-muted/40 relative overflow-hidden rounded-xl border",
+        "relative overflow-hidden border border-(--fo-line) bg-(--fo-well)",
         className
       )}
     >
@@ -76,7 +76,7 @@ export function CodeBlock({
       </div>
 
       <div
-        className="no-scrollbar overflow-auto"
+        className="overflow-auto"
         style={{
           maxHeight:
             collapsible && !expanded ? maxHeight : (maxHeight ?? undefined),

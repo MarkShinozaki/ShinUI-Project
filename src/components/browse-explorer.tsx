@@ -263,7 +263,7 @@ export function BrowseExplorer({
             />
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <AddResourceDialog onAdded={() => setRefreshKey((k) => k + 1)} />
 
             <Sheet>
@@ -290,7 +290,7 @@ export function BrowseExplorer({
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
               aria-label="Sort results"
-              className="border-input bg-background h-10 rounded-md border px-3 text-sm shadow-xs outline-none"
+              className="border-input bg-background h-10 min-w-0 max-w-full rounded-md border px-3 text-sm shadow-xs outline-none"
             >
               <option value="newest">Newest</option>
               <option value="featured">Featured first</option>
@@ -349,7 +349,7 @@ function FilterGroup({
 }) {
   return (
     <div>
-      <p className="text-muted-foreground mb-2 text-xs font-medium tracking-wide uppercase">
+      <p className="mb-3 font-mono text-[10.5px] tracking-[0.12em] text-(--fo-faint) uppercase">
         {title}
       </p>
       {children}
@@ -372,10 +372,10 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
+        "border border-(--fo-line) px-2 py-0.5 font-mono text-[11px] transition-colors",
         active
-          ? "bg-primary text-primary-foreground border-transparent"
-          : "text-muted-foreground hover:bg-accent hover:text-foreground"
+          ? "border-(--fo-accent) bg-(--fo-accent) text-(--fo-on-accent)"
+          : "text-(--fo-soft) hover:bg-(--fo-tint) hover:text-(--fo-ink)"
       )}
     >
       {children}

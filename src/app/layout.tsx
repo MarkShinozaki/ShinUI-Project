@@ -6,11 +6,11 @@ import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { BottomNav } from "@/components/bottom-nav";
 import { ThemeSync } from "@/components/theme-sync";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE, SITE_ASSETS } from "@/lib/site";
+import { getGitHubStars } from "@/lib/github";
 
 import "./globals.css";
 
@@ -33,14 +33,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE.author.name, url: SITE.author.github }],
   manifest: SITE_ASSETS.manifest,
-  icons: {
-    icon: [
-      { url: SITE_ASSETS.favicon16, sizes: "16x16", type: "image/png" },
-      { url: SITE_ASSETS.favicon32, sizes: "32x32", type: "image/png" },
-      { url: SITE_ASSETS.favicon },
-    ],
-    apple: SITE_ASSETS.appleTouchIcon,
-  },
   appleWebApp: {
     capable: true,
     title: SITE.name,
@@ -71,8 +63,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#faf6f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1220" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -82,6 +74,8 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Not awaited: the header streams the star count in behind a Suspense boundary.
+  const stars = getGitHubStars();
   return (
     <html
       lang="en"
@@ -106,14 +100,12 @@ export default function RootLayout({
         >
           <ThemeSync />
           <TooltipProvider>
-            <div className="flex min-h-dvh flex-col">
+            <div className="relative z-[1] flex min-h-dvh flex-col">
               <div className="safe-area-top" />
-              <SiteHeader />
-              <main className="flex-1 pb-14 md:pb-0">{children}</main>
+              <SiteHeader stars={stars} />
+              <main className="flex-1">{children}</main>
               <SiteFooter />
-              <div className="safe-area-bottom" />
             </div>
-            <BottomNav />
             <Toaster />
             <Analytics />
           </TooltipProvider>

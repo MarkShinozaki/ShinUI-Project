@@ -8,7 +8,7 @@ import { useTheme } from "next-themes";
  * This ensures the notch area and home indicator area match the theme.
  *
  * iOS 26+ Safari ignores theme-color meta tags and instead samples the background
- * of fixed/sticky edge elements. We use fixed strips at top/bottom that are bound
+ * of fixed/sticky edge elements. We use a fixed strip at the top that is bound
  * to CSS variables, and trigger a resize event to force Safari to re-sample.
  */
 export function ThemeSync() {

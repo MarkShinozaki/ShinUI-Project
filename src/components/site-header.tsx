@@ -3,28 +3,46 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
 
-import { GitHubIcon } from "@/components/icons";
-
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { BrandMorph } from "@/components/brand-morph";
+import { FolioButton, FolioLabel } from "@/components/folio/kit";
+import { GridNavbar } from "@/components/grid/navbar";
+import { GitHubStarLink } from "@/components/github-stars";
 
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
-import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
+/** Wordmark only: "ShinUI", morphing into 篠崎 on hover / focus. */
+function Brand() {
+  return <BrandMorph />;
+}
+
+function MenuButton({ open, onClick }: { open: boolean; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-expanded={open}
+      aria-label={open ? "Close menu" : "Open menu"}
+      className="-mr-2 flex h-10 cursor-pointer items-center gap-2 px-2 font-mono text-[11px] tracking-[0.12em] text-(--fo-soft) uppercase"
+    >
+      {open ? "Close" : "Menu"}
+      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth={1.4} aria-hidden>
+        {open ? <path d="M4 4l8 8M12 4l-8 8" /> : <path d="M2.5 6h11M2.5 10h11" />}
+      </svg>
+    </button>
+  );
+}
+
+/**
+ * Sticky site header. Desktop (`lg`+) is the Design Studio grid navbar (boxed cells
+ * between the page rails, see grid/navbar.tsx); below `lg` it collapses to a "Menu" bar
+ * with a stacked sheet.
+ */
+export function SiteHeader({ stars }: { stars: Promise<number | null> }) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
@@ -33,113 +51,62 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur-xl pt-safe">
-      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
-        <Link href="/" className="font-semibold tracking-tight">
-          ShinUI
-        </Link>
-
-        <nav className="ml-4 hidden items-center gap-1 md:flex">
-          {primaryNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                isActive(item.href)
-                  ? "bg-accent text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="ml-auto flex items-center gap-2">
-          <div className="hidden sm:block">
-            <CommandMenu />
+    <header className="sticky top-0 z-40 w-full bg-(--fo-paper) pt-safe">
+      {/* Mobile / tablet */}
+      <div className="border-b border-(--fo-line) bg-(--fo-paper)/90 backdrop-blur lg:hidden">
+        <div className="flex h-14 items-center justify-between gap-4 px-5">
+          <Brand />
+          <div className="flex items-center gap-3">
+            <GitHubStarLink
+              stars={stars}
+              className="h-10 px-1 text-(--fo-soft) transition-colors hover:text-(--fo-ink)"
+            />
+            <ThemeToggle className="size-8" />
+            <MenuButton open={open} onClick={() => setOpen((o) => !o)} />
           </div>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            asChild
-            className="hidden sm:inline-flex"
-          >
-            <a
-              href={SITE.repo}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub repository"
-            >
-              <GitHubIcon className="size-4" />
-            </a>
-          </Button>
-
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                aria-label="Open menu"
-              >
-                <Menu className="size-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[86vw] p-0 sm:max-w-sm">
-              <SheetHeader className="border-b">
-                <div className="flex items-center gap-2">
-                  <SheetTitle>ShinUI</SheetTitle>
-                  <ThemeToggle />
-                </div>
-              </SheetHeader>
-
-              <div className="flex-1 overflow-y-auto px-4 pb-8">
-                <div className="mb-4">
-                  <CommandMenu className="w-full" />
-                </div>
-
-                <nav className="flex flex-col">
-                  {primaryNav.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
-                        isActive(item.href)
-                          ? "bg-accent"
-                          : "text-muted-foreground hover:bg-accent/60"
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav>
-
-                <Separator className="my-4" />
-
-                <p className="text-muted-foreground px-3 pb-2 text-xs font-medium tracking-wide uppercase">
-                  Categories
-                </p>
-                <nav className="flex flex-col">
-                  {categories.map((category) => (
-                    <Link
-                      key={category.slug}
-                      href={`/categories/${category.slug}`}
-                      onClick={() => setOpen(false)}
-                      className="text-muted-foreground hover:bg-accent/60 hover:text-foreground rounded-md px-3 py-2 text-sm transition-colors"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </SheetContent>
-          </Sheet>
         </div>
+        {open && (
+          <div className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-(--fo-line) px-5 pt-4 pb-6 [animation:fo-rise_.2s_ease-out]">
+            <CommandMenu className="w-full sm:w-full" hotkey={false} />
+            <nav className="mt-3">
+              {primaryNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center gap-1.5 border-b border-(--fo-line) py-3 text-[15px]",
+                    isActive(item.href) ? "text-(--fo-ink)" : "text-(--fo-soft)"
+                  )}
+                >
+                  {isActive(item.href) && <span className="size-1.5 bg-(--fo-accent)" />}
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <FolioLabel className="mt-6">Categories</FolioLabel>
+            <nav className="mt-2 grid grid-cols-2 gap-x-4">
+              {categories.map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/categories/${category.slug}`}
+                  onClick={() => setOpen(false)}
+                  className="truncate py-1.5 text-[13.5px] text-(--fo-soft) transition-colors hover:text-(--fo-ink)"
+                >
+                  {category.name}
+                </Link>
+              ))}
+            </nav>
+            <FolioButton href="/browse" size="lg" className="mt-6 w-full">
+              Browse the index
+            </FolioButton>
+          </div>
+        )}
+      </div>
+
+      {/* Desktop: Design Studio grid navbar */}
+      <div className="hidden lg:block">
+        <GridNavbar isActive={isActive} stars={stars} />
       </div>
     </header>
   );

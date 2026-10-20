@@ -109,10 +109,10 @@ function FilterChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+        "border border-(--fo-line) px-2 py-0.5 font-mono text-[11px] transition-colors",
         active
-          ? "bg-primary text-primary-foreground border-primary"
-          : "bg-background text-muted-foreground hover:text-foreground"
+          ? "border-(--fo-accent) bg-(--fo-accent) text-(--fo-on-accent)"
+          : "bg-(--fo-paper) text-(--fo-soft) hover:bg-(--fo-tint) hover:text-(--fo-ink)"
       )}
     >
       {label}
@@ -124,7 +124,7 @@ function CatalogCard({ item }: { item: CatalogItem }) {
   const catalogId = catalogSavedId(item.sourceId, item.name);
 
   return (
-    <div className="bg-card relative flex flex-col rounded-xl border p-4">
+    <div className="relative flex flex-col border border-(--fo-line) bg-(--fo-paper) p-4 transition-colors duration-200 hover:border-(--fo-line-strong)">
       <div className="absolute top-3 right-3">
         <SaveButton kind="catalog" id={catalogId} />
       </div>

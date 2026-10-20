@@ -54,7 +54,7 @@ export function UserResourcePage({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+    <div className="mx-auto max-w-5xl px-6 pb-12 md:px-10">
       <PageHeader
         breadcrumbs={[
           { href: "/browse", label: "Browse" },
@@ -137,7 +137,7 @@ export function UserResourcePage({ slug }: { slug: string }) {
         </div>
 
         <aside className="space-y-4">
-          <div className="bg-card rounded-xl border p-4">
+          <div className="border border-(--fo-line) bg-(--fo-paper) p-4">
             <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
               Link
             </p>
@@ -159,7 +159,7 @@ export function UserResourcePage({ slug }: { slug: string }) {
             </p>
           </div>
 
-          <div className="bg-card rounded-xl border p-4 text-sm">
+          <div className="border border-(--fo-line) bg-(--fo-paper) p-4 text-sm">
             <p className="font-medium">Personal list only</p>
             <p className="text-muted-foreground mt-1">
               This site lives in your browser until you remove it. Save it to

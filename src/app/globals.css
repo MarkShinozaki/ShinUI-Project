@@ -4,67 +4,172 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --radius: 0.75rem;
+  /* Folio: square corners everywhere (Design Studio folio kit). */
+  --radius: 0rem;
 
-  --background: oklch(0.995 0 0);
-  --foreground: oklch(0.16 0.006 285.9);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.006 285.9);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.006 285.9);
-  --primary: oklch(0.21 0.006 285.9);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.4);
-  --secondary-foreground: oklch(0.21 0.006 285.9);
-  --muted: oklch(0.967 0.001 286.4);
-  --muted-foreground: oklch(0.552 0.016 285.9);
-  --accent: oklch(0.967 0.001 286.4);
-  --accent-foreground: oklch(0.21 0.006 285.9);
-  --destructive: oklch(0.577 0.245 27.3);
+  /* Sakura palette — light (warm cream + deep plum contrast) */
+  --sakura-cream: oklch(0.985 0.012 55);
+  --sakura-blush: oklch(0.96 0.028 15);
+  --sakura-petal: oklch(0.88 0.06 12);
+  --sakura-rose: oklch(0.62 0.17 8);
+  --sakura-bloom: oklch(0.72 0.14 350);
+  --sakura-plum: oklch(0.32 0.06 320);
+  --sakura-night: oklch(0.17 0.045 320);
+
+  /* Folio palette (Design Studio folio-kit), recolored with sakura.
+     Ink is stepped down with opacity instead of grays; one rose accent. */
+  --fo-paper: oklch(0.99 0.008 40);
+  --fo-ink: oklch(0.24 0.055 320);
+  --fo-accent: oklch(0.6 0.18 6);
+  --fo-accent-press: oklch(0.53 0.17 6);
+  --fo-accent-2: oklch(0.7 0.15 350);
+  --fo-on-accent: oklch(0.99 0.005 55);
+  --fo-soft: oklch(0.24 0.055 320 / 0.68);
+  --fo-faint: oklch(0.24 0.055 320 / 0.46);
+  --fo-line: oklch(0.45 0.08 350 / 0.14);
+  --fo-line-strong: oklch(0.45 0.08 350 / 0.26);
+  --fo-tint: oklch(0.6 0.18 6 / 0.07);
+  --fo-tint-strong: oklch(0.6 0.18 6 / 0.14);
+  --fo-well: oklch(0.965 0.022 15);
+  --fo-ok: oklch(0.66 0.14 160);
+  --fo-scroll-track: oklch(0.965 0.022 15);
+  --fo-scroll-thumb: oklch(0.78 0.09 6);
+  --fo-scroll-thumb-hover: oklch(0.6 0.18 6);
+  --fo-scroll-thumb-active: oklch(0.42 0.12 345);
+
+  --background: var(--fo-paper);
+  --foreground: var(--fo-ink);
+  --card: var(--fo-paper);
+  --card-foreground: var(--fo-ink);
+  --popover: oklch(0.995 0.008 40);
+  --popover-foreground: var(--sakura-plum);
+  --primary: var(--sakura-plum);
+  --primary-foreground: var(--sakura-cream);
+  --secondary: var(--sakura-blush);
+  --secondary-foreground: var(--sakura-plum);
+  --muted: var(--fo-well);
+  --muted-foreground: var(--fo-soft);
+  --accent: var(--fo-tint-strong);
+  --accent-foreground: var(--sakura-plum);
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.3);
-  --input: oklch(0.92 0.004 286.3);
-  --ring: oklch(0.705 0.015 286.1);
+  --border: var(--fo-line);
+  --input: var(--fo-line-strong);
+  --ring: oklch(0.62 0.14 8);
 
-  --brand: oklch(0.62 0.19 265);
-  --brand-foreground: oklch(0.985 0 0);
+  --brand: var(--fo-accent);
+  --brand-foreground: oklch(0.99 0.005 55);
 
-  --chart-1: oklch(0.646 0.222 41.1);
-  --chart-2: oklch(0.6 0.118 184.7);
-  --chart-3: oklch(0.398 0.07 227.4);
-  --chart-4: oklch(0.828 0.189 84.4);
-  --chart-5: oklch(0.769 0.188 70.1);
+  --chart-1: oklch(0.65 0.17 8);
+  --chart-2: oklch(0.72 0.12 350);
+  --chart-3: oklch(0.55 0.08 320);
+  --chart-4: oklch(0.82 0.1 55);
+  --chart-5: oklch(0.68 0.15 25);
+
+  --gradient-sakura: linear-gradient(
+    135deg,
+    oklch(0.88 0.06 12) 0%,
+    oklch(0.78 0.12 350) 45%,
+    oklch(0.72 0.14 8) 100%
+  );
+  --gradient-sakura-soft: linear-gradient(
+    180deg,
+    oklch(0.96 0.03 15 / 0.9) 0%,
+    var(--background) 55%
+  );
+  --gradient-heading: linear-gradient(
+    120deg,
+    var(--sakura-rose) 0%,
+    oklch(0.58 0.12 350) 50%,
+    var(--sakura-plum) 100%
+  );
+  --mesh-glow: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      oklch(0.78 0.1 12 / 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 0%,
+      oklch(0.75 0.12 350 / 0.2),
+      transparent 65%
+    );
 }
 
 .dark {
-  --background: oklch(0.145 0.004 285.8);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.185 0.005 285.8);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.185 0.005 285.8);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.21 0.006 285.9);
-  --secondary: oklch(0.245 0.006 286.0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.245 0.006 286.0);
-  --muted-foreground: oklch(0.705 0.015 286.1);
-  --accent: oklch(0.269 0.006 286.0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.2);
+  --fo-paper: oklch(0.16 0.04 322);
+  --fo-ink: oklch(0.95 0.015 40);
+  --fo-accent: oklch(0.76 0.14 352);
+  --fo-accent-press: oklch(0.7 0.15 355);
+  --fo-accent-2: oklch(0.72 0.14 10);
+  --fo-on-accent: oklch(0.17 0.045 320);
+  --fo-soft: oklch(0.95 0.015 40 / 0.7);
+  --fo-faint: oklch(0.95 0.015 40 / 0.46);
+  --fo-line: oklch(0.9 0.04 350 / 0.13);
+  --fo-line-strong: oklch(0.9 0.04 350 / 0.25);
+  --fo-tint: oklch(0.76 0.14 352 / 0.1);
+  --fo-tint-strong: oklch(0.76 0.14 352 / 0.2);
+  --fo-well: oklch(0.2 0.045 322);
+  --fo-ok: oklch(0.78 0.14 160);
+  --fo-scroll-track: oklch(0.19 0.045 322);
+  --fo-scroll-thumb: oklch(0.42 0.1 345);
+  --fo-scroll-thumb-hover: oklch(0.6 0.14 350);
+  --fo-scroll-thumb-active: oklch(0.76 0.14 352);
+  --background: var(--fo-paper);
+  --foreground: var(--fo-ink);
+  --card: var(--fo-paper);
+  --card-foreground: oklch(0.96 0.012 55);
+  --popover: oklch(0.21 0.048 320);
+  --popover-foreground: oklch(0.96 0.012 55);
+  --primary: oklch(0.96 0.012 55);
+  --primary-foreground: var(--sakura-night);
+  --secondary: oklch(0.26 0.045 320);
+  --secondary-foreground: oklch(0.96 0.012 55);
+  --muted: var(--fo-well);
+  --muted-foreground: var(--fo-soft);
+  --accent: var(--fo-tint-strong);
+  --accent-foreground: oklch(0.96 0.012 55);
+  --destructive: oklch(0.65 0.2 22);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.9);
+  --border: var(--fo-line);
+  --input: var(--fo-line-strong);
+  --ring: oklch(0.72 0.12 350);
 
-  --brand: oklch(0.7 0.17 265);
-  --brand-foreground: oklch(0.145 0.004 285.8);
+  --brand: var(--fo-accent);
+  --brand-foreground: var(--sakura-night);
 
-  --chart-1: oklch(0.488 0.243 264.4);
-  --chart-2: oklch(0.696 0.17 162.5);
-  --chart-3: oklch(0.769 0.188 70.1);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.4);
+  --chart-1: oklch(0.72 0.14 350);
+  --chart-2: oklch(0.68 0.12 8);
+  --chart-3: oklch(0.55 0.08 320);
+  --chart-4: oklch(0.75 0.1 55);
+  --chart-5: oklch(0.62 0.16 25);
+
+  --gradient-sakura: linear-gradient(
+    135deg,
+    oklch(0.35 0.08 320) 0%,
+    oklch(0.42 0.12 350) 50%,
+    oklch(0.38 0.1 8) 100%
+  );
+  --gradient-sakura-soft: linear-gradient(
+    180deg,
+    oklch(0.22 0.05 320 / 0.95) 0%,
+    var(--background) 60%
+  );
+  --gradient-heading: linear-gradient(
+    120deg,
+    oklch(0.82 0.1 350) 0%,
+    oklch(0.78 0.12 8) 45%,
+    oklch(0.92 0.04 55) 100%
+  );
+  --mesh-glow: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      oklch(0.45 0.12 350 / 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 0% 30%,
+      oklch(0.38 0.1 8 / 0.25),
+      transparent 65%
+    );
 }
 
 @theme inline {
@@ -90,16 +195,36 @@
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
 
+  --color-fo-paper: var(--fo-paper);
+  --color-fo-ink: var(--fo-ink);
+  --color-fo-accent: var(--fo-accent);
+  --color-fo-soft: var(--fo-soft);
+  --color-fo-faint: var(--fo-faint);
+  --color-fo-line: var(--fo-line);
+  --color-fo-well: var(--fo-well);
+
+  --color-sakura-cream: var(--sakura-cream);
+  --color-sakura-blush: var(--sakura-blush);
+  --color-sakura-petal: var(--sakura-petal);
+  --color-sakura-rose: var(--sakura-rose);
+  --color-sakura-bloom: var(--sakura-bloom);
+  --color-sakura-plum: var(--sakura-plum);
+  --color-sakura-night: var(--sakura-night);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  /* Folio is square: every radius step resolves to --radius (0). */
+  --radius-xs: var(--radius);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
@@ -115,7 +240,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Disable smooth scrolling on mobile for better performance */
   @media (max-width: 768px) {
     html {
       scroll-behavior: auto;
@@ -124,25 +248,19 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* Reserve room for the mobile bottom navigation bar. */
-    padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
-    /* iOS safe area top padding */
     padding-top: env(safe-area-inset-top);
   }
 
   @media (min-width: 768px) {
     body {
-      padding-bottom: env(safe-area-inset-bottom);
       padding-top: 0;
     }
   }
 
-  /* Performance optimizations for better paint */
   img {
     content-visibility: auto;
   }
 
-  /* iOS safe area theme color fix */
   @supports (padding: max(0px)) {
     body {
       padding-left: max(0px, env(safe-area-inset-left));
@@ -150,7 +268,6 @@
     }
   }
 
-  /* Ensure safe areas match theme */
   .dark {
     color-scheme: dark;
   }
@@ -159,21 +276,16 @@
     color-scheme: light;
   }
 
-  /* iOS safe area background color fix */
   html {
     background-color: var(--background);
     transition: background-color 0.3s ease;
   }
 
-  html.dark {
-    background-color: #09090b;
-  }
-
+  html.dark,
   html.light {
-    background-color: #ffffff;
+    background-color: var(--fo-paper);
   }
 
-  /* Fixed edge strips for iOS safe area theming */
   .safe-area-top {
     position: fixed;
     left: 0;
@@ -185,21 +297,8 @@
     pointer-events: none;
   }
 
-  .safe-area-bottom {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: max(env(safe-area-inset-bottom), 12px);
-    background: var(--background);
-    z-index: 9999;
-    pointer-events: none;
-  }
-
-  /* Hide safe area strips on desktop */
   @media (min-width: 768px) {
-    .safe-area-top,
-    .safe-area-bottom {
+    .safe-area-top {
       display: none;
     }
   }
@@ -208,7 +307,10 @@
     background-color: var(--background);
   }
 
-
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 }
 
 @utility grid-pattern {
@@ -216,6 +318,13 @@
     linear-gradient(to right, var(--border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--border) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+@utility folio-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--border) 85%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--border) 85%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 @utility checker-pattern {
@@ -228,6 +337,38 @@
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
 }
 
+/* ── On-brand scrollbars (page + every inner scroll area) ──
+   Thin, square, rose thumb on a blush/paper track. Chromium ignores ::-webkit-scrollbar
+   once scrollbar-color is set, so the standard properties are for Firefox only. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--fo-scroll-thumb) var(--fo-scroll-track);
+  }
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: var(--fo-scroll-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fo-scroll-thumb);
+  border: 2px solid var(--fo-scroll-track);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fo-scroll-thumb-hover);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--fo-scroll-thumb-active);
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 @utility no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -236,8 +377,75 @@
   }
 }
 
+@utility text-gradient-sakura {
+  background: var(--gradient-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-mesh-sakura {
+  background-image: var(--mesh-glow);
+}
+
 ::selection {
-  background: color-mix(in oklch, var(--brand) 30%, transparent);
+  background: color-mix(in oklch, var(--brand) 35%, transparent);
+}
+
+.folio-block {
+  border: 1px solid var(--fo-line);
+  background-color: var(--fo-paper);
+  transition: border-color 0.2s ease;
+}
+
+a.folio-block:hover,
+.folio-block.group:hover {
+  border-color: var(--fo-line-strong);
+}
+
+/* Kept for older markup: folio uses hairlines, not glowing borders. */
+.gradient-border {
+  position: relative;
+}
+
+/* Folio keyframes (from Design Studio folio-kit). */
+@keyframes fo-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes fo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fo-dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fo-anim {
+    animation: none !important;
+  }
+}
+
+@utility fo-hatch {
+  background-image: repeating-linear-gradient(-45deg, var(--fo-line) 0 1px, transparent 1px 7px);
+}
+
+@utility fo-dots {
+  background-image: radial-gradient(var(--fo-line-strong) 1px, transparent 1px);
+  background-size: 14px 14px;
 }
 
 .favicon-pixelated {
@@ -265,7 +473,6 @@
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
 }
 
-/* iOS safe area utilities */
 @supports (padding: max(0px)) {
   .pt-safe {
     padding-top: max(0px, env(safe-area-inset-top));
@@ -278,5 +485,65 @@
   }
   .pr-safe {
     padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
+/* ── Header wordmark: ShinUI ⇄ 篠崎 (see brand-morph.tsx) ──
+   Only transform + opacity animate. Fonts, weights and sizes are fixed per layer. */
+.brand-morph-letter,
+.brand-morph-kanji > span {
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s ease;
+}
+.brand-morph-letter {
+  /* leaving the hover: letters come back after the kanji have started to go */
+  transition-delay: calc((5 - var(--i)) * 22ms + 110ms);
+}
+.brand-morph-kanji {
+  font-family: "Shippori Mincho", serif;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.brand-morph-kanji--fallback {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+}
+.brand-morph-kanji > span {
+  opacity: 0;
+  transform: translateY(0.45em);
+  transition-delay: calc((1 - var(--i)) * 40ms);
+}
+@media (hover: hover) and (pointer: fine) {
+  .brand-morph[data-ready]:hover .brand-morph-letter {
+    opacity: 0;
+    transform: translateY(-0.7em);
+    transition-delay: calc(var(--i) * 22ms);
+  }
+  .brand-morph[data-ready]:hover .brand-morph-kanji > span {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i) * 60ms + 170ms);
+  }
+}
+.brand-morph[data-ready]:focus-visible .brand-morph-letter {
+  opacity: 0;
+  transform: translateY(-0.7em);
+  transition-delay: calc(var(--i) * 22ms);
+}
+.brand-morph[data-ready]:focus-visible .brand-morph-kanji > span {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i) * 60ms + 170ms);
+}
+.brand-morph:focus-visible {
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-morph-letter,
+  .brand-morph-kanji > span {
+    transform: none !important;
+    transition: opacity 0.2s ease !important;
+    transition-delay: 0s !important;
   }
 }
