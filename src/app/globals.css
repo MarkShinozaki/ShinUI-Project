@@ -422,31 +422,6 @@ a.folio-block:hover,
   background-size: 14px 14px;
 }
 
-.sakura-petal {
-  border-radius: 50% 0 50% 50%;
-  background: linear-gradient(
-    145deg,
-    color-mix(in oklch, var(--sakura-petal) 90%, white),
-    color-mix(in oklch, var(--sakura-bloom) 70%, transparent)
-  );
-  transform: rotate(45deg);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .sakura-petal {
-    animation: sakura-fall linear infinite;
-  }
-}
-
-@keyframes sakura-fall {
-  0% {
-    transform: translate3d(0, -10vh, 0) rotate(45deg);
-  }
-  100% {
-    transform: translate3d(12px, 110vh, 0) rotate(405deg);
-  }
-}
-
 .favicon-pixelated {
   image-rendering: pixelated;
 }
