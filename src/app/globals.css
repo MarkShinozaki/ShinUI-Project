@@ -32,6 +32,10 @@
   --fo-tint-strong: oklch(0.6 0.18 6 / 0.14);
   --fo-well: oklch(0.965 0.022 15);
   --fo-ok: oklch(0.66 0.14 160);
+  --fo-scroll-track: oklch(0.965 0.022 15);
+  --fo-scroll-thumb: oklch(0.78 0.09 6);
+  --fo-scroll-thumb-hover: oklch(0.6 0.18 6);
+  --fo-scroll-thumb-active: oklch(0.42 0.12 345);
 
   --background: var(--fo-paper);
   --foreground: var(--fo-ink);
@@ -106,6 +110,10 @@
   --fo-tint-strong: oklch(0.76 0.14 352 / 0.2);
   --fo-well: oklch(0.2 0.045 322);
   --fo-ok: oklch(0.78 0.14 160);
+  --fo-scroll-track: oklch(0.19 0.045 322);
+  --fo-scroll-thumb: oklch(0.42 0.1 345);
+  --fo-scroll-thumb-hover: oklch(0.6 0.14 350);
+  --fo-scroll-thumb-active: oklch(0.76 0.14 352);
   --background: var(--fo-paper);
   --foreground: var(--fo-ink);
   --card: var(--fo-paper);
@@ -240,13 +248,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
     padding-top: env(safe-area-inset-top);
   }
 
   @media (min-width: 768px) {
     body {
-      padding-bottom: env(safe-area-inset-bottom);
       padding-top: 0;
     }
   }
@@ -291,20 +297,8 @@
     pointer-events: none;
   }
 
-  .safe-area-bottom {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: max(env(safe-area-inset-bottom), 12px);
-    background: var(--background);
-    z-index: 9999;
-    pointer-events: none;
-  }
-
   @media (min-width: 768px) {
-    .safe-area-top,
-    .safe-area-bottom {
+    .safe-area-top {
       display: none;
     }
   }
@@ -341,6 +335,38 @@
     linear-gradient(-45deg, transparent 75%, var(--muted) 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* ── On-brand scrollbars (page + every inner scroll area) ──
+   Thin, square, rose thumb on a blush/paper track. Chromium ignores ::-webkit-scrollbar
+   once scrollbar-color is set, so the standard properties are for Firefox only. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--fo-scroll-thumb) var(--fo-scroll-track);
+  }
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: var(--fo-scroll-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fo-scroll-thumb);
+  border: 2px solid var(--fo-scroll-track);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fo-scroll-thumb-hover);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--fo-scroll-thumb-active);
+}
+::-webkit-scrollbar-button {
+  display: none;
 }
 
 @utility no-scrollbar {
@@ -462,54 +488,61 @@ a.folio-block:hover,
   }
 }
 
-/* ── Header wordmark: ShinUI ⇄ 篠崎 (see brand-morph.tsx) ── */
-.brand-morph-letter {
-  transform-origin: 50% 0%;
+/* ── Header wordmark: ShinUI ⇄ 篠崎 (see brand-morph.tsx) ──
+   Only transform + opacity animate. Fonts, weights and sizes are fixed per layer. */
+.brand-morph-letter,
+.brand-morph-kanji > span {
   transition:
-    transform 0.38s cubic-bezier(0.3, 0.7, 0.2, 1),
-    opacity 0.3s ease,
-    filter 0.3s ease;
-  transition-delay: calc(var(--i) * 28ms + 200ms);
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s ease;
 }
-.brand-morph[data-on="true"] .brand-morph-letter {
-  opacity: 0;
-  transform: translateY(-55%) rotateX(85deg);
-  filter: blur(1.5px);
-  transition-delay: calc(var(--i) * 32ms + 170ms);
+.brand-morph-letter {
+  /* leaving the hover: letters come back after the kanji have started to go */
+  transition-delay: calc((5 - var(--i)) * 22ms + 110ms);
 }
 .brand-morph-kanji {
-  font-family: "Shippori Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-family: "Shippori Mincho", serif;
   font-size: 27px;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
+.brand-morph-kanji--fallback {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+}
 .brand-morph-kanji > span {
   opacity: 0;
-  transform: translateY(45%) rotateX(-90deg) scale(0.75);
-  filter: blur(3px) drop-shadow(0 0 0 transparent);
-  transform-origin: 50% 100%;
-  transition:
-    transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.25),
-    opacity 0.25s ease,
-    filter 0.35s ease;
-  transition-delay: calc((1 - var(--i)) * 50ms);
+  transform: translateY(0.45em);
+  transition-delay: calc((1 - var(--i)) * 40ms);
 }
-.brand-morph[data-on="true"] .brand-morph-kanji > span {
+@media (hover: hover) and (pointer: fine) {
+  .brand-morph[data-ready]:hover .brand-morph-letter {
+    opacity: 0;
+    transform: translateY(-0.7em);
+    transition-delay: calc(var(--i) * 22ms);
+  }
+  .brand-morph[data-ready]:hover .brand-morph-kanji > span {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i) * 60ms + 170ms);
+  }
+}
+.brand-morph[data-ready]:focus-visible .brand-morph-letter {
+  opacity: 0;
+  transform: translateY(-0.7em);
+  transition-delay: calc(var(--i) * 22ms);
+}
+.brand-morph[data-ready]:focus-visible .brand-morph-kanji > span {
   opacity: 1;
   transform: none;
-  filter: blur(0) drop-shadow(0 0 6px color-mix(in oklch, var(--fo-accent) 45%, transparent));
-  transition-delay: calc(var(--i) * 90ms + 300ms);
+  transition-delay: calc(var(--i) * 60ms + 170ms);
 }
 .brand-morph:focus-visible {
   outline-offset: 4px;
 }
 @media (prefers-reduced-motion: reduce) {
   .brand-morph-letter,
-  .brand-morph-kanji > span,
-  .brand-morph[data-on="true"] .brand-morph-letter,
-  .brand-morph[data-on="true"] .brand-morph-kanji > span {
+  .brand-morph-kanji > span {
     transform: none !important;
-    filter: none !important;
     transition: opacity 0.2s ease !important;
     transition-delay: 0s !important;
   }

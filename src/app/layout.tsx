@@ -6,7 +6,6 @@ import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { BottomNav } from "@/components/bottom-nav";
 import { ThemeSync } from "@/components/theme-sync";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -33,14 +32,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE.author.name, url: SITE.author.github }],
   manifest: SITE_ASSETS.manifest,
-  icons: {
-    icon: [
-      { url: SITE_ASSETS.favicon16, sizes: "16x16", type: "image/png" },
-      { url: SITE_ASSETS.favicon32, sizes: "32x32", type: "image/png" },
-      { url: SITE_ASSETS.favicon },
-    ],
-    apple: SITE_ASSETS.appleTouchIcon,
-  },
   appleWebApp: {
     capable: true,
     title: SITE.name,
@@ -109,11 +100,9 @@ export default function RootLayout({
             <div className="relative z-[1] flex min-h-dvh flex-col">
               <div className="safe-area-top" />
               <SiteHeader />
-              <main className="flex-1 pb-14 md:pb-0">{children}</main>
+              <main className="flex-1">{children}</main>
               <SiteFooter />
-              <div className="safe-area-bottom" />
             </div>
-            <BottomNav />
             <Toaster />
             <Analytics />
           </TooltipProvider>

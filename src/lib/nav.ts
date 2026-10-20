@@ -7,7 +7,3 @@ export const primaryNav = [
   { href: "/categories", label: "Categories", icon: "LayoutGrid" },
 ] as const;
 
-/** The bottom bar stays at four targets — the rest live in the header menu. */
-export const mobileTabs = primaryNav.filter((item) =>
-  ["/", "/browse", "/components", "/categories"].includes(item.href)
-);

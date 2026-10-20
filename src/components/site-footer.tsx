@@ -91,12 +91,12 @@ export function SiteFooter() {
             {COLUMNS.map(({ head, links }) => (
               <div key={head}>
                 <FolioLabel>{head}</FolioLabel>
-                <ul className="mt-4 flex flex-col gap-2.5 text-[13.5px]">
+                <ul className="mt-3 flex flex-col text-[13.5px] md:mt-4 md:gap-2.5">
                   {links.map((l) => {
                     const external = l.label.endsWith("↗");
                     const label = l.label.replace("↗", "").trim();
                     const cls =
-                      "inline-flex items-center gap-1 text-(--fo-soft) transition-colors duration-200 hover:text-(--fo-ink)";
+                      "inline-flex items-center gap-1 py-1.5 text-(--fo-soft) transition-colors duration-200 hover:text-(--fo-ink) md:py-0";
                     return (
                       <li key={l.href + l.label}>
                         {external ? (

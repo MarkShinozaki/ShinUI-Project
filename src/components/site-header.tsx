@@ -27,7 +27,7 @@ function MenuButton({ open, onClick }: { open: boolean; onClick: () => void }) {
       onClick={onClick}
       aria-expanded={open}
       aria-label={open ? "Close menu" : "Open menu"}
-      className="flex cursor-pointer items-center gap-2 font-mono text-[11px] tracking-[0.12em] text-(--fo-soft) uppercase"
+      className="-mr-2 flex h-10 cursor-pointer items-center gap-2 px-2 font-mono text-[11px] tracking-[0.12em] text-(--fo-soft) uppercase"
     >
       {open ? "Close" : "Menu"}
       <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth={1.4} aria-hidden>

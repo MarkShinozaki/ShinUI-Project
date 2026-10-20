@@ -76,7 +76,7 @@ export function CodeBlock({
       </div>
 
       <div
-        className="no-scrollbar overflow-auto"
+        className="overflow-auto"
         style={{
           maxHeight:
             collapsible && !expanded ? maxHeight : (maxHeight ?? undefined),

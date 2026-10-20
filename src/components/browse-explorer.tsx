@@ -263,7 +263,7 @@ export function BrowseExplorer({
             />
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <AddResourceDialog onAdded={() => setRefreshKey((k) => k + 1)} />
 
             <Sheet>
@@ -290,7 +290,7 @@ export function BrowseExplorer({
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
               aria-label="Sort results"
-              className="border-input bg-background h-10 rounded-md border px-3 text-sm shadow-xs outline-none"
+              className="border-input bg-background h-10 min-w-0 max-w-full rounded-md border px-3 text-sm shadow-xs outline-none"
             >
               <option value="newest">Newest</option>
               <option value="featured">Featured first</option>
