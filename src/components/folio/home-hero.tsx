@@ -1,4 +1,4 @@
-import { HeroKanjiPond } from "@/components/hero-kanji-pond";
+import { SakuraStream } from "@/components/folio/sakura-stream";
 import { CommandMenu } from "@/components/command-menu";
 import {
   FolioAnnouncement,
@@ -10,7 +10,7 @@ import {
 
 /**
  * Folio hero, `split` variant (Design Studio `FolioHero`): copy left, a
- * dotted figure right. Shin UI keeps its embossed 篠崎 pond inside the figure.
+ * dotted figure right. The figure is a pixel sakura tree beside a stream.
  */
 export function HomeHero({
   resourceCount,
@@ -63,7 +63,7 @@ export function HomeHero({
       </div>
 
       <FolioFigure
-        caption={`Figure 1. ${resourceCount} resources across ${categoryCount} categories, sorted, credited and one search away. 篠崎 (Shinozaki), embossed on the pond.`}
+        caption={`Figure 1. ${resourceCount} resources across ${categoryCount} categories, sorted, credited and one search away. A sakura tree drops petals on the stream below.`}
       >
         <span className="absolute -top-2 left-3 z-10 bg-(--fo-paper) px-1 font-mono text-[9px] tracking-[0.14em] uppercase">
           Index
@@ -71,7 +71,7 @@ export function HomeHero({
         <span className="absolute top-3 right-3 z-10 font-mono text-[9px] tracking-[0.14em] text-(--fo-accent) uppercase">
           {String(resourceCount).padStart(3, "0")}
         </span>
-        <HeroKanjiPond className="relative aspect-[400/275] w-full" />
+        <SakuraStream />
       </FolioFigure>
     </FolioWrap>
   );

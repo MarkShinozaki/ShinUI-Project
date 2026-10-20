@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GitHubIcon } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FolioCommand } from "@/components/folio/command";
-import { DitherField } from "@/components/folio/dither-field";
+import { GreatWave } from "@/components/folio/great-wave";
 import { ArrowUpRight, FolioButton, FolioLabel, FolioMark } from "@/components/folio/kit";
 import { categories } from "@/data/categories";
 import { resources } from "@/data/resources";
@@ -40,7 +40,7 @@ function Status({ label }: { label: string }) {
 
 /**
  * Folio footer, `cta` variant (Design Studio `FolioFooter`): closing call to
- * action, brand + link columns, a status line and a dithered sakura horizon.
+ * action, brand + link columns, a status line and a pixel Great Wave strip.
  */
 export function SiteFooter() {
   return (
@@ -133,8 +133,8 @@ export function SiteFooter() {
           </div>
         </div>
       </footer>
-      <div className="h-24 w-full overflow-hidden sm:h-32">
-        <DitherField shape="wave" cell={4} />
+      <div className="h-44 w-full overflow-hidden sm:h-64">
+        <GreatWave cell={3} />
       </div>
     </div>
   );

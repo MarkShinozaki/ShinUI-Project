@@ -7,24 +7,17 @@ import { usePathname } from "next/navigation";
 import { GitHubIcon } from "@/components/icons";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { FolioButton, FolioLabel, FolioMark } from "@/components/folio/kit";
+import { BrandMorph } from "@/components/brand-morph";
+import { FolioButton, FolioLabel } from "@/components/folio/kit";
 
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-/** Folio brand: folded-page mark + wordmark. */
+/** Wordmark only: "ShinUI", morphing into 篠崎 on hover / focus. */
 function Brand() {
-  return (
-    <Link
-      href="/"
-      className="flex shrink-0 items-center gap-2 text-[17px] font-semibold tracking-[-0.02em]"
-    >
-      <FolioMark />
-      ShinUI
-    </Link>
-  );
+  return <BrandMorph />;
 }
 
 function MenuButton({ open, onClick }: { open: boolean; onClick: () => void }) {

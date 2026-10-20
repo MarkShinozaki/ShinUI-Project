@@ -461,3 +461,56 @@ a.folio-block:hover,
     padding-right: max(0px, env(safe-area-inset-right));
   }
 }
+
+/* ── Header wordmark: ShinUI ⇄ 篠崎 (see brand-morph.tsx) ── */
+.brand-morph-letter {
+  transform-origin: 50% 0%;
+  transition:
+    transform 0.38s cubic-bezier(0.3, 0.7, 0.2, 1),
+    opacity 0.3s ease,
+    filter 0.3s ease;
+  transition-delay: calc(var(--i) * 28ms + 200ms);
+}
+.brand-morph[data-on="true"] .brand-morph-letter {
+  opacity: 0;
+  transform: translateY(-55%) rotateX(85deg);
+  filter: blur(1.5px);
+  transition-delay: calc(var(--i) * 32ms + 170ms);
+}
+.brand-morph-kanji {
+  font-family: "Shippori Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.brand-morph-kanji > span {
+  opacity: 0;
+  transform: translateY(45%) rotateX(-90deg) scale(0.75);
+  filter: blur(3px) drop-shadow(0 0 0 transparent);
+  transform-origin: 50% 100%;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.25),
+    opacity 0.25s ease,
+    filter 0.35s ease;
+  transition-delay: calc((1 - var(--i)) * 50ms);
+}
+.brand-morph[data-on="true"] .brand-morph-kanji > span {
+  opacity: 1;
+  transform: none;
+  filter: blur(0) drop-shadow(0 0 6px color-mix(in oklch, var(--fo-accent) 45%, transparent));
+  transition-delay: calc(var(--i) * 90ms + 300ms);
+}
+.brand-morph:focus-visible {
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-morph-letter,
+  .brand-morph-kanji > span,
+  .brand-morph[data-on="true"] .brand-morph-letter,
+  .brand-morph[data-on="true"] .brand-morph-kanji > span {
+    transform: none !important;
+    filter: none !important;
+    transition: opacity 0.2s ease !important;
+    transition-delay: 0s !important;
+  }
+}
