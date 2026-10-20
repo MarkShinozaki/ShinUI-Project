@@ -41,7 +41,7 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border bg-sakura-blush/25 dark:bg-muted/40",
+        "relative overflow-hidden border border-(--fo-line) bg-(--fo-well)",
         className
       )}
     >

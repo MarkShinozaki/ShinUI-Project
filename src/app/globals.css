@@ -4,7 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --radius: 0.75rem;
+  /* Folio: square corners everywhere (Design Studio folio kit). */
+  --radius: 0rem;
 
   /* Sakura palette — light (warm cream + deep plum contrast) */
   --sakura-cream: oklch(0.985 0.012 55);
@@ -15,27 +16,44 @@
   --sakura-plum: oklch(0.32 0.06 320);
   --sakura-night: oklch(0.17 0.045 320);
 
-  --background: var(--sakura-cream);
-  --foreground: var(--sakura-plum);
-  --card: oklch(0.995 0.008 40);
-  --card-foreground: var(--sakura-plum);
+  /* Folio palette (Design Studio folio-kit), recolored with sakura.
+     Ink is stepped down with opacity instead of grays; one rose accent. */
+  --fo-paper: oklch(0.99 0.008 40);
+  --fo-ink: oklch(0.24 0.055 320);
+  --fo-accent: oklch(0.6 0.18 6);
+  --fo-accent-press: oklch(0.53 0.17 6);
+  --fo-accent-2: oklch(0.7 0.15 350);
+  --fo-on-accent: oklch(0.99 0.005 55);
+  --fo-soft: oklch(0.24 0.055 320 / 0.68);
+  --fo-faint: oklch(0.24 0.055 320 / 0.46);
+  --fo-line: oklch(0.45 0.08 350 / 0.14);
+  --fo-line-strong: oklch(0.45 0.08 350 / 0.26);
+  --fo-tint: oklch(0.6 0.18 6 / 0.07);
+  --fo-tint-strong: oklch(0.6 0.18 6 / 0.14);
+  --fo-well: oklch(0.965 0.022 15);
+  --fo-ok: oklch(0.66 0.14 160);
+
+  --background: var(--fo-paper);
+  --foreground: var(--fo-ink);
+  --card: var(--fo-paper);
+  --card-foreground: var(--fo-ink);
   --popover: oklch(0.995 0.008 40);
   --popover-foreground: var(--sakura-plum);
   --primary: var(--sakura-plum);
   --primary-foreground: var(--sakura-cream);
   --secondary: var(--sakura-blush);
   --secondary-foreground: var(--sakura-plum);
-  --muted: oklch(0.955 0.022 18);
-  --muted-foreground: oklch(0.48 0.04 320);
-  --accent: oklch(0.94 0.035 12);
+  --muted: var(--fo-well);
+  --muted-foreground: var(--fo-soft);
+  --accent: var(--fo-tint-strong);
   --accent-foreground: var(--sakura-plum);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.9 0.025 15);
-  --input: oklch(0.9 0.025 15);
+  --border: var(--fo-line);
+  --input: var(--fo-line-strong);
   --ring: oklch(0.62 0.14 8);
 
-  --brand: var(--sakura-rose);
+  --brand: var(--fo-accent);
   --brand-foreground: oklch(0.99 0.005 55);
 
   --chart-1: oklch(0.65 0.17 8);
@@ -74,9 +92,23 @@
 }
 
 .dark {
-  --background: var(--sakura-night);
-  --foreground: oklch(0.96 0.012 55);
-  --card: oklch(0.21 0.048 320);
+  --fo-paper: oklch(0.16 0.04 322);
+  --fo-ink: oklch(0.95 0.015 40);
+  --fo-accent: oklch(0.76 0.14 352);
+  --fo-accent-press: oklch(0.7 0.15 355);
+  --fo-accent-2: oklch(0.72 0.14 10);
+  --fo-on-accent: oklch(0.17 0.045 320);
+  --fo-soft: oklch(0.95 0.015 40 / 0.7);
+  --fo-faint: oklch(0.95 0.015 40 / 0.46);
+  --fo-line: oklch(0.9 0.04 350 / 0.13);
+  --fo-line-strong: oklch(0.9 0.04 350 / 0.25);
+  --fo-tint: oklch(0.76 0.14 352 / 0.1);
+  --fo-tint-strong: oklch(0.76 0.14 352 / 0.2);
+  --fo-well: oklch(0.2 0.045 322);
+  --fo-ok: oklch(0.78 0.14 160);
+  --background: var(--fo-paper);
+  --foreground: var(--fo-ink);
+  --card: var(--fo-paper);
   --card-foreground: oklch(0.96 0.012 55);
   --popover: oklch(0.21 0.048 320);
   --popover-foreground: oklch(0.96 0.012 55);
@@ -84,17 +116,17 @@
   --primary-foreground: var(--sakura-night);
   --secondary: oklch(0.26 0.045 320);
   --secondary-foreground: oklch(0.96 0.012 55);
-  --muted: oklch(0.26 0.042 320);
-  --muted-foreground: oklch(0.72 0.04 350);
-  --accent: oklch(0.28 0.05 315);
+  --muted: var(--fo-well);
+  --muted-foreground: var(--fo-soft);
+  --accent: var(--fo-tint-strong);
   --accent-foreground: oklch(0.96 0.012 55);
   --destructive: oklch(0.65 0.2 22);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.96 0.02 55 / 12%);
-  --input: oklch(0.96 0.02 55 / 16%);
+  --border: var(--fo-line);
+  --input: var(--fo-line-strong);
   --ring: oklch(0.72 0.12 350);
 
-  --brand: oklch(0.74 0.14 350);
+  --brand: var(--fo-accent);
   --brand-foreground: var(--sakura-night);
 
   --chart-1: oklch(0.72 0.14 350);
@@ -155,6 +187,14 @@
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
 
+  --color-fo-paper: var(--fo-paper);
+  --color-fo-ink: var(--fo-ink);
+  --color-fo-accent: var(--fo-accent);
+  --color-fo-soft: var(--fo-soft);
+  --color-fo-faint: var(--fo-faint);
+  --color-fo-line: var(--fo-line);
+  --color-fo-well: var(--fo-well);
+
   --color-sakura-cream: var(--sakura-cream);
   --color-sakura-blush: var(--sakura-blush);
   --color-sakura-petal: var(--sakura-petal);
@@ -169,10 +209,14 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  /* Folio is square: every radius step resolves to --radius (0). */
+  --radius-xs: var(--radius);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
@@ -231,12 +275,9 @@
     transition: background-color 0.3s ease;
   }
 
-  html.dark {
-    background-color: var(--sakura-night);
-  }
-
+  html.dark,
   html.light {
-    background-color: var(--sakura-cream);
+    background-color: var(--fo-paper);
   }
 
   .safe-area-top {
@@ -326,38 +367,59 @@
 }
 
 .folio-block {
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--border) 80%, transparent),
-    0 1px 2px oklch(0.2 0.04 320 / 4%);
+  border: 1px solid var(--fo-line);
+  background-color: var(--fo-paper);
+  transition: border-color 0.2s ease;
 }
 
-.dark .folio-block {
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--border) 100%, transparent),
-    0 0 24px oklch(0.45 0.1 350 / 8%);
+a.folio-block:hover,
+.folio-block.group:hover {
+  border-color: var(--fo-line-strong);
 }
 
+/* Kept for older markup: folio uses hairlines, not glowing borders. */
 .gradient-border {
   position: relative;
 }
 
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--gradient-sakura);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0.65;
+/* Folio keyframes (from Design Studio folio-kit). */
+@keyframes fo-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes fo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fo-dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fo-anim {
+    animation: none !important;
+  }
+}
+
+@utility fo-hatch {
+  background-image: repeating-linear-gradient(-45deg, var(--fo-line) 0 1px, transparent 1px 7px);
+}
+
+@utility fo-dots {
+  background-image: radial-gradient(var(--fo-line-strong) 1px, transparent 1px);
+  background-size: 14px 14px;
 }
 
 .sakura-petal {

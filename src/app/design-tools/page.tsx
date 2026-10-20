@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { PenTool, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
+import { FolioBrackets, FolioLabel, FolioSectionHead } from "@/components/folio/kit";
 import { FolioContainer, FolioSection } from "@/components/folio-section";
 import { PageHeader } from "@/components/page-header";
 import { ResourceCard } from "@/components/resource-card";
 import { ShinToolCard } from "@/components/shin-tool-card";
-import { BentoCard, BentoGrid } from "@/registry/components/bento-grid";
 import { designToolResources } from "@/lib/collections";
 
 export const metadata: Metadata = {
@@ -18,55 +18,51 @@ export default function DesignToolsPage() {
   const items = designToolResources();
 
   return (
-    <FolioSection grid className="min-h-[50vh] pb-12 pt-8 sm:pt-12">
+    <FolioSection className="min-h-[50vh]">
       <FolioContainer>
         <PageHeader
-          eyebrow={
-            <p className="text-muted-foreground mb-2 text-xs font-medium tracking-[0.18em] uppercase">
-              Design tools
-            </p>
-          }
+          eyebrow="Design tools"
           title="Design Tools"
           description="Spline, Three.js, Rive, Remotion, shader playgrounds and the other tools for designing motion and 3D on the web."
         />
 
-        <div className="folio-block gradient-border mt-10 p-6 sm:p-8">
-          <h2 className="text-sm font-semibold tracking-tight">
-            Tools on Shin UI
-          </h2>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Interactive utilities that run entirely in your browser.
-          </p>
-
-          <BentoGrid className="mt-6 lg:auto-rows-[9rem]">
-            <div className="lg:col-span-2">
-              <ShinToolCard
-                href="/design-tools/favicon-studio"
-                title="Favicon Studio"
-                description="Generate favicon.ico, PNG sizes, SVG, web manifest, and HTML from an image, text, or emoji."
-                icon={<Sparkles className="size-5" />}
-                className="folio-block h-full gradient-border"
-              />
-            </div>
-            <BentoCard
-              title="More tools soon"
-              description="Built-in utilities will land here as folio tiles — same grid, same export quality."
-              icon={<PenTool className="size-4" />}
+        <section className="pt-12">
+          <FolioSectionHead
+            className="border-t-0 pt-0"
+            eyebrow="Tools on Shin UI"
+            title="Utilities that run entirely in your browser."
+          />
+          <div className="mt-8 grid gap-3 md:grid-cols-[1.6fr_1fr]">
+            <ShinToolCard
+              href="/design-tools/favicon-studio"
+              title="Favicon Studio"
+              description="Generate favicon.ico, PNG sizes, SVG, web manifest, and HTML from an image, text, or emoji."
+              icon={<Sparkles />}
             />
-          </BentoGrid>
-        </div>
+            <div className="relative flex flex-col justify-between border border-dashed border-(--fo-line-strong) p-5">
+              <FolioBrackets />
+              <FolioLabel>002 · Coming soon</FolioLabel>
+              <p className="mt-6 text-[14.5px] leading-relaxed text-(--fo-soft)">
+                More built-in utilities will land here, on the same grid with the same export quality.
+              </p>
+            </div>
+          </div>
+        </section>
 
-        <h2 className="mt-14 text-sm font-semibold tracking-tight">
-          Curated resources
-        </h2>
-        <p className="text-muted-foreground mt-1 text-sm">
-          External tools indexed on Shin UI — open any card for credits and links.
-        </p>
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((resource) => (
-            <ResourceCard key={resource.slug} resource={resource} />
-          ))}
-        </div>
+        <section className="mt-16">
+          <FolioSectionHead
+            eyebrow={`Curated · ${items.length}`}
+            title="External tools indexed on Shin UI."
+            lede="Open any card for credits and links."
+          />
+          <ol className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((resource, i) => (
+              <li key={resource.slug} className="flex">
+                <ResourceCard resource={resource} index={i} className="w-full" />
+              </li>
+            ))}
+          </ol>
+        </section>
       </FolioContainer>
     </FolioSection>
   );

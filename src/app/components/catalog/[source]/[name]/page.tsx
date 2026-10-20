@@ -43,7 +43,7 @@ export default async function CatalogComponentPage({ params }: Props) {
   const resource = getResource(item.resourceSlug);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
+    <div className="mx-auto max-w-[44rem] px-6 pb-12">
       <PageHeader
         breadcrumbs={[
           { href: "/components", label: "Components" },

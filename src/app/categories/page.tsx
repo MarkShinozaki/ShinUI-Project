@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { CategoryIcon } from "@/components/category-icon";
+import { ArrowUpRight } from "@/components/folio/kit";
 import { FolioContainer, FolioSection } from "@/components/folio-section";
 import { PageHeader } from "@/components/page-header";
 import { categories } from "@/data/categories";
@@ -17,66 +17,47 @@ export const metadata: Metadata = {
 
 export default function CategoriesPage() {
   return (
-    <FolioSection grid className="min-h-[50vh] pb-12 pt-8 sm:pt-12">
+    <FolioSection className="min-h-[50vh]">
       <FolioContainer>
         <PageHeader
-          eyebrow={
-            <p className="text-muted-foreground mb-2 text-xs font-medium tracking-[0.18em] uppercase">
-              Resource listings
-            </p>
-          }
+          eyebrow="Resource listings"
           title="Categories"
-          description="Seventeen buckets covering the whole surface of front-end design work — pick the shape of the problem you have."
+          description={`${categories.length} buckets covering the whole surface of front-end design work. Pick the shape of the problem you have.`}
         />
 
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {categories.map((category) => {
-            const count = resources.filter(
-              (r) => r.category === category.slug
-            ).length;
-            const liveCount = registry.filter(
-              (r) => r.category === category.slug
-            ).length;
+        <ol className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((category, i) => {
+            const count = resources.filter((r) => r.category === category.slug).length;
+            const liveCount = registry.filter((r) => r.category === category.slug).length;
 
             return (
-              <Link
-                key={category.slug}
-                href={`/categories/${category.slug}`}
-                className="folio-block group relative flex flex-col overflow-hidden rounded-xl p-5 transition-all hover:shadow-md"
-              >
-                <div
-                  aria-hidden
-                  className={`absolute inset-0 bg-gradient-to-br ${category.accent} opacity-0 transition-opacity group-hover:opacity-100`}
-                />
-                <div className="relative flex flex-1 flex-col">
-                  <span className="grid size-10 place-items-center rounded-lg border bg-background">
-                    <CategoryIcon
-                      name={category.icon}
-                      className="text-muted-foreground group-hover:text-foreground size-4.5 transition-colors"
-                    />
-                  </span>
-
-                  <h2 className="mt-4 font-semibold tracking-tight">
-                    {category.name}
-                  </h2>
-                  <p className="text-muted-foreground mt-1.5 flex-1 text-sm">
+              <li key={category.slug} className="flex">
+                <Link
+                  href={`/categories/${category.slug}`}
+                  className="group flex w-full flex-col border border-(--fo-line) bg-(--fo-paper) p-4 transition-colors duration-200 hover:border-(--fo-accent)"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="grid size-9 place-items-center border border-(--fo-line) bg-(--fo-well) text-(--fo-soft) transition-colors group-hover:text-(--fo-accent)">
+                      <CategoryIcon name={category.icon} className="size-4" />
+                    </span>
+                    <span className="font-mono text-[10px] text-(--fo-faint) group-hover:text-(--fo-accent)">
+                      {String(i + 1).padStart(3, "0")}
+                    </span>
+                  </div>
+                  <h2 className="mt-4 text-[15.5px] font-medium tracking-[-0.01em]">{category.name}</h2>
+                  <p className="mt-1.5 flex-1 text-[13.5px] leading-relaxed text-(--fo-soft)">
                     {category.description}
                   </p>
-
-                  <div className="text-muted-foreground mt-4 flex items-center gap-3 text-xs">
+                  <div className="mt-4 flex items-center gap-4 border-t border-dashed border-(--fo-line-strong) pt-3 font-mono text-[10.5px] tracking-[0.1em] text-(--fo-faint) uppercase">
                     <span className="tabular-nums">{count} resources</span>
-                    {liveCount > 0 && (
-                      <span className="text-brand tabular-nums">
-                        {liveCount} live
-                      </span>
-                    )}
-                    <ArrowRight className="ml-auto size-4 transition-transform group-hover:translate-x-0.5" />
+                    {liveCount > 0 && <span className="text-(--fo-accent) tabular-nums">{liveCount} live</span>}
+                    <ArrowUpRight className="ml-auto transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-(--fo-accent)" />
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </FolioContainer>
     </FolioSection>
   );

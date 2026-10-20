@@ -18,7 +18,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bg-background/85 fixed inset-x-0 bottom-0 z-40 border-t border-border/80 backdrop-blur-xl md:hidden pb-safe"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-(--fo-line) bg-(--fo-paper)/90 backdrop-blur md:hidden pb-safe"
       aria-label="Primary"
     >
       <ul className="grid grid-cols-4">
@@ -31,14 +31,14 @@ export function BottomNav() {
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex h-14 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors",
-                  active ? "text-foreground" : "text-muted-foreground"
+                  "relative flex h-14 flex-col items-center justify-center gap-1 font-mono text-[9.5px] tracking-[0.1em] uppercase transition-colors",
+                  active ? "text-(--fo-ink)" : "text-(--fo-faint)"
                 )}
               >
                 <span className="relative">
                   <Icon className="size-5" />
                   {active && (
-                    <span className="absolute -top-1.5 left-1/2 h-1 w-4 -translate-x-1/2 rounded-full bg-gradient-to-r from-sakura-rose to-sakura-bloom" />
+                    <span className="absolute -top-[9px] left-1/2 size-1.5 -translate-x-1/2 bg-(--fo-accent)" />
                   )}
                 </span>
                 {label}
