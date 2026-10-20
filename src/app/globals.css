@@ -6,65 +6,130 @@
 :root {
   --radius: 0.75rem;
 
-  --background: oklch(0.995 0 0);
-  --foreground: oklch(0.16 0.006 285.9);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.006 285.9);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.006 285.9);
-  --primary: oklch(0.21 0.006 285.9);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.4);
-  --secondary-foreground: oklch(0.21 0.006 285.9);
-  --muted: oklch(0.967 0.001 286.4);
-  --muted-foreground: oklch(0.552 0.016 285.9);
-  --accent: oklch(0.967 0.001 286.4);
-  --accent-foreground: oklch(0.21 0.006 285.9);
-  --destructive: oklch(0.577 0.245 27.3);
+  /* Sakura palette — light (warm cream + deep plum contrast) */
+  --sakura-cream: oklch(0.985 0.012 55);
+  --sakura-blush: oklch(0.96 0.028 15);
+  --sakura-petal: oklch(0.88 0.06 12);
+  --sakura-rose: oklch(0.62 0.17 8);
+  --sakura-bloom: oklch(0.72 0.14 350);
+  --sakura-plum: oklch(0.32 0.06 320);
+  --sakura-night: oklch(0.17 0.045 320);
+
+  --background: var(--sakura-cream);
+  --foreground: var(--sakura-plum);
+  --card: oklch(0.995 0.008 40);
+  --card-foreground: var(--sakura-plum);
+  --popover: oklch(0.995 0.008 40);
+  --popover-foreground: var(--sakura-plum);
+  --primary: var(--sakura-plum);
+  --primary-foreground: var(--sakura-cream);
+  --secondary: var(--sakura-blush);
+  --secondary-foreground: var(--sakura-plum);
+  --muted: oklch(0.955 0.022 18);
+  --muted-foreground: oklch(0.48 0.04 320);
+  --accent: oklch(0.94 0.035 12);
+  --accent-foreground: var(--sakura-plum);
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.3);
-  --input: oklch(0.92 0.004 286.3);
-  --ring: oklch(0.705 0.015 286.1);
+  --border: oklch(0.9 0.025 15);
+  --input: oklch(0.9 0.025 15);
+  --ring: oklch(0.62 0.14 8);
 
-  --brand: oklch(0.62 0.19 265);
-  --brand-foreground: oklch(0.985 0 0);
+  --brand: var(--sakura-rose);
+  --brand-foreground: oklch(0.99 0.005 55);
 
-  --chart-1: oklch(0.646 0.222 41.1);
-  --chart-2: oklch(0.6 0.118 184.7);
-  --chart-3: oklch(0.398 0.07 227.4);
-  --chart-4: oklch(0.828 0.189 84.4);
-  --chart-5: oklch(0.769 0.188 70.1);
+  --chart-1: oklch(0.65 0.17 8);
+  --chart-2: oklch(0.72 0.12 350);
+  --chart-3: oklch(0.55 0.08 320);
+  --chart-4: oklch(0.82 0.1 55);
+  --chart-5: oklch(0.68 0.15 25);
+
+  --gradient-sakura: linear-gradient(
+    135deg,
+    oklch(0.88 0.06 12) 0%,
+    oklch(0.78 0.12 350) 45%,
+    oklch(0.72 0.14 8) 100%
+  );
+  --gradient-sakura-soft: linear-gradient(
+    180deg,
+    oklch(0.96 0.03 15 / 0.9) 0%,
+    var(--background) 55%
+  );
+  --gradient-heading: linear-gradient(
+    120deg,
+    var(--sakura-rose) 0%,
+    oklch(0.58 0.12 350) 50%,
+    var(--sakura-plum) 100%
+  );
+  --mesh-glow: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      oklch(0.78 0.1 12 / 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 0%,
+      oklch(0.75 0.12 350 / 0.2),
+      transparent 65%
+    );
 }
 
 .dark {
-  --background: oklch(0.145 0.004 285.8);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.185 0.005 285.8);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.185 0.005 285.8);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.21 0.006 285.9);
-  --secondary: oklch(0.245 0.006 286.0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.245 0.006 286.0);
-  --muted-foreground: oklch(0.705 0.015 286.1);
-  --accent: oklch(0.269 0.006 286.0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.2);
+  --background: var(--sakura-night);
+  --foreground: oklch(0.96 0.012 55);
+  --card: oklch(0.21 0.048 320);
+  --card-foreground: oklch(0.96 0.012 55);
+  --popover: oklch(0.21 0.048 320);
+  --popover-foreground: oklch(0.96 0.012 55);
+  --primary: oklch(0.96 0.012 55);
+  --primary-foreground: var(--sakura-night);
+  --secondary: oklch(0.26 0.045 320);
+  --secondary-foreground: oklch(0.96 0.012 55);
+  --muted: oklch(0.26 0.042 320);
+  --muted-foreground: oklch(0.72 0.04 350);
+  --accent: oklch(0.28 0.05 315);
+  --accent-foreground: oklch(0.96 0.012 55);
+  --destructive: oklch(0.65 0.2 22);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.552 0.016 285.9);
+  --border: oklch(0.96 0.02 55 / 12%);
+  --input: oklch(0.96 0.02 55 / 16%);
+  --ring: oklch(0.72 0.12 350);
 
-  --brand: oklch(0.7 0.17 265);
-  --brand-foreground: oklch(0.145 0.004 285.8);
+  --brand: oklch(0.74 0.14 350);
+  --brand-foreground: var(--sakura-night);
 
-  --chart-1: oklch(0.488 0.243 264.4);
-  --chart-2: oklch(0.696 0.17 162.5);
-  --chart-3: oklch(0.769 0.188 70.1);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.4);
+  --chart-1: oklch(0.72 0.14 350);
+  --chart-2: oklch(0.68 0.12 8);
+  --chart-3: oklch(0.55 0.08 320);
+  --chart-4: oklch(0.75 0.1 55);
+  --chart-5: oklch(0.62 0.16 25);
+
+  --gradient-sakura: linear-gradient(
+    135deg,
+    oklch(0.35 0.08 320) 0%,
+    oklch(0.42 0.12 350) 50%,
+    oklch(0.38 0.1 8) 100%
+  );
+  --gradient-sakura-soft: linear-gradient(
+    180deg,
+    oklch(0.22 0.05 320 / 0.95) 0%,
+    var(--background) 60%
+  );
+  --gradient-heading: linear-gradient(
+    120deg,
+    oklch(0.82 0.1 350) 0%,
+    oklch(0.78 0.12 8) 45%,
+    oklch(0.92 0.04 55) 100%
+  );
+  --mesh-glow: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      oklch(0.45 0.12 350 / 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 0% 30%,
+      oklch(0.38 0.1 8 / 0.25),
+      transparent 65%
+    );
 }
 
 @theme inline {
@@ -89,6 +154,14 @@
   --color-ring: var(--ring);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
+
+  --color-sakura-cream: var(--sakura-cream);
+  --color-sakura-blush: var(--sakura-blush);
+  --color-sakura-petal: var(--sakura-petal);
+  --color-sakura-rose: var(--sakura-rose);
+  --color-sakura-bloom: var(--sakura-bloom);
+  --color-sakura-plum: var(--sakura-plum);
+  --color-sakura-night: var(--sakura-night);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -115,7 +188,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Disable smooth scrolling on mobile for better performance */
   @media (max-width: 768px) {
     html {
       scroll-behavior: auto;
@@ -124,9 +196,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* Reserve room for the mobile bottom navigation bar. */
     padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
-    /* iOS safe area top padding */
     padding-top: env(safe-area-inset-top);
   }
 
@@ -137,12 +207,10 @@
     }
   }
 
-  /* Performance optimizations for better paint */
   img {
     content-visibility: auto;
   }
 
-  /* iOS safe area theme color fix */
   @supports (padding: max(0px)) {
     body {
       padding-left: max(0px, env(safe-area-inset-left));
@@ -150,7 +218,6 @@
     }
   }
 
-  /* Ensure safe areas match theme */
   .dark {
     color-scheme: dark;
   }
@@ -159,21 +226,19 @@
     color-scheme: light;
   }
 
-  /* iOS safe area background color fix */
   html {
     background-color: var(--background);
     transition: background-color 0.3s ease;
   }
 
   html.dark {
-    background-color: #09090b;
+    background-color: var(--sakura-night);
   }
 
   html.light {
-    background-color: #ffffff;
+    background-color: var(--sakura-cream);
   }
 
-  /* Fixed edge strips for iOS safe area theming */
   .safe-area-top {
     position: fixed;
     left: 0;
@@ -196,7 +261,6 @@
     pointer-events: none;
   }
 
-  /* Hide safe area strips on desktop */
   @media (min-width: 768px) {
     .safe-area-top,
     .safe-area-bottom {
@@ -208,7 +272,10 @@
     background-color: var(--background);
   }
 
-
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 }
 
 @utility grid-pattern {
@@ -216,6 +283,13 @@
     linear-gradient(to right, var(--border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--border) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+@utility folio-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--border) 85%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--border) 85%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 @utility checker-pattern {
@@ -236,8 +310,79 @@
   }
 }
 
+@utility text-gradient-sakura {
+  background: var(--gradient-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-mesh-sakura {
+  background-image: var(--mesh-glow);
+}
+
 ::selection {
-  background: color-mix(in oklch, var(--brand) 30%, transparent);
+  background: color-mix(in oklch, var(--brand) 35%, transparent);
+}
+
+.folio-block {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--border) 80%, transparent),
+    0 1px 2px oklch(0.2 0.04 320 / 4%);
+}
+
+.dark .folio-block {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--border) 100%, transparent),
+    0 0 24px oklch(0.45 0.1 350 / 8%);
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-sakura);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.sakura-petal {
+  border-radius: 50% 0 50% 50%;
+  background: linear-gradient(
+    145deg,
+    color-mix(in oklch, var(--sakura-petal) 90%, white),
+    color-mix(in oklch, var(--sakura-bloom) 70%, transparent)
+  );
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sakura-petal {
+    animation: sakura-fall linear infinite;
+  }
+}
+
+@keyframes sakura-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(45deg);
+  }
+  100% {
+    transform: translate3d(12px, 110vh, 0) rotate(405deg);
+  }
 }
 
 .favicon-pixelated {
@@ -265,7 +410,6 @@
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
 }
 
-/* iOS safe area utilities */
 @supports (padding: max(0px)) {
   .pt-safe {
     padding-top: max(0px, env(safe-area-inset-top));

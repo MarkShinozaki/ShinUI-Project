@@ -23,7 +23,7 @@ export function ShinToolCard({
   return (
     <article
       className={cn(
-        "group bg-card relative flex flex-col rounded-xl border p-5 transition-all hover:shadow-md",
+        "folio-block group relative flex flex-col rounded-xl border bg-card/95 p-5 transition-all hover:border-brand/25 hover:shadow-md",
         className
       )}
     >

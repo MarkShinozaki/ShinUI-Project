@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 
 export function BentoGrid({
@@ -25,6 +27,7 @@ export function BentoCard({
   icon,
   span = 1,
   tall = false,
+  href,
   className,
 }: {
   title: string;
@@ -32,21 +35,27 @@ export function BentoCard({
   icon?: React.ReactNode;
   span?: 1 | 2 | 3;
   tall?: boolean;
+  href?: string;
   className?: string;
 }) {
-  return (
+  const spanClass = cn(
+    span === 2 && "lg:col-span-2",
+    span === 3 && "lg:col-span-3",
+    tall && "lg:row-span-2"
+  );
+
+  const inner = (
     <div
       className={cn(
-        "group relative flex flex-col justify-between overflow-hidden rounded-xl border bg-card p-5 transition-all hover:shadow-md",
-        span === 2 && "lg:col-span-2",
-        span === 3 && "lg:col-span-3",
-        tall && "lg:row-span-2",
+        "folio-block group relative flex h-full flex-col justify-between overflow-hidden rounded-xl border bg-card/90 p-5 transition-all hover:shadow-md",
+        !href && spanClass,
+        href && "hover:border-brand/30",
         className
       )}
     >
       <div
         aria-hidden
-        className="absolute -top-16 -right-16 size-40 rounded-full bg-brand/10 blur-2xl transition-transform duration-500 group-hover:scale-150"
+        className="absolute -top-16 -right-16 size-40 rounded-full bg-brand/12 blur-2xl transition-transform duration-500 group-hover:scale-150"
       />
       {icon && (
         <div className="relative mb-3 flex size-9 items-center justify-center rounded-lg border bg-background text-muted-foreground [&_svg]:size-4">
@@ -59,4 +68,14 @@ export function BentoCard({
       </div>
     </div>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={spanClass}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return inner;
 }

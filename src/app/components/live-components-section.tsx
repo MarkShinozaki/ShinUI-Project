@@ -8,7 +8,7 @@ function LiveComponentsSection() {
   const showcase = registry.slice(0, 4);
 
   return (
-    <section className="border-y bg-muted/30">
+    <section className="border-y bg-sakura-blush/35 dark:bg-sakura-night/50">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <SectionHeading
           title="Live components"
@@ -22,7 +22,7 @@ function LiveComponentsSection() {
             <Link
               key={item.slug}
               href={`/components/${item.slug}`}
-              className="group bg-background overflow-hidden rounded-xl border transition-shadow hover:shadow-md"
+              className="folio-block group overflow-hidden rounded-xl border bg-background/90 transition-shadow hover:border-brand/20 hover:shadow-md"
             >
               <div className="flex min-h-44 items-center justify-center overflow-hidden p-6">
                 <div className="pointer-events-none w-full">

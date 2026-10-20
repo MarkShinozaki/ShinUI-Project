@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { SakuraPetals } from "@/components/sakura-petals";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BottomNav } from "@/components/bottom-nav";
@@ -71,8 +72,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#faf6f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1220" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -106,7 +107,8 @@ export default function RootLayout({
         >
           <ThemeSync />
           <TooltipProvider>
-            <div className="flex min-h-dvh flex-col">
+            <SakuraPetals />
+            <div className="relative z-[1] flex min-h-dvh flex-col">
               <div className="safe-area-top" />
               <SiteHeader />
               <main className="flex-1 pb-14 md:pb-0">{children}</main>

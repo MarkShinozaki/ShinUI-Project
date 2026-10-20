@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { BrowseExplorer } from "@/components/browse-explorer";
+import { FolioContainer, FolioSection } from "@/components/folio-section";
 import { PageHeader } from "@/components/page-header";
 import { resources } from "@/data/resources";
 
@@ -12,14 +13,21 @@ export const metadata: Metadata = {
 
 export default function BrowsePage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
-      <PageHeader
-        title="Browse everything"
-        description={`${resources.length} curated resources across ${new Set(resources.map((r) => r.category)).size} categories. Save sites you use often, add your own URLs, and filter by stack or pricing.`}
-      />
-      <div className="mt-8">
-        <BrowseExplorer resources={resources} />
-      </div>
-    </div>
+    <FolioSection grid className="min-h-[50vh] pb-12 pt-8 sm:pt-12">
+      <FolioContainer>
+        <PageHeader
+          eyebrow={
+            <p className="text-muted-foreground mb-2 text-xs font-medium tracking-[0.18em] uppercase">
+              Full index
+            </p>
+          }
+          title="Browse everything"
+          description={`${resources.length} curated resources across ${new Set(resources.map((r) => r.category)).size} categories. Save sites you use often, add your own URLs, and filter by stack or pricing.`}
+        />
+        <div className="folio-block mt-8 p-4 sm:p-6">
+          <BrowseExplorer resources={resources} />
+        </div>
+      </FolioContainer>
+    </FolioSection>
   );
 }

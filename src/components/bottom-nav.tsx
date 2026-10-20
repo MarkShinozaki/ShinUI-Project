@@ -18,7 +18,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bg-background/85 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden pb-safe"
+      className="bg-background/85 fixed inset-x-0 bottom-0 z-40 border-t border-border/80 backdrop-blur-xl md:hidden pb-safe"
       aria-label="Primary"
     >
       <ul className="grid grid-cols-4">
@@ -38,7 +38,7 @@ export function BottomNav() {
                 <span className="relative">
                   <Icon className="size-5" />
                   {active && (
-                    <span className="bg-brand absolute -top-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full" />
+                    <span className="absolute -top-1.5 left-1/2 h-1 w-4 -translate-x-1/2 rounded-full bg-gradient-to-r from-sakura-rose to-sakura-bloom" />
                   )}
                 </span>
                 {label}

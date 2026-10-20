@@ -19,7 +19,7 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("", className)}>
+    <div className={cn("relative", className)}>
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav aria-label="Breadcrumb" className="mb-4">
           <ol className="text-muted-foreground flex flex-wrap items-center gap-1 text-sm">
@@ -41,8 +41,8 @@ export function PageHeader({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="max-w-3xl">
           {eyebrow}
-          <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-            {title}
+          <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+            <span className="text-gradient-sakura">{title}</span>
           </h1>
           {description && (
             <p className="text-muted-foreground mt-2 text-sm text-pretty sm:text-base">

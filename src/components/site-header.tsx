@@ -33,10 +33,12 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur-xl pt-safe">
+    <header className="bg-background/75 sticky top-0 z-40 w-full border-b border-border/80 backdrop-blur-xl pt-safe">
+      <div className="via-brand/20 pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent" />
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <Link href="/" className="font-semibold tracking-tight">
-          ShinUI
+          <span className="text-gradient-sakura">Shin</span>
+          <span className="text-foreground">UI</span>
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 md:flex">
@@ -47,7 +49,7 @@ export function SiteHeader() {
               className={cn(
                 "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                 isActive(item.href)
-                  ? "bg-accent text-foreground"
+                  ? "bg-accent text-foreground ring-1 ring-brand/20"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >

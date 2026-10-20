@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { ComponentCard } from "@/components/component-card";
 import { ComponentsCatalog } from "@/components/components-catalog";
+import { FolioContainer, FolioSection } from "@/components/folio-section";
 import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { registry } from "@/registry";
@@ -16,7 +17,8 @@ export default async function ComponentsPage() {
   const catalog = await getRegistryCatalog();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+    <FolioSection grid className="pb-12 pt-8 sm:pt-12">
+      <FolioContainer>
       <PageHeader
         title="Components"
         description={`${registry.length} run live on this site with copyable source. ${catalog.total > 0 ? `${catalog.total} more install via CLI` : ""} from registries we can fetch automatically.`}
@@ -61,6 +63,7 @@ export default async function ComponentsPage() {
           <ComponentsCatalog items={catalog.items} sources={catalog.sources} />
         </section>
       )}
-    </div>
+      </FolioContainer>
+    </FolioSection>
   );
 }
