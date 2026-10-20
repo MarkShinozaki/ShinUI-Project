@@ -4,15 +4,15 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { GitHubIcon } from "@/components/icons";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { BrandMorph } from "@/components/brand-morph";
 import { FolioButton, FolioLabel } from "@/components/folio/kit";
+import { GridNavbar } from "@/components/grid/navbar";
+import { GitHubStarLink } from "@/components/github-stars";
 
 import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
-import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** Wordmark only: "ShinUI", morphing into 篠崎 on hover / focus. */
@@ -38,11 +38,11 @@ function MenuButton({ open, onClick }: { open: boolean; onClick: () => void }) {
 }
 
 /**
- * Folio topbar (Design Studio `FolioNavbar variant="topbar"`): sticky hairline
- * bar, brand left, links with an accent underline on the current page, CTA
- * right. Collapses to a "Menu" bar with a stacked sheet below `lg`.
+ * Sticky site header. Desktop (`lg`+) is the Design Studio grid navbar (boxed cells
+ * between the page rails, see grid/navbar.tsx); below `lg` it collapses to a "Menu" bar
+ * with a stacked sheet.
  */
-export function SiteHeader() {
+export function SiteHeader({ stars }: { stars: Promise<number | null> }) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
@@ -51,12 +51,16 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-(--fo-line) bg-(--fo-paper)/90 backdrop-blur pt-safe">
+    <header className="sticky top-0 z-40 w-full bg-(--fo-paper) pt-safe">
       {/* Mobile / tablet */}
-      <div className="lg:hidden">
+      <div className="border-b border-(--fo-line) bg-(--fo-paper)/90 backdrop-blur lg:hidden">
         <div className="flex h-14 items-center justify-between gap-4 px-5">
           <Brand />
           <div className="flex items-center gap-3">
+            <GitHubStarLink
+              stars={stars}
+              className="h-10 px-1 text-(--fo-soft) transition-colors hover:text-(--fo-ink)"
+            />
             <ThemeToggle className="size-8" />
             <MenuButton open={open} onClick={() => setOpen((o) => !o)} />
           </div>
@@ -100,42 +104,9 @@ export function SiteHeader() {
         )}
       </div>
 
-      {/* Desktop */}
-      <div className="mx-auto hidden h-16 max-w-6xl items-center gap-8 px-8 lg:flex">
-        <Brand />
-        <ul className="flex flex-1 items-center gap-5 text-[13.5px]">
-          {primaryNav.map((item) => {
-            const on = isActive(item.href);
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={on ? "page" : undefined}
-                  className={cn(
-                    "relative flex items-center gap-1 py-5 whitespace-nowrap transition-colors duration-200",
-                    on ? "text-(--fo-ink)" : "text-(--fo-soft) hover:text-(--fo-ink)"
-                  )}
-                >
-                  {item.label}
-                  {on && <span className="absolute inset-x-0 -bottom-px h-px bg-(--fo-accent)" />}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-        <div className="flex items-center gap-1">
-          <CommandMenu className="w-44 sm:w-44" />
-          <ThemeToggle />
-          <a
-            href={SITE.repo}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub repository"
-            className="grid size-9 place-items-center text-(--fo-soft) transition-colors hover:text-(--fo-ink)"
-          >
-            <GitHubIcon className="size-4" />
-          </a>
-        </div>
+      {/* Desktop: Design Studio grid navbar */}
+      <div className="hidden lg:block">
+        <GridNavbar isActive={isActive} stars={stars} />
       </div>
     </header>
   );

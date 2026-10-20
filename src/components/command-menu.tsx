@@ -29,8 +29,11 @@ import { cn } from "@/lib/utils";
 export function CommandMenu({
   className,
   hotkey = true,
+  variant = "field",
 }: {
   className?: string;
+  /** "field": search box trigger. "cell": filled accent cell for the grid navbar. */
+  variant?: "field" | "cell";
   /** Listen for ⌘K / Ctrl+K. Only one mounted menu should own the shortcut. */
   hotkey?: boolean;
 }) {
@@ -94,13 +97,22 @@ export function CommandMenu({
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "relative flex h-9 w-full cursor-pointer items-center justify-start gap-2 border border-(--fo-line) bg-(--fo-well) pr-1.5 pl-3 text-left font-mono text-[11px] tracking-[0.08em] text-(--fo-soft) uppercase transition-colors hover:border-(--fo-line-strong) hover:text-(--fo-ink) sm:w-64",
+          variant === "cell"
+            ? "relative flex cursor-pointer items-center gap-2.5 bg-(--fo-accent) px-5 font-mono text-[11px] tracking-wider whitespace-nowrap text-(--fo-on-accent) uppercase transition-opacity hover:opacity-90"
+            : "relative flex h-9 w-full cursor-pointer items-center justify-start gap-2 border border-(--fo-line) bg-(--fo-well) pr-1.5 pl-3 text-left font-mono text-[11px] tracking-[0.08em] text-(--fo-soft) uppercase transition-colors hover:border-(--fo-line-strong) hover:text-(--fo-ink) sm:w-64",
           className
         )}
       >
         <Search className="size-3.5 shrink-0" />
         <span className="truncate">Search</span>
-        <kbd className="pointer-events-none ml-auto hidden h-5 items-center gap-0.5 border border-(--fo-line) bg-(--fo-paper) px-1.5 font-mono text-[10px] select-none sm:flex">
+        <kbd
+          className={cn(
+            "pointer-events-none hidden h-5 items-center gap-0.5 border px-1.5 font-mono text-[10px] select-none sm:flex",
+            variant === "cell"
+              ? "border-(--fo-on-accent)/40 bg-transparent"
+              : "ml-auto border-(--fo-line) bg-(--fo-paper)"
+          )}
+        >
           <span className="text-xs">⌘</span>K
         </kbd>
       </button>

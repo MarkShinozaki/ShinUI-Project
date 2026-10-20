@@ -10,6 +10,7 @@ import { ThemeSync } from "@/components/theme-sync";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE, SITE_ASSETS } from "@/lib/site";
+import { getGitHubStars } from "@/lib/github";
 
 import "./globals.css";
 
@@ -73,6 +74,8 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Not awaited: the header streams the star count in behind a Suspense boundary.
+  const stars = getGitHubStars();
   return (
     <html
       lang="en"
@@ -99,7 +102,7 @@ export default function RootLayout({
           <TooltipProvider>
             <div className="relative z-[1] flex min-h-dvh flex-col">
               <div className="safe-area-top" />
-              <SiteHeader />
+              <SiteHeader stars={stars} />
               <main className="flex-1">{children}</main>
               <SiteFooter />
             </div>
