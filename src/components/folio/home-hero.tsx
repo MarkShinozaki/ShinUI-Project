@@ -63,7 +63,7 @@ export function HomeHero({
       </div>
 
       <FolioFigure
-        caption={`Figure 1. ${resourceCount} resources across ${categoryCount} categories, sorted, credited and one search away. A sakura tree drops petals on the stream below.`}
+        caption={`Figure 1. ${resourceCount} resources across ${categoryCount} categories, sorted, credited and one search away. A sakura tree drops petals on the stream below while a paper lantern sways from its branch.`}
       >
         <span className="absolute -top-2 left-3 z-10 bg-(--fo-paper) px-1 font-mono text-[9px] tracking-[0.14em] uppercase">
           Index
