@@ -3283,6 +3283,20 @@ export const resources: Resource[] = [
     pricing: "freemium",
     addedAt: "2026-09-29",
   },
+  {
+    slug: "mockflair",
+    name: "MockFlair",
+    tagline: "Poster artwork in frame scenes",
+    description:
+      "A free browser-based beta for placing poster artwork in frame scenes and exporting PNG images or ZIP batches. Intended for poster and framed-art presentations, rather than PSD editing or device mockups.",
+    url: "https://mockflair.com/",
+    category: "mockups",
+    tags: ["posters", "frames", "batch-export"],
+    stack: ["Web"],
+    pricing: "free",
+    featured: false,
+    addedAt: "2026-10-25",
+  },
 ];
 
 export const resourceBySlug = new Map(resources.map((r) => [r.slug, r]));
