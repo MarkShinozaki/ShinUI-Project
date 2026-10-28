@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SaveButton } from "@/components/save-button";
 import { ArrowUpRight, FolioBrackets } from "@/components/folio/kit";
 import { RegistryDemo } from "@/registry/demo-map";
+import { LazyMount, PreviewSurfaceContext } from "@/registry/demos/block-preview";
 import { getCategory } from "@/data/categories";
 import type { RegistryItem } from "@/registry";
 
@@ -39,9 +40,11 @@ export function ComponentCard({
         <div className="relative mt-4 p-2.5">
           <FolioBrackets />
           <div className="fo-dots pointer-events-none flex min-h-48 items-center justify-center overflow-hidden bg-(--fo-well)/60 p-6">
-            <div className="flex w-full justify-center">
-              <RegistryDemo name={item.demoExport} />
-            </div>
+            <LazyMount className="flex min-h-36 w-full items-center justify-center">
+              <PreviewSurfaceContext.Provider value="card">
+                <RegistryDemo name={item.demoExport} />
+              </PreviewSurfaceContext.Provider>
+            </LazyMount>
           </div>
         </div>
         <div className="flex items-start gap-3 px-1 pt-3 pb-1">

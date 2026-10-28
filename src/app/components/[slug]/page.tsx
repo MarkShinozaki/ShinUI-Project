@@ -43,6 +43,13 @@ export default async function ComponentPage({ params }: Props) {
     .slice(0, 3);
 
   const usage = buildUsageSnippet(item.file, source);
+  const extraFiles = await Promise.all(
+    (item.files ?? []).map(async (file) => ({
+      file,
+      source: await readRegistrySource(file),
+    }))
+  );
+  const packages = item.dependencies.filter((d) => d !== "react");
 
   return (
     <div className="mx-auto max-w-5xl px-6 pb-12 md:px-10">
@@ -90,8 +97,9 @@ export default async function ComponentPage({ params }: Props) {
           <section>
             <h2 className="text-lg font-semibold tracking-tight">Usage</h2>
             <p className="text-muted-foreground mt-1 text-sm">
-              Drop the file into your project and import it. There is no package
-              to install.
+              {extraFiles.length > 0
+                ? "Drop the file into your project, along with the shared files listed below, and import it."
+                : "Drop the file into your project and import it. There is no package to install."}
             </p>
             <CodeBlock
               code={usage}
@@ -106,24 +114,55 @@ export default async function ComponentPage({ params }: Props) {
               Install prerequisites
             </h2>
             <p className="text-muted-foreground mt-1 text-sm">
-              Every component here relies only on Tailwind and the{" "}
-              <code className="bg-muted rounded px-1 py-0.5 text-xs">cn</code>{" "}
-              helper from shadcn/ui.
+              {packages.length > 0 ? (
+                <>
+                  Needs Tailwind, the{" "}
+                  <code className="bg-muted rounded px-1 py-0.5 text-xs">cn</code>{" "}
+                  helper from shadcn/ui and{" "}
+                  {packages.map((dep, i) => (
+                    <span key={dep}>
+                      {i > 0 && (i === packages.length - 1 ? " and " : ", ")}
+                      <code className="bg-muted rounded px-1 py-0.5 text-xs">{dep}</code>
+                    </span>
+                  ))}
+                  .
+                </>
+              ) : (
+                <>
+                  Every component here relies only on Tailwind and the{" "}
+                  <code className="bg-muted rounded px-1 py-0.5 text-xs">cn</code>{" "}
+                  helper from shadcn/ui.
+                </>
+              )}
             </p>
             <CodeBlock
-              code={
-                item.dependencies.length > 0
-                  ? `npm i clsx tailwind-merge ${item.dependencies
-                      .filter((d) => d !== "react")
-                      .join(" ")}`.trim()
-                  : "npm i clsx tailwind-merge"
-              }
+              code={`npm i clsx tailwind-merge ${packages.join(" ")}`.trim()}
               language="bash"
               filename="terminal"
               maxHeight={null}
               className="mt-4"
             />
           </section>
+
+          {extraFiles.length > 0 && (
+            <section>
+              <h2 className="text-lg font-semibold tracking-tight">
+                Also copy these files
+              </h2>
+              <p className="text-muted-foreground mt-1 text-sm">
+                {item.name} imports {extraFiles.length === 1 ? "this file" : "these files"}.
+                Keep the same paths, or update the imports to match.
+              </p>
+              {extraFiles.map(({ file, source: extraSource }) => (
+                <CodeBlock
+                  key={file}
+                  code={extraSource ?? `// Source unavailable: src/${file}`}
+                  filename={`src/${file}`}
+                  className="mt-4"
+                />
+              ))}
+            </section>
+          )}
         </div>
 
         <aside className="space-y-6">
