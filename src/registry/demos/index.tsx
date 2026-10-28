@@ -41,6 +41,11 @@ import { LdrsRing } from "@/registry/components/ldrs-ring";
 import { GlassCard } from "@/registry/components/glass-card";
 import { CookieConsent } from "@/registry/components/cookie-consent";
 import { Timeline } from "@/registry/components/timeline";
+import { Aurora } from "@/registry/backgrounds/aurora";
+import { AsciiField } from "@/registry/backgrounds/ascii-field";
+import { SpotlightVeil } from "@/registry/backgrounds/spotlight-veil";
+import { HorizonBeam } from "@/registry/backgrounds/horizon-beam";
+import { GridLines } from "@/registry/backgrounds/grid-lines";
 
 export function SpotlightCardDemo() {
   return (
@@ -351,5 +356,56 @@ export function TimelineDemo() {
         },
       ]}
     />
+  );
+}
+
+function BackgroundLabel({ eyebrow, title }: { eyebrow: string; title: string }) {
+  return (
+    <div className="text-center">
+      <p className="text-xs font-medium tracking-widest text-muted-foreground uppercase">
+        {eyebrow}
+      </p>
+      <p className="mt-1 text-2xl font-semibold text-foreground">{title}</p>
+    </div>
+  );
+}
+
+export function AuroraDemo() {
+  return (
+    <Aurora className="grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Background" title="Aurora" />
+    </Aurora>
+  );
+}
+
+export function AsciiFieldDemo() {
+  return (
+    <AsciiField className="grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Canvas" title="ASCII Field" />
+    </AsciiField>
+  );
+}
+
+export function SpotlightVeilDemo() {
+  return (
+    <SpotlightVeil className="grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Background" title="Spotlight Veil" />
+    </SpotlightVeil>
+  );
+}
+
+export function HorizonBeamDemo() {
+  return (
+    <HorizonBeam className="grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Background" title="Horizon Beam" />
+    </HorizonBeam>
+  );
+}
+
+export function GridLinesDemo() {
+  return (
+    <GridLines cellSize={40} className="grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Blueprint" title="Grid Lines" />
+    </GridLines>
   );
 }
