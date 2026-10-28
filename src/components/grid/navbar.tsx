@@ -6,7 +6,6 @@ import { BrandMorph } from "@/components/brand-morph";
 import { CommandMenu } from "@/components/command-menu";
 import { GitHubStarLink } from "@/components/github-stars";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { resources } from "@/data/resources";
 import { primaryNav } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
@@ -30,11 +29,8 @@ export function GridNavbar({
   return (
     <GridSection edges="bottom">
       <nav className="flex h-14 items-stretch" aria-label="Primary">
-        <div className="relative flex items-center gap-2.5 border-r border-(--gf-line) px-5 font-sans">
+        <div className="relative flex items-center border-r border-(--gf-line) px-5 font-sans">
           <BrandMorph />
-          <span className="border border-(--gf-line) px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-(--fo-soft) uppercase">
-            {resources.length}
-          </span>
           <GridEdge />
         </div>
 

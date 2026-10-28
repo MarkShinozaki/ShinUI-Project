@@ -48,10 +48,6 @@ export default async function CatalogComponentPage({ params }: Props) {
         breadcrumbs={[
           { href: "/components", label: "Components" },
           {
-            href: `/components#catalog`,
-            label: "Catalog",
-          },
-          {
             href: `/components/catalog/${item.sourceId}/${item.name}`,
             label: item.displayName,
           },
