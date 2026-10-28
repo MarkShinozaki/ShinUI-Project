@@ -1,0 +1,550 @@
+"use client";
+
+// Generated from Design Studio's gallery previews (default props).
+import { BlockPreview } from "@/registry/demos/block-preview";
+import type { GridAccent, GridMarkerKind } from "@/registry/blocks/grid-frame";
+import { ContextFeatures } from "@/registry/blocks/context-features";
+import { ContextFooter } from "@/registry/blocks/context-footer";
+import { ContextHero } from "@/registry/blocks/context-hero";
+import { Blueprint, ContextRoot, DashedBox, DoubleCard, Pill, PixelStream } from "@/registry/blocks/context-kit";
+import { ContextLanding } from "@/registry/blocks/context-landing";
+import { ContextNavbar } from "@/registry/blocks/context-navbar";
+import { ContextStories } from "@/registry/blocks/context-stories";
+import { FolioCards } from "@/registry/blocks/folio-cards";
+import { FolioFeatures } from "@/registry/blocks/folio-features";
+import { FolioFooter } from "@/registry/blocks/folio-footer";
+import { FolioHero } from "@/registry/blocks/folio-hero";
+import { DitherField, FolioButton, FolioCommand, FolioLabel, FolioRoot, PixelBars } from "@/registry/blocks/folio-kit";
+import { FolioLanding } from "@/registry/blocks/folio-landing";
+import { FolioMetrics } from "@/registry/blocks/folio-metrics";
+import { FolioNavbar } from "@/registry/blocks/folio-navbar";
+import { GridFeatures } from "@/registry/blocks/grid-features";
+import { GridFooter } from "@/registry/blocks/grid-footer";
+import { GridCell, GridCells, GridLabel, GridRule, GridSection } from "@/registry/blocks/grid-frame";
+import { GridHero } from "@/registry/blocks/grid-hero";
+import { GridLanding } from "@/registry/blocks/grid-landing";
+import { GridNavbar } from "@/registry/blocks/grid-navbar";
+import { GridSteps } from "@/registry/blocks/grid-steps";
+import { GridStrip } from "@/registry/blocks/grid-strip";
+import { Hero } from "@/registry/blocks/hero";
+import { Navbar } from "@/registry/blocks/navbar";
+import { OroFooter } from "@/registry/blocks/oro-footer";
+import { OroHero } from "@/registry/blocks/oro-hero";
+import { CountUp, DataPanel, GrowthChart, OroButton, OroHeading, OroRoot, SunGlow } from "@/registry/blocks/oro-kit";
+import { OroLanding } from "@/registry/blocks/oro-landing";
+import { OroNavbar } from "@/registry/blocks/oro-navbar";
+import { OroStats } from "@/registry/blocks/oro-stats";
+import { OroTracks } from "@/registry/blocks/oro-tracks";
+import { RomaCards } from "@/registry/blocks/roma-cards";
+import { RomaFooter } from "@/registry/blocks/roma-footer";
+import { RomaHero } from "@/registry/blocks/roma-hero";
+import { Bubble, Mosaic, PhoneMock, RomaButton, RomaHeading, RomaRoot } from "@/registry/blocks/roma-kit";
+import { RomaLanding } from "@/registry/blocks/roma-landing";
+import { RomaNavbar } from "@/registry/blocks/roma-navbar";
+import { RomaSteps } from "@/registry/blocks/roma-steps";
+import { SplitHero } from "@/registry/blocks/split-hero";
+
+export function HeroDemo() {
+  const props = { eyebrow: "New · shinUI components", title: "Design faster, ship something beautiful", description: "Backgrounds, components and blocks you can drop into any React + Tailwind project. Free, open and built to be remixed.", primaryCta: "Get started", secondaryCta: "Browse components", showSecondary: true, shimmer: true, align: "center", background: "vivid" } as const
+  return (
+    <BlockPreview height={640}>
+      <Hero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function SplitHeroDemo() {
+  const props = { kicker: "shinUI · studio drop", title: "Build the part nobody else has.", description: "Original blocks and backgrounds, tuned in the gallery, then shipped as registry installs or an npm package.", primaryCta: "Start a block", secondaryCta: "Browse backgrounds", showSecondary: true, metaLabel: "Format", metaValue: "Registry + npm" } as const
+  return (
+    <BlockPreview height={640}>
+      <SplitHero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function NavbarDemo() {
+  const props = { brand: "shinUI", links: "Product, Components, Pricing, Docs", ctaLabel: "Get started", showSignIn: true, variant: "glass" } as const
+  return (
+    <BlockPreview height={420}>
+      <div className="flex flex-1 flex-col bg-[radial-gradient(ellipse_at_top,color-mix(in_oklab,var(--ds-primary)_18%,transparent),transparent_60%)]">
+        <Navbar {...props} />
+        <div className="mx-auto grid w-full max-w-6xl flex-1 gap-4 p-6 sm:grid-cols-3">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="min-h-32 rounded-lg border border-dashed border-border" />
+          ))}
+        </div>
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridNavbarDemo() {
+  const props = { variant: "boxed", brand: "shinUI", badge: "v0.4", links: "Blocks, Backgrounds, Components, Docs", ctaLabel: "Get started", showSignIn: true, accent: "primary", marker: "plus", dashed: false } as const
+  return (
+    <BlockPreview height={360}>
+      <div className="flex flex-1 flex-col pt-6">
+        <GridNavbar {...props} />
+        <GridSection edges="bottom" className="flex-1" innerClassName="h-full" accent={props.accent as GridAccent} marker={props.marker as GridMarkerKind} dashed={Boolean(props.dashed)}>
+          <div className="min-h-48 flex-1" />
+        </GridSection>
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridHeroDemo() {
+  const props = { variant: "centered", eyebrow: "New / grid blocks", title: "Build pages that", accentText: "line up on purpose", description: "Hairline frames, crosshair joints and monospace details. Original blocks you can copy, tweak and ship in an afternoon.", primaryCta: "Start building", secondaryCta: "Read the docs", showSecondary: true, command: "npx shadcn add shinui/grid-hero", pattern: "dots", accent: "primary", marker: "plus", dashed: false } as const
+  return (
+    <BlockPreview height={680}>
+      <div className="flex flex-1 flex-col justify-center py-8">
+        <GridHero {...props} />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridFeaturesDemo() {
+  const props = { index: "02", eyebrow: "Toolkit", title: "Everything snaps to the grid", description: "A small set of rules behind every shinUI piece, so things you mix and match still look like they belong together.", ctaLabel: "Browse the library", variant: "bento", columns: 3, filledCell: false, scan: true, accent: "primary", marker: "plus", dashed: false, density: "comfortable", pattern: "dots" } as const
+  return (
+    <BlockPreview height={1200}>
+      <div className="flex flex-1 flex-col justify-center py-8">
+        <GridFeatures {...props} />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridStripDemo() {
+  const props = { variant: "stats", label: "Plays well with", items: "React 19, Tailwind v4, Vite, TypeScript, shadcn, Next.js, Astro, Remix", speed: 30, accent: "primary", marker: "plus", dashed: false } as const
+  return (
+    <BlockPreview height={260}>
+      <div className="flex flex-1 flex-col justify-center">
+        <GridStrip {...props} />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridStepsDemo() {
+  const props = { variant: "cards", index: "03", eyebrow: "How it works", title: "From gallery to production in three moves", accent: "primary", marker: "plus", dashed: false } as const
+  return (
+    <BlockPreview height={780}>
+      <div className="flex flex-1 flex-col justify-center py-8">
+        <GridSteps {...props} />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridFooterDemo() {
+  const props = { variant: "columns", brand: "shinUI", tagline: "Free, original design tools and blocks for people who ship.", showCta: true, ctaTitle: "Ready when your next page is.", ctaLabel: "Get started", status: "All systems normal", accent: "primary", marker: "plus", dashed: false } as const
+  return (
+    <BlockPreview height={720}>
+      <div className="flex flex-1 flex-col justify-end pt-10">
+        <GridFooter {...props} />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function GridLandingDemo() {
+  const props = { preset: "blueprint", accent: "preset", brand: "shinUI", showSteps: true } as const
+  return (
+    <BlockPreview height={960}>
+      <GridLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function GridFrameDemo() {
+  const props = { edges: "both", pattern: "dots", accent: "primary", marker: "plus", dashed: false } as const
+  return (
+    <BlockPreview height={460}>
+      <div className="flex flex-1 flex-col justify-center">
+        <GridSection {...props}>
+          <div className="px-6 py-10 sm:px-10">
+            <GridLabel index="00">Grid frame</GridLabel>
+            <p className="mt-4 max-w-md text-sm text-ds-muted">Rails, rules, cells and markers. Every grid block is built from these pieces.</p>
+          </div>
+          <GridRule />
+          <GridCells className="sm:grid-cols-3">
+            {['GridCell', 'interactive', 'filled'].map((label, i) => (
+              <GridCell key={label} interactive={i > 0} filled={i === 2} className="min-h-28 p-6 font-mono text-xs">
+                {label}
+              </GridCell>
+            ))}
+          </GridCells>
+        </GridSection>
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function FolioNavbarDemo() {
+  const props = { variant: "sidebar", brand: "shinUI", links: "Home, Library, Journal, Changelog, Pricing, Docs ↗", active: "Home", sections: "Overview, Principles, In use, Install, Notes", toggle: "Design, Code", ctaLabel: "Open the studio" } as const
+  return (
+    <BlockPreview height={560}>
+      {props.variant === 'sidebar' ? (
+        <FolioRoot className="flex flex-1 flex-col md:grid md:grid-cols-[17rem_minmax(0,1fr)]">
+          <FolioNavbar {...props} />
+          <div className="hidden flex-col gap-4 p-10 md:flex">
+            <div className="h-8 w-2/3 bg-(--fo-well)" />
+            <div className="h-4 w-1/2 bg-(--fo-well)" />
+            <div className="mt-6 h-48 border border-dashed border-(--fo-line-strong)" />
+          </div>
+        </FolioRoot>
+      ) : (
+        <FolioRoot className="flex flex-1 flex-col">
+          <FolioNavbar {...props} />
+          <div className="mx-auto grid w-full max-w-6xl flex-1 gap-3 p-8 sm:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="min-h-32 border border-dashed border-(--fo-line-strong)" />
+            ))}
+          </div>
+        </FolioRoot>
+      )}
+    </BlockPreview>
+  )
+}
+
+export function FolioHeroDemo() {
+  const props = { variant: "editorial", announcement: "New in the library", announcementLink: "Read the note", title: "shinUI is a free, growing kit of design tools for people who *ship* their own *interfaces*.", description: "Backgrounds, components and blocks as plain React files. Copy them, install them, or pull them from the registry.", primaryCta: "Start building", secondaryCta: "Browse the library", command: "npx shadcn add shinui/folio-hero", worksWith: "React 19, Tailwind v4, Vite, Next.js", art: "field", animate: true } as const
+  return (
+    <BlockPreview height={820}>
+      <FolioHero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function FolioFeaturesDemo() {
+  const props = { variant: "list", eyebrow: "What it is", title: "A small library that keeps growing.", lede: "Three rules sit behind every piece, so blocks you mix still look like they came from the same hand.", showTags: true, width: "narrow", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <FolioFeatures {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function FolioMetricsDemo() {
+  const props = { variant: "bento", eyebrow: "In use", title: "The point is pages people *enjoy* using, not pages that just *pass* a checklist.", quote: "“Swapped our whole marketing page in an afternoon and it finally *looks like us*.”", quoteSource: "Indie maker, on a weekend build", width: "narrow" } as const
+  return (
+    <BlockPreview height={900}>
+      <FolioMetrics {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function FolioCardsDemo() {
+  const props = { variant: "numbered", eyebrow: "Where it runs", title: "Use it wherever your project lives.", lede: "Each block is a plain file, so it works the same in a fresh Vite app, an old Next.js codebase or a weekend prototype.", linkLabel: "See install options", width: "narrow", animate: true } as const
+  return (
+    <BlockPreview height={640}>
+      <FolioCards {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function FolioFooterDemo() {
+  const props = { variant: "cta", brand: "shinUI", tagline: "Free, original design tools for people who ship.", ctaTitle: "Shipping a page this week?", ctaLabel: "Start building", command: "npx shadcn add shinui/folio-landing", status: "All systems normal", legal: "Privacy, Terms, License", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <div className="flex flex-1 flex-col justify-end bg-(--fo-paper)">
+        <FolioFooter {...props} />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function FolioLandingDemo() {
+  const props = { preset: "docs", brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <FolioLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function FolioKitDemo() {
+  const props = { shape: "field", cell: 4, animate: true } as const
+  return (
+    <BlockPreview height={520}>
+      <FolioRoot className="flex flex-1 flex-col gap-6 p-8">
+        <FolioLabel>Folio kit</FolioLabel>
+        <div className="flex flex-wrap gap-2">
+          <FolioButton>Primary</FolioButton>
+          <FolioButton variant="secondary">Secondary</FolioButton>
+          <FolioButton variant="ghost">Ghost</FolioButton>
+        </div>
+        <FolioCommand command="npx shadcn add shinui/folio-kit" className="max-w-sm" />
+        <div className="grid flex-1 gap-4 sm:grid-cols-[2fr_1fr]">
+          <div className="min-h-40">
+            <DitherField shape={props.shape as 'field'} cell={Number(props.cell)} animate={Boolean(props.animate)} />
+          </div>
+          <PixelBars values={[0.3, 0.5, 0.4, 0.8, 1, 0.6, 0.45]} highlight={4} rows={7} className="self-end" />
+        </div>
+      </FolioRoot>
+    </BlockPreview>
+  )
+}
+
+export function ContextNavbarDemo() {
+  const props = { variant: "bar", brand: "shinUI", links: "Library ▾, Use cases ▾, Showcase ▾, Pricing, Docs", announcement: "40 new blocks this month. Free, forever.", secondaryCta: "Book a tour", ctaLabel: "Start for free" } as const
+  return (
+    <BlockPreview height={380}>
+      <ContextRoot className="flex flex-1 flex-col">
+        <ContextNavbar {...props} />
+        <div className="relative flex-1 overflow-hidden">
+          <div className="absolute inset-y-0 left-0 w-32 opacity-70">
+            <PixelStream animate={false} />
+          </div>
+        </div>
+      </ContextRoot>
+    </BlockPreview>
+  )
+}
+
+export function ContextHeroDemo() {
+  const props = { variant: "console", kicker: "Free and open · 120+ blocks", title: "Give your *pages* a head start", description: "Search, preview and install original blocks for React and Tailwind, from one prompt.", primaryCta: "Start for free", secondaryCta: "Connect your editor", tabs: "Search blocks, Preview, Install, Theme, Tokens", prompts: "pricing table with a yearly toggle|footer with a giant wordmark|hero with a live code card|navbar that floats on scroll", streams: true, animate: true } as const
+  return (
+    <BlockPreview height={820}>
+      <ContextHero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function ContextFeaturesDemo() {
+  const props = { variant: "grid", title: "Everything your page needs, *in one library*.", description: "Search, preview, install and theme original blocks without leaving your editor.", rails: true } as const
+  return (
+    <BlockPreview height={980}>
+      <ContextFeatures {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function ContextStoriesDemo() {
+  const props = { variant: "carousel", title: "How teams *shipped faster* with shinUI", description: "From weekend projects to product launches, built from the same blocks you can install today.", ctaLabel: "See all stories", rails: true, animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <ContextRoot className="flex flex-1 flex-col justify-center">
+        <ContextStories {...props} />
+      </ContextRoot>
+    </BlockPreview>
+  )
+}
+
+export function ContextFooterDemo() {
+  const props = { variant: "night", brand: "shinUI", tagline: "Original blocks for people who ship. Search it, preview it, install it.", wordmark: "shinui", status: "All systems normal" } as const
+  return (
+    <BlockPreview height={760}>
+      <ContextRoot className="flex flex-1 flex-col justify-end">
+        <ContextFooter {...props} />
+      </ContextRoot>
+    </BlockPreview>
+  )
+}
+
+export function ContextLandingDemo() {
+  const props = { preset: "console", brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <ContextLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function ContextKitDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={460}>
+      <ContextRoot className="relative flex flex-1 items-center justify-center overflow-hidden p-8">
+        <div className="absolute inset-y-0 left-0 w-36">
+          <PixelStream animate={Boolean(props.animate)} />
+        </div>
+        <DoubleCard className="relative w-full max-w-md" innerClassName="flex flex-col gap-4">
+          <div className="flex gap-2">
+            <Pill>Solid</Pill>
+            <Pill variant="outline">Outline</Pill>
+            <Pill variant="blue">Blue</Pill>
+          </div>
+          <Blueprint className="p-4">
+            <DashedBox label="blueprint">dashed box</DashedBox>
+          </Blueprint>
+        </DoubleCard>
+      </ContextRoot>
+    </BlockPreview>
+  )
+}
+
+export function OroNavbarDemo() {
+  const props = { variant: "simple", brand: "shinui", links: "Journal, Library ▾, Research ▾", ctaLabel: "Request a demo" } as const
+  return (
+    <BlockPreview height={360}>
+      <OroRoot className="relative flex flex-1 flex-col overflow-hidden">
+        <SunGlow animate={false} className="-top-40 -right-40 size-[30rem] opacity-60" />
+        <div className="relative">
+          <OroNavbar {...props} />
+        </div>
+      </OroRoot>
+    </BlockPreview>
+  )
+}
+
+export function OroHeroDemo() {
+  const props = { variant: "glow", title: "Blocks tested\non real pages.", description: "We build and score layouts in live projects, so the ones that reach the library have already earned their place.", primaryCta: "Request a sample", secondaryCta: "Read the method", count: 4729412, countLabel: "Page views served by shinUI blocks.", animate: true } as const
+  return (
+    <BlockPreview height={800}>
+      <OroHero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function OroTracksDemo() {
+  const props = { variant: "flow", title: "Every block earns its spot.", description: "Each candidate goes through the same brief, the same budget and the same scorer. Only the winner ships.", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <OroTracks {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function OroStatsDemo() {
+  const props = { variant: "chart", title: "Every round leaves a record.", description: "Scores, briefs and the losing candidates are all published, so you can see why a block made the cut.", count: 128604, countLabel: "Scored comparisons.", animate: true } as const
+  return (
+    <BlockPreview height={760}>
+      <OroStats {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function OroFooterDemo() {
+  const props = { variant: "cta", brand: "shinui", ctaTitle: "See how your pages score.", ctaBody: "Tell us what you are building. We will send back the blocks that won on briefs like yours.", ctaLabel: "Request a sample", backers: "Northwind, Paperlane, Tidepool, Kiln & Co" } as const
+  return (
+    <BlockPreview height={640}>
+      <OroRoot className="flex flex-1 flex-col justify-end">
+        <OroFooter {...props} />
+      </OroRoot>
+    </BlockPreview>
+  )
+}
+
+export function OroLandingDemo() {
+  const props = { preset: "research", brand: "shinui", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <OroLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function OroKitDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={520}>
+      <OroRoot className="relative grid flex-1 items-center gap-8 overflow-hidden p-8 md:grid-cols-2">
+        <SunGlow animate={Boolean(props.animate)} className="-top-20 -right-20 size-[28rem]" />
+        <div className="relative flex flex-col gap-5">
+          <OroHeading className="text-5xl">
+            <CountUp value={2814} />
+          </OroHeading>
+          <div className="flex gap-2">
+            <OroButton>Solid</OroButton>
+            <OroButton variant="outline">Outline</OroButton>
+          </div>
+          <GrowthChart points={[1, 2, 4, 5, 8, 9, 13, 18]} animate={Boolean(props.animate)} />
+        </div>
+        <DataPanel stats={[['12', 'Rounds'], ['96%', 'Kept']]} className="relative">
+          <p className="p-4 text-[12px] text-white/60">Data panel</p>
+        </DataPanel>
+      </OroRoot>
+    </BlockPreview>
+  )
+}
+
+export function RomaNavbarDemo() {
+  const props = { variant: "dark", brand: "shinUI", links: "News, Changelog, Blocks, Connections", ctaLabel: "Sign in" } as const
+  return (
+    <BlockPreview height={360}>
+      <RomaRoot className="flex flex-1 flex-col bg-(--rm-chip)">
+        <RomaNavbar {...props} />
+      </RomaRoot>
+    </BlockPreview>
+  )
+}
+
+export function RomaHeroDemo() {
+  const props = { variant: "mosaic", badge: "Free and open source", title: "Your next page,\nalready half built.", description: "Original blocks you can drop into any React project, so the boring parts are done before you start.", primaryCta: "Browse blocks", secondaryCta: "Install the CLI", animate: true } as const
+  return (
+    <BlockPreview height={760}>
+      <RomaHero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function RomaStepsDemo() {
+  const props = { variant: "orange", title: "From idea to page\nin three moves.", body: "Pages should not take a week. Most of a landing page is the same ten sections arranged with taste, and that part should be instant. So we drew the sections once, carefully, and left the interesting decisions to you.", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <RomaSteps {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function RomaCardsDemo() {
+  const props = { variant: "integrations", title: "Works with what you use.", description: "Blocks are plain React files, so they fit wherever your work already happens." } as const
+  return (
+    <BlockPreview height={640}>
+      <RomaCards {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function RomaFooterDemo() {
+  const props = { variant: "statement", brand: "shinUI", slogan: "Pick it. Tweak it. Ship it.", primaryCta: "Browse blocks", secondaryCta: "Install the CLI" } as const
+  return (
+    <BlockPreview height={640}>
+      <RomaRoot className="flex flex-1 flex-col justify-end">
+        <RomaFooter {...props} />
+      </RomaRoot>
+    </BlockPreview>
+  )
+}
+
+export function RomaLandingDemo() {
+  const props = { preset: "app", brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <RomaLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function RomaKitDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={600}>
+      <RomaRoot className="relative grid flex-1 items-center gap-8 overflow-hidden bg-black p-8 text-white md:grid-cols-[1fr_auto]">
+        <Mosaic animate={Boolean(props.animate)} cols={16} rows={6} className="absolute inset-x-0 top-0" />
+        <div className="relative flex flex-col items-start gap-5">
+          <RomaHeading className="text-5xl">Roma kit</RomaHeading>
+          <div className="flex flex-wrap gap-2">
+            <RomaButton icon="laptop">White</RomaButton>
+            <RomaButton variant="orange">Orange</RomaButton>
+          </div>
+          <div className="rounded-2xl bg-white p-4 text-black">
+            <Bubble who="Aiko" time="10:02">
+              Bubbles, rows and phones.
+            </Bubble>
+          </div>
+        </div>
+        <PhoneMock
+          animate={Boolean(props.animate)}
+          tasks={[
+            { title: 'Tile mosaic', due: 'Done' },
+            { title: 'Pill buttons', due: 'Today', hot: true },
+            { title: 'Phone frame', due: 'Tue' },
+          ]}
+          className="relative"
+        />
+      </RomaRoot>
+    </BlockPreview>
+  )
+}

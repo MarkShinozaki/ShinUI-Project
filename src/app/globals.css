@@ -4,10 +4,15 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Design Studio palette, used by the ported backgrounds (src/registry/backgrounds). */
+  /* Design Studio palette, used by the ported backgrounds and blocks (src/registry). */
   --ds-primary: oklch(0.57 0.22 285);
+  --ds-primary-hover: oklch(0.52 0.22 285);
+  --ds-primary-foreground: oklch(0.99 0 0);
   --ds-accent: oklch(0.66 0.13 205);
   --ds-highlight: oklch(0.63 0.21 350);
+  --ds-surface: oklch(0.965 0.006 275);
+  --ds-surface-hover: oklch(0.935 0.009 275);
+  --ds-muted: oklch(0.5 0.02 275);
 
   /* Folio: square corners everywhere (Design Studio folio kit). */
   --radius: 0rem;
@@ -103,8 +108,13 @@
 .dark {
   /* Design Studio palette (dark). */
   --ds-primary: oklch(0.66 0.21 285);
+  --ds-primary-hover: oklch(0.72 0.19 285);
+  --ds-primary-foreground: oklch(0.99 0 0);
   --ds-accent: oklch(0.8 0.14 195);
   --ds-highlight: oklch(0.72 0.2 350);
+  --ds-surface: oklch(0.195 0.014 275);
+  --ds-surface-hover: oklch(0.235 0.016 275);
+  --ds-muted: oklch(0.7 0.02 275);
 
   --fo-paper: oklch(0.16 0.04 322);
   --fo-ink: oklch(0.95 0.015 40);
@@ -204,6 +214,25 @@
   --color-ring: var(--ring);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
+  /* Design Studio tokens (bg-ds-surface, text-ds-muted, ...). */
+  --color-ds-primary: var(--ds-primary);
+  --color-ds-primary-hover: var(--ds-primary-hover);
+  --color-ds-primary-foreground: var(--ds-primary-foreground);
+  --color-ds-accent: var(--ds-accent);
+  --color-ds-highlight: var(--ds-highlight);
+  --color-ds-surface: var(--ds-surface);
+  --color-ds-surface-hover: var(--ds-surface-hover);
+  --color-ds-muted: var(--ds-muted);
+  --animate-ds-shimmer: ds-shimmer 2.5s linear infinite;
+
+  @keyframes ds-shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
 
   --color-fo-paper: var(--fo-paper);
   --color-fo-ink: var(--fo-ink);

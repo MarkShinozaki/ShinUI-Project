@@ -15,6 +15,12 @@ const GROUP_TITLES: Record<string, string> = {
   Components: "Interactive previews with the exact source that renders them.",
   Backgrounds: "Animated surfaces to put behind a hero, a section or a card.",
   Footers: "Standalone site footers, one idea each.",
+  "Blocks · General": "A hero, a split hero and a navbar to start a page with.",
+  "Blocks · Grid": "Hairline frames, crosshair joints and mono details.",
+  "Blocks · Folio": "Editorial sections on a narrow, square-cornered column.",
+  "Blocks · Context": "Blueprint panels, dashed boxes and pixel streams for developer products.",
+  "Blocks · ORO": "Warm, data-heavy sections with sun glows and growth charts.",
+  "Blocks · Roma": "Consumer-app pages: mosaic hero, loud orange band, pill buttons and phone mockups.",
 };
 
 const GROUP_LEDES: Record<string, string> = {
@@ -22,6 +28,12 @@ const GROUP_LEDES: Record<string, string> = {
   Backgrounds: "Each one wraps its children, so drop your content straight inside.",
   Footers:
     "ASCII, cursor-reactive dots, motion, scenery, gradient, outline wordmark, terminal and newsletter. They share the Footer Kit.",
+  "Blocks · General": "Full-width sections. Previews are scaled down here; open one to see it at size.",
+  "Blocks · Grid": "Navbar, hero, features, steps, footer and a full landing page, built on the Grid Frame kit.",
+  "Blocks · Folio": "Navbar to footer plus a full landing page, sharing the Folio Kit.",
+  "Blocks · Context": "Navbar to footer plus a full landing page, sharing the Context Kit.",
+  "Blocks · ORO": "Navbar to footer plus a full landing page, sharing the ORO Kit.",
+  "Blocks · Roma": "Navbar to footer plus a full landing page, sharing the Roma Kit.",
 };
 
 export default function ComponentsPage() {
