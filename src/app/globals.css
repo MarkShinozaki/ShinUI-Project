@@ -4,6 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Design Studio palette, used by the ported backgrounds (src/registry/backgrounds). */
+  --ds-primary: oklch(0.57 0.22 285);
+  --ds-accent: oklch(0.66 0.13 205);
+  --ds-highlight: oklch(0.63 0.21 350);
+
   /* Folio: square corners everywhere (Design Studio folio kit). */
   --radius: 0rem;
 
@@ -96,6 +101,11 @@
 }
 
 .dark {
+  /* Design Studio palette (dark). */
+  --ds-primary: oklch(0.66 0.21 285);
+  --ds-accent: oklch(0.8 0.14 195);
+  --ds-highlight: oklch(0.72 0.2 350);
+
   --fo-paper: oklch(0.16 0.04 322);
   --fo-ink: oklch(0.95 0.015 40);
   --fo-accent: oklch(0.76 0.14 352);

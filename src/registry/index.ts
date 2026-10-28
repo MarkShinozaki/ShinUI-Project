@@ -12,7 +12,37 @@ export type RegistryItem = {
   previewClassName?: string;
   authorId?: string;
   inspiredBy?: { name: string; url: string };
+  /**
+   * Section heading on /components. Items without a group are listed under
+   * DEFAULT_REGISTRY_GROUP.
+   */
+  group?: string;
 };
+
+export const DEFAULT_REGISTRY_GROUP = "Components";
+
+/** Order of the sections on /components. Unknown groups follow, A to Z. */
+export const REGISTRY_GROUP_ORDER = [DEFAULT_REGISTRY_GROUP, "Backgrounds"];
+
+export type RegistryGroup = { name: string; items: RegistryItem[] };
+
+/** Registry items bucketed by `group`, keeping registry order inside each. */
+export function groupRegistry(items: RegistryItem[]): RegistryGroup[] {
+  const buckets = new Map<string, RegistryItem[]>();
+  for (const item of items) {
+    const name = item.group ?? DEFAULT_REGISTRY_GROUP;
+    const bucket = buckets.get(name);
+    if (bucket) bucket.push(item);
+    else buckets.set(name, [item]);
+  }
+  const rank = (name: string) => {
+    const i = REGISTRY_GROUP_ORDER.indexOf(name);
+    return i === -1 ? REGISTRY_GROUP_ORDER.length : i;
+  };
+  return [...buckets.entries()]
+    .map(([name, groupItems]) => ({ name, items: groupItems }))
+    .sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name));
+}
 
 export const registry: RegistryItem[] = [
   {
@@ -97,6 +127,7 @@ export const registry: RegistryItem[] = [
     dependencies: [],
     previewClassName: "p-0",
     authorId: "shinozaki",
+    group: "Backgrounds",
   },
   {
     slug: "bento-grid",
@@ -254,6 +285,7 @@ export const registry: RegistryItem[] = [
     dependencies: [],
     previewClassName: "p-0",
     authorId: "shinozaki",
+    group: "Backgrounds",
   },
   {
     slug: "progress-ring",
@@ -348,6 +380,76 @@ export const registry: RegistryItem[] = [
       name: "Aceternity Timeline",
       url: "https://ui.aceternity.com/components/timeline",
     },
+  },
+  {
+    slug: "aurora",
+    name: "Aurora",
+    description:
+      "Drifting soft color orbs with an optional fading grid. The haze comes from gradient falloff inside circles rather than filter: blur(), so it stays soft in every browser, Edge included.",
+    category: "backgrounds",
+    tags: ["background", "aurora", "gradient", "glow", "hero"],
+    file: "registry/backgrounds/aurora.tsx",
+    demoExport: "AuroraDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0",
+    authorId: "shinozaki",
+    group: "Backgrounds",
+  },
+  {
+    slug: "ascii-field",
+    name: "ASCII Field",
+    description:
+      "A canvas of ASCII characters rippling in waves, ripples or plasma. Pauses off-screen, caps its column count on wide displays and freezes for reduced-motion users.",
+    category: "backgrounds",
+    tags: ["background", "ascii", "canvas", "generative", "animated"],
+    file: "registry/backgrounds/ascii-field.tsx",
+    demoExport: "AsciiFieldDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0",
+    authorId: "shinozaki",
+    group: "Backgrounds",
+  },
+  {
+    slug: "spotlight-veil",
+    name: "Spotlight Veil",
+    description:
+      "A drifting stage spotlight with a film-grain veil. A cinematic cone of light with a soft backwash, not orbs.",
+    category: "backgrounds",
+    tags: ["background", "spotlight", "light", "grain", "hero"],
+    file: "registry/backgrounds/spotlight-veil.tsx",
+    demoExport: "SpotlightVeilDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0",
+    authorId: "shinozaki",
+    group: "Backgrounds",
+  },
+  {
+    slug: "horizon-beam",
+    name: "Horizon Beam",
+    description:
+      "A breathing light beam on a horizon line. Spare and graphic, with an adjustable altitude and thickness.",
+    category: "backgrounds",
+    tags: ["background", "beam", "horizon", "light", "minimal"],
+    file: "registry/backgrounds/horizon-beam.tsx",
+    demoExport: "HorizonBeamDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0",
+    authorId: "shinozaki",
+    group: "Backgrounds",
+  },
+  {
+    slug: "grid-lines",
+    name: "Grid Lines",
+    description:
+      "Hairline blueprint grid with crosshair marks and cells that softly light up. Lines are an SVG pattern, so any cell size stays crisp.",
+    category: "backgrounds",
+    tags: ["background", "grid", "blueprint", "svg", "pattern"],
+    file: "registry/backgrounds/grid-lines.tsx",
+    demoExport: "GridLinesDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0",
+    authorId: "shinozaki",
+    group: "Backgrounds",
   },
 ];
 
