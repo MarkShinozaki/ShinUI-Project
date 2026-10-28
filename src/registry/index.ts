@@ -8,6 +8,11 @@ export type RegistryItem = {
   file: string;
   demoExport: string;
   dependencies: string[];
+  /**
+   * Other files (relative to src/) the component imports, such as a shared
+   * kit. They are shown on the detail page so they can be copied too.
+   */
+  files?: string[];
   /** Surface the preview against a dark checkerboard instead of the page bg. */
   previewClassName?: string;
   authorId?: string;
@@ -22,7 +27,7 @@ export type RegistryItem = {
 export const DEFAULT_REGISTRY_GROUP = "Components";
 
 /** Order of the sections on /components. Unknown groups follow, A to Z. */
-export const REGISTRY_GROUP_ORDER = [DEFAULT_REGISTRY_GROUP, "Backgrounds"];
+export const REGISTRY_GROUP_ORDER = [DEFAULT_REGISTRY_GROUP, "Backgrounds", "Footers"];
 
 export type RegistryGroup = { name: string; items: RegistryItem[] };
 
@@ -450,6 +455,140 @@ export const registry: RegistryItem[] = [
     previewClassName: "p-0",
     authorId: "shinozaki",
     group: "Backgrounds",
+  },
+  {
+    slug: "footer-ascii",
+    name: "ASCII Footer",
+    description:
+      "The brand set in monospace characters that shimmer in a slow wave and scramble under the cursor, or an ASCII sunset sea.",
+    category: "blocks-templates",
+    tags: ["footer", "ascii", "canvas", "animated", "interactive"],
+    file: "registry/footers/footer-ascii.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterAsciiDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-dots",
+    name: "Dot Field Footer",
+    description:
+      "A dot grid behind the whole footer spells the brand; dots repel, gather or light up around the cursor, and clicks send a ripple.",
+    category: "blocks-templates",
+    tags: ["footer", "interactive", "cursor", "canvas"],
+    file: "registry/footers/footer-dots.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterDotsDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-motion",
+    name: "Motion Footer",
+    description:
+      "Always gently moving: layered waves rolling along the bottom, a drifting particle constellation, or a big marquee band.",
+    category: "blocks-templates",
+    tags: ["footer", "animated", "waves", "particles", "marquee"],
+    file: "registry/footers/footer-motion.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterMotionDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-scenery",
+    name: "Scenery Footer",
+    description:
+      "Ends on a drawn SVG scene: rolling hills with drifting clouds, a skyline with twinkling windows, or a pixel-art meadow with a tiny walker. Day or night.",
+    category: "blocks-templates",
+    tags: ["footer", "illustration", "svg", "pixel-art"],
+    file: "registry/footers/footer-scenery.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterSceneryDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-gradient",
+    name: "Gradient Footer",
+    description:
+      "An aurora of blurred color rising from the bottom, film grain, and a giant wordmark clipped to the same moving gradient.",
+    category: "blocks-templates",
+    tags: ["footer", "gradient", "aurora", "wordmark"],
+    file: "registry/footers/footer-gradient.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterGradientDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-outline",
+    name: "Outline Footer",
+    description:
+      "A giant outlined wordmark that fills letter by letter on hover (or follows the cursor), over hairline columns and a live status pill.",
+    category: "blocks-templates",
+    tags: ["footer", "wordmark", "outline", "hover"],
+    file: "registry/footers/footer-outline.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterOutlineDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-terminal",
+    name: "Terminal Footer",
+    description:
+      "Links listed like folders in a terminal, a typed boot line, a status and compliance readout, and a prompt that answers help, ls, open and more.",
+    category: "blocks-templates",
+    tags: ["footer", "terminal", "mono", "interactive"],
+    file: "registry/footers/footer-terminal.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterTerminalDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-newsletter",
+    name: "Newsletter Footer",
+    description:
+      "Warm paper with adjustable grain, a newsletter signup with a success state, a what’s-new card, trust badges and link columns.",
+    category: "blocks-templates",
+    tags: ["footer", "newsletter", "form", "texture"],
+    file: "registry/footers/footer-newsletter.tsx",
+    files: ["registry/footers/footer-kit.tsx"],
+    demoExport: "FooterNewsletterDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
+  },
+  {
+    slug: "footer-kit",
+    name: "Footer Kit",
+    description:
+      "Shared pieces: palette root, link columns with New badges and hover arrows, socials, copyright, plus canvas-loop, pointer, dark-mode and text-raster hooks.",
+    category: "blocks-templates",
+    tags: ["footer", "kit"],
+    file: "registry/footers/footer-kit.tsx",
+    demoExport: "FooterKitDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Footers",
   },
 ];
 

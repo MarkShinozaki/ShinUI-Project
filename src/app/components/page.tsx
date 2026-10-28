@@ -14,11 +14,14 @@ export const metadata: Metadata = {
 const GROUP_TITLES: Record<string, string> = {
   Components: "Interactive previews with the exact source that renders them.",
   Backgrounds: "Animated surfaces to put behind a hero, a section or a card.",
+  Footers: "Standalone site footers, one idea each.",
 };
 
 const GROUP_LEDES: Record<string, string> = {
   Components: "Save components you reuse often. They're stored in your browser.",
   Backgrounds: "Each one wraps its children, so drop your content straight inside.",
+  Footers:
+    "ASCII, cursor-reactive dots, motion, scenery, gradient, outline wordmark, terminal and newsletter. They share the Footer Kit.",
 };
 
 export default function ComponentsPage() {

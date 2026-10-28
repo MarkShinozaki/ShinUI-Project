@@ -3,8 +3,9 @@
 import type { ComponentType } from "react";
 
 import * as demos from "./demos";
+import * as footerDemos from "./demos/footers";
 
-const demoMap = demos as unknown as Record<string, ComponentType>;
+const demoMap = { ...demos, ...footerDemos } as unknown as Record<string, ComponentType>;
 
 export function RegistryDemo({ name }: { name: string }) {
   const Demo = demoMap[name];
