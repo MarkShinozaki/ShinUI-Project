@@ -36,6 +36,14 @@ import { OroLanding } from "@/registry/blocks/oro-landing";
 import { OroNavbar } from "@/registry/blocks/oro-navbar";
 import { OroStats } from "@/registry/blocks/oro-stats";
 import { OroTracks } from "@/registry/blocks/oro-tracks";
+import { DiaBento } from "@/registry/blocks/dia-bento";
+import { DiaControls } from "@/registry/blocks/dia-controls";
+import { DiaFooter } from "@/registry/blocks/dia-footer";
+import { DiaHero } from "@/registry/blocks/dia-hero";
+import { DiaButton, DiaHeading, DiaMark, DiaRoot, Eyebrow as DiaEyebrow, Sunrise, WindowFrame } from "@/registry/blocks/dia-kit";
+import { DiaLanding } from "@/registry/blocks/dia-landing";
+import { DiaNavbar } from "@/registry/blocks/dia-navbar";
+import { DiaSteps } from "@/registry/blocks/dia-steps";
 import { RomaCards } from "@/registry/blocks/roma-cards";
 import { RomaFooter } from "@/registry/blocks/roma-footer";
 import { RomaHero } from "@/registry/blocks/roma-hero";
@@ -555,6 +563,107 @@ export function RomaKitDemo() {
           className="relative"
         />
       </RomaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaLandingDemo() {
+  const props = { brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <DiaLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function DiaNavbarDemo() {
+  const props = { variant: "pill", brand: "shinUI", links: "Blocks, Kits, Changelog", ctaLabel: "Get started" } as const
+  return (
+    <BlockPreview height={320}>
+      <DiaRoot className="flex flex-1 flex-col">
+        <DiaNavbar {...props} />
+      </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaHeroDemo() {
+  const props = { variant: "sunrise", brand: "shinUI", title: "Less tab juggling.\nMore good pages.", primaryCta: "Start building", note: "Free, open source, copy-paste React", animate: true } as const
+  return (
+    <BlockPreview height={900}>
+      <DiaRoot className="flex flex-1 flex-col">
+        <DiaHero {...props} className="flex-1" />
+      </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaStepsDemo() {
+  const props = { title: "Fewer tabs, more flow", animate: true, interval: 6 } as const
+  return (
+    <BlockPreview height={720}>
+      <DiaRoot className="flex flex-1 flex-col">
+        <DiaSteps {...props} className="flex-1" />
+      </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaBentoDemo() {
+  const props = { title: "Shaped around a working day" } as const
+  return (
+    <BlockPreview height={860}>
+      <DiaRoot className="flex flex-1 flex-col">
+        <DiaBento {...props} className="flex-1" />
+      </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaControlsDemo() {
+  const props = { title: "Your settings,\nyour call", linkLabel: "Read how data is handled", animate: true } as const
+  return (
+    <BlockPreview height={620}>
+      <DiaRoot className="flex flex-1 flex-col justify-center">
+        <DiaControls {...props} />
+      </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaFooterDemo() {
+  const props = { variant: "cta", brand: "shinUI", headline: "Ready for an easier build?", ctaLabel: "Start building", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <DiaRoot className="flex flex-1 flex-col justify-end">
+        <DiaFooter {...props} />
+      </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function DiaKitDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={560}>
+      <DiaRoot className="relative isolate grid flex-1 items-center gap-8 overflow-hidden p-10 md:grid-cols-2">
+        <Sunrise animate={Boolean(props.animate)} className="-z-10" />
+        <div className="flex flex-col items-start gap-4">
+          <DiaEyebrow>Dia kit</DiaEyebrow>
+          <DiaHeading className="text-5xl">
+            <span className="flex items-center gap-3">
+              <DiaMark className="size-9" /> Soft serif
+            </span>
+          </DiaHeading>
+          <div className="flex gap-2">
+            <DiaButton>Ink pill</DiaButton>
+            <DiaButton variant="light">Light pill</DiaButton>
+          </div>
+        </div>
+        <WindowFrame tabs={["Window", "Frame"]}>
+          <p className="p-6 text-[13px] text-(--di-soft)">Any content goes inside the window frame.</p>
+        </WindowFrame>
+      </DiaRoot>
     </BlockPreview>
   )
 }
