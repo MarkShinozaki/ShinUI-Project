@@ -29,6 +29,7 @@ const GROUP_TITLES: Record<string, string> = {
   "Blocks · Nous": "Two-colour research-lab pages: electric blue on paper, towering type and halftone fields.",
   "Blocks · Scout": "Dark field-ops pages: drawn terrain, HUD marks, grid lines and scroll-pinned scenes.",
   "Blocks · Hex": "Graph-paper data pages: two-voice headlines, inline chips, pinned notebooks and scroll-turned diagrams.",
+  "Blocks · Aside": "Bright assistant pages: sky cards, app windows, hairline rails and text that reads itself in.",
   "Pixel Art 3D": "Isometric WebGL dioramas you can zoom and turn.",
   "Pixel Art 2D": "Flat sprite-style scenes on a tiny canvas.",
 };
@@ -48,6 +49,7 @@ const GROUP_LEDES: Record<string, string> = {
   "Blocks · Nous": "The full page first, then each part from navbar to the sticky reveal footer, sharing the Nous Kit.",
   "Blocks · Scout": "The full page first, then each part from the pinned header to the grid footer, sharing the Scout Kit.",
   "Blocks · Hex": "The full page first, then each part from the folding header to the outlined footer, sharing the Hex Kit.",
+  "Blocks · Aside": "The full page first, then each part from the hide-on-scroll header to the link footer, sharing the Aside Kit.",
   "Pixel Art 3D": "Toon-lit, pixelated three.js scenes built on the Iso Scene kit. Needs three and @react-three/fiber.",
   "Pixel Art 2D": "Frame-by-frame animation, parallax and dithered skies on the Pixel 2D kit. No WebGL.",
 };

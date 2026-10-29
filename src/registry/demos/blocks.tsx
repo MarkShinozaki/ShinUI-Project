@@ -69,6 +69,16 @@ import { Card as HexCard, Chip as HexChip, GridPaper, HexButton, HexMark, HexRoo
 import { HexLanding } from "@/registry/blocks/hex-landing";
 import { HexNavbar } from "@/registry/blocks/hex-navbar";
 import { HexOrbit } from "@/registry/blocks/hex-orbit";
+import { AsideBenchmarks } from "@/registry/blocks/aside-benchmarks";
+import { AsideCapabilities } from "@/registry/blocks/aside-capabilities";
+import { AsideCta } from "@/registry/blocks/aside-cta";
+import { AsideFooter } from "@/registry/blocks/aside-footer";
+import { AsideHero } from "@/registry/blocks/aside-hero";
+import { AsideIntro } from "@/registry/blocks/aside-intro";
+import { AppWindow, AsideMark, AsideRoot, Eyebrow as AsideEyebrow, Sky, SplitButton } from "@/registry/blocks/aside-kit";
+import { AsideLanding } from "@/registry/blocks/aside-landing";
+import { AsideNavbar } from "@/registry/blocks/aside-navbar";
+import { AsidePrivacy } from "@/registry/blocks/aside-privacy";
 import { RomaCards } from "@/registry/blocks/roma-cards";
 import { RomaFooter } from "@/registry/blocks/roma-footer";
 import { RomaHero } from "@/registry/blocks/roma-hero";
@@ -1032,6 +1042,135 @@ export function HexKitDemo() {
           <p className="mt-2 text-[15px] text-(--hx-dim)">{props.note}</p>
         </HexCard>
       </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideLandingDemo() {
+  const props = { brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <AsideLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function AsideNavbarDemo() {
+  const props = { brand: "shinUI", links: "Features, Use cases, Guides, Pricing", ctaLabel: "Download" } as const
+  return (
+    <BlockPreview height={420}>
+      {/* Scrolls on its own: scroll down to hide the bar, up to bring it back. */}
+      <AsideRoot className="relative h-[420px] overflow-y-auto overscroll-contain">
+        <div className="sticky top-0 z-10">
+          <AsideNavbar {...props} />
+        </div>
+        <div className="h-[1400px] bg-(--as-soft) px-6 pt-16 text-center text-sm text-(--as-dim)">Scroll down, then back up</div>
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideHeroDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={760}>
+      {/* Scrolls on its own so the window can flatten. */}
+      <AsideRoot className="h-[760px] overflow-y-auto overscroll-contain">
+        <AsideHero {...props} />
+        <div className="h-[500px]" />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideIntroDemo() {
+  const props = { eyebrow: "Why we built it" } as const
+  return (
+    <BlockPreview height={560}>
+      <AsideRoot className="h-[560px] overflow-y-auto overscroll-contain">
+        <p className="px-6 pt-10 text-center text-sm text-(--as-dim)">Scroll to read it in</p>
+        <div className="h-[420px]" />
+        <AsideIntro {...props} />
+        <div className="h-[300px]" />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideCapabilitiesDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={900}>
+      <AsideRoot className="flex flex-1 flex-col justify-center">
+        <AsideCapabilities {...props} />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideBenchmarksDemo() {
+  const props = { brand: "shinUI" } as const
+  return (
+    <BlockPreview height={620}>
+      <AsideRoot className="flex flex-1 flex-col justify-center">
+        <AsideBenchmarks {...props} />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsidePrivacyDemo() {
+  const props = { heading: "Safe enough for your real accounts." } as const
+  return (
+    <BlockPreview height={620}>
+      <AsideRoot className="flex flex-1 flex-col justify-center">
+        <AsidePrivacy {...props} />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideCtaDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={420}>
+      <AsideRoot className="flex flex-1 flex-col justify-center">
+        <AsideCta {...props} />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideFooterDemo() {
+  const props = { brand: "shinUI" } as const
+  return (
+    <BlockPreview height={360}>
+      <AsideRoot className="flex flex-1 flex-col justify-end">
+        <AsideFooter {...props} />
+      </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function AsideKitDemo() {
+  const props = { title: "Bright and light" } as const
+  return (
+    <BlockPreview height={520}>
+      <AsideRoot className="grid flex-1 items-center gap-8 p-8 md:grid-cols-2">
+        <div className="flex flex-col items-start gap-5">
+          <AsideEyebrow>Aside kit</AsideEyebrow>
+          <h3 className="flex items-center gap-3 text-4xl font-medium tracking-[-0.035em]">
+            <AsideMark className="size-9" /> {props.title}
+          </h3>
+          <SplitButton />
+        </div>
+        <div className="relative isolate overflow-hidden rounded-2xl p-6">
+          <Sky />
+          <AppWindow title="New tab">
+            <div className="h-40 p-4 text-sm text-(--as-dim)">App window frame</div>
+          </AppWindow>
+        </div>
+      </AsideRoot>
     </BlockPreview>
   )
 }
