@@ -21,6 +21,8 @@ const GROUP_TITLES: Record<string, string> = {
   "Blocks · Context": "Blueprint panels, dashed boxes and pixel streams for developer products.",
   "Blocks · ORO": "Warm, data-heavy sections with sun glows and growth charts.",
   "Blocks · Roma": "Consumer-app pages: mosaic hero, loud orange band, pill buttons and phone mockups.",
+  "Pixel Art 3D": "Isometric WebGL dioramas you can zoom and turn.",
+  "Pixel Art 2D": "Flat sprite-style scenes on a tiny canvas.",
 };
 
 const GROUP_LEDES: Record<string, string> = {
@@ -34,6 +36,8 @@ const GROUP_LEDES: Record<string, string> = {
   "Blocks · Context": "Navbar to footer plus a full landing page, sharing the Context Kit.",
   "Blocks · ORO": "Navbar to footer plus a full landing page, sharing the ORO Kit.",
   "Blocks · Roma": "Navbar to footer plus a full landing page, sharing the Roma Kit.",
+  "Pixel Art 3D": "Toon-lit, pixelated three.js scenes built on the Iso Scene kit. Needs three and @react-three/fiber.",
+  "Pixel Art 2D": "Frame-by-frame animation, parallax and dithered skies on the Pixel 2D kit. No WebGL.",
 };
 
 export default function ComponentsPage() {
