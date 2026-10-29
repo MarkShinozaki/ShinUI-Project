@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { ComponentCard } from "@/components/component-card";
-import { FolioSectionHead } from "@/components/folio/kit";
+import {
+  ComponentsBrowser,
+  ComponentsBrowserFallback,
+  type BrowserGroup,
+} from "@/components/components-browser";
 import { FolioContainer, FolioSection } from "@/components/folio-section";
 import { PageHeader } from "@/components/page-header";
-import { groupRegistry, registry } from "@/registry";
+import { groupRegistry, registry, registryGroupSlug } from "@/registry";
 
 export const metadata: Metadata = {
   title: "Components",
@@ -15,7 +19,7 @@ const GROUP_TITLES: Record<string, string> = {
   Components: "Interactive previews with the exact source that renders them.",
   Backgrounds: "Animated surfaces to put behind a hero, a section or a card.",
   Footers: "Standalone site footers, one idea each.",
-  "Blocks · General": "A hero, a split hero and a navbar to start a page with.",
+  "Blocks · General": "A navbar, a hero and a split hero, plus the page they make together.",
   "Blocks · Grid": "Hairline frames, crosshair joints and mono details.",
   "Blocks · Folio": "Editorial sections on a narrow, square-cornered column.",
   "Blocks · Context": "Blueprint panels, dashed boxes and pixel streams for developer products.",
@@ -30,17 +34,25 @@ const GROUP_LEDES: Record<string, string> = {
   Backgrounds: "Each one wraps its children, so drop your content straight inside.",
   Footers:
     "ASCII, cursor-reactive dots, motion, scenery, gradient, outline wordmark, terminal and newsletter. They share the Footer Kit.",
-  "Blocks · General": "Full-width sections. Previews are scaled down here; open one to see it at size.",
-  "Blocks · Grid": "Navbar, hero, features, steps, footer and a full landing page, built on the Grid Frame kit.",
-  "Blocks · Folio": "Navbar to footer plus a full landing page, sharing the Folio Kit.",
-  "Blocks · Context": "Navbar to footer plus a full landing page, sharing the Context Kit.",
-  "Blocks · ORO": "Navbar to footer plus a full landing page, sharing the ORO Kit.",
-  "Blocks · Roma": "Navbar to footer plus a full landing page, sharing the Roma Kit.",
+  "Blocks · General": "The full page comes first; open it to scroll the whole thing at desktop width. The parts follow.",
+  "Blocks · Grid": "The full page first, then the navbar, hero, features, steps and footer it is built from, on the Grid Frame kit.",
+  "Blocks · Folio": "The full page first, then each part from navbar to footer, sharing the Folio Kit.",
+  "Blocks · Context": "The full page first, then each part from navbar to footer, sharing the Context Kit.",
+  "Blocks · ORO": "The full page first, then each part from navbar to footer, sharing the ORO Kit.",
+  "Blocks · Roma": "The full page first, then each part from navbar to footer, sharing the Roma Kit.",
   "Pixel Art 3D": "Toon-lit, pixelated three.js scenes built on the Iso Scene kit. Needs three and @react-three/fiber.",
   "Pixel Art 2D": "Frame-by-frame animation, parallax and dithered skies on the Pixel 2D kit. No WebGL.",
 };
 
 export default function ComponentsPage() {
+  const groups: BrowserGroup[] = groupRegistry(registry).map((group) => ({
+    name: group.name,
+    slug: registryGroupSlug(group.name),
+    title: GROUP_TITLES[group.name] ?? group.name,
+    lede: GROUP_LEDES[group.name],
+    items: group.items,
+  }));
+
   return (
     <FolioSection>
       <FolioContainer>
@@ -50,23 +62,9 @@ export default function ComponentsPage() {
           description={`${registry.length} run live on this site with copyable source.`}
         />
 
-        {groupRegistry(registry).map((group, g) => (
-          <section key={group.name} className="pt-12">
-            <FolioSectionHead
-              className={g === 0 ? "border-t-0 pt-0" : undefined}
-              eyebrow={`${group.name} · ${group.items.length}`}
-              title={GROUP_TITLES[group.name] ?? group.name}
-              lede={GROUP_LEDES[group.name]}
-            />
-            <ol className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-              {group.items.map((item, i) => (
-                <li key={item.slug} className="flex min-w-0">
-                  <ComponentCard item={item} index={i} />
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))}
+        <Suspense fallback={<ComponentsBrowserFallback groups={groups} />}>
+          <ComponentsBrowser groups={groups} />
+        </Suspense>
       </FolioContainer>
     </FolioSection>
   );

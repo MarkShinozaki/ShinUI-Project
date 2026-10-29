@@ -14,6 +14,7 @@ import { getAuthor } from "@/data/authors";
 import { getCategory } from "@/data/categories";
 import { readRegistrySource } from "@/lib/registry-source";
 import { getRegistryItem, registry } from "@/registry";
+import { cn } from "@/lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -52,7 +53,12 @@ export default async function ComponentPage({ params }: Props) {
   const packages = item.dependencies.filter((d) => d !== "react");
 
   return (
-    <div className="mx-auto max-w-5xl px-6 pb-12 md:px-10">
+    <div
+      className={cn(
+        "mx-auto px-6 pb-12 md:px-10",
+        item.layout === "page" ? "max-w-7xl" : "max-w-5xl"
+      )}
+    >
       <PageHeader
         breadcrumbs={[
           { href: "/components", label: "Components" },
@@ -89,6 +95,7 @@ export default async function ComponentPage({ params }: Props) {
           code={source}
           filename={filename}
           previewClassName={item.previewClassName}
+          fullPage={item.layout === "page"}
         />
       </div>
 
