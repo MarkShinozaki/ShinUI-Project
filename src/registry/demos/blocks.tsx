@@ -44,6 +44,14 @@ import { DiaButton, DiaHeading, DiaMark, DiaRoot, Eyebrow as DiaEyebrow, Sunrise
 import { DiaLanding } from "@/registry/blocks/dia-landing";
 import { DiaNavbar } from "@/registry/blocks/dia-navbar";
 import { DiaSteps } from "@/registry/blocks/dia-steps";
+import { NousAgent } from "@/registry/blocks/nous-agent";
+import { NousFeed } from "@/registry/blocks/nous-feed";
+import { NousFooter } from "@/registry/blocks/nous-footer";
+import { NousHero } from "@/registry/blocks/nous-hero";
+import { CommandBar, Eyebrow as NousEyebrow, Halftone, NousButton, NousDisplay, NousMark, NousRoot } from "@/registry/blocks/nous-kit";
+import { NousLanding } from "@/registry/blocks/nous-landing";
+import { NousNavbar } from "@/registry/blocks/nous-navbar";
+import { NousPillars } from "@/registry/blocks/nous-pillars";
 import { RomaCards } from "@/registry/blocks/roma-cards";
 import { RomaFooter } from "@/registry/blocks/roma-footer";
 import { RomaHero } from "@/registry/blocks/roma-hero";
@@ -671,6 +679,113 @@ export function DiaKitDemo() {
           <p className="p-6 text-[13px] text-(--di-soft)">Any content goes inside the window frame.</p>
         </WindowFrame>
       </DiaRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousLandingDemo() {
+  const props = { brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <NousLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function NousNavbarDemo() {
+  const props = { brand: "shinUI", links: "Blocks, Kits, Lab, Changelog" } as const
+  return (
+    <BlockPreview height={240}>
+      <NousRoot className="flex flex-1 flex-col">
+        <NousNavbar {...props} />
+      </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousHeroDemo() {
+  const props = { wordmark: "Open Blocks", primaryCta: "Read the manifesto", secondaryCta: "Browse blocks", animate: true } as const
+  return (
+    <BlockPreview height={680}>
+      <NousRoot className="flex flex-1 flex-col">
+        <NousHero {...props} className="flex-1" />
+      </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousPillarsDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={820}>
+      <NousRoot className="flex flex-1 flex-col justify-center py-10">
+        <NousPillars {...props} />
+      </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousAgentDemo() {
+  const props = { heading: "Ship it today", command: "npx shinui add nous-hero" } as const
+  return (
+    <BlockPreview height={860}>
+      <NousRoot className="flex flex-1 flex-col">
+        <NousAgent {...props} />
+      </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousFeedDemo() {
+  const props = { heading: "Changelog", animate: true } as const
+  return (
+    <BlockPreview height={560}>
+      <NousRoot className="flex flex-1 flex-col justify-center">
+        <NousFeed {...props} />
+      </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousFooterDemo() {
+  const props = { brand: "shinUI", wordmark: "Open Blocks", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      {/* A scrolling box of its own, so the reveal can be seen. */}
+      <NousRoot className="relative h-[720px] overflow-y-auto overscroll-contain">
+        <div className="relative z-10 flex flex-col gap-4 bg-(--nr-paper) px-6 pt-10 pb-16">
+          <NousEyebrow className="text-center">Scroll inside the preview</NousEyebrow>
+          {Array.from({ length: 5 }, (_, i) => (
+            <div key={i} className="relative mx-auto h-40 w-full max-w-4xl overflow-hidden border border-(--nr-line) bg-(--nr-card)">
+              <Halftone shape={(["glow", "rings", "wave", "ridge", "fade"] as const)[i]} animate={false} />
+            </div>
+          ))}
+        </div>
+        <NousFooter {...props} />
+      </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function NousKitDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={600}>
+      <NousRoot className="relative isolate grid flex-1 items-center gap-10 overflow-hidden p-10 md:grid-cols-2">
+        <div className="flex flex-col items-start gap-5">
+          <NousEyebrow>Nous kit</NousEyebrow>
+          <NousDisplay align="left" className="text-7xl">Tall type</NousDisplay>
+          <div className="flex gap-2">
+            <NousButton>Solid</NousButton>
+            <NousButton variant="outline">Outline</NousButton>
+          </div>
+          <CommandBar questions={["Any question, typed out", "Then erased, then the next"]} animate={props.animate} />
+        </div>
+        <div className="relative aspect-square overflow-hidden border border-(--nr-line) bg-(--nr-card)">
+          <Halftone shape="rings" animate={props.animate} />
+          <NousMark className="absolute top-4 left-4 h-10" />
+        </div>
+      </NousRoot>
     </BlockPreview>
   )
 }
