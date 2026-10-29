@@ -28,8 +28,14 @@ function Row({ items, reverse, animate, on, toggle }: { items: string[]; reverse
   return (
     <div className="group/row flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
       <div
-        className={cn('flex shrink-0 gap-3 pr-3 group-hover/row:[animation-play-state:paused]', animate && 'di-anim')}
-        style={{ animation: animate ? `di-marquee ${reverse ? 46 : 38}s linear infinite${reverse ? ' reverse' : ''}` : undefined }}
+        className={cn('flex shrink-0 gap-3 pr-3 group-hover/row:[animation-play-state:paused] group-focus-within/row:[animation-play-state:paused]', animate && 'di-anim')}
+        // Longhands, not the shorthand: an inline `animation` would reset
+        // play-state and stop the hover pause from working.
+        style={
+          animate
+            ? { animationName: 'di-marquee', animationDuration: `${reverse ? 46 : 38}s`, animationTimingFunction: 'linear', animationIterationCount: 'infinite', animationDirection: reverse ? 'reverse' : 'normal' }
+            : undefined
+        }
       >
         {[0, 1].map((copy) =>
           items.map((k) => (

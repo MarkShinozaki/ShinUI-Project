@@ -15,12 +15,20 @@ export interface DiaLandingProps {
   className?: string
 }
 
-/** A full Dia page assembled from the family's blocks. */
+/**
+ * A full Dia page assembled from the family's blocks. The pill navbar stays
+ * pinned at the top and the arch dock (from DiaFooter) stays pinned at the
+ * bottom for the whole scroll, then settles under the closing headline.
+ */
 export function DiaLanding({ brand = 'shinUI', animate = true, className }: DiaLandingProps) {
   return (
     <DiaRoot className={cn('relative', className)}>
-      <DiaNavbar variant="pill" brand={brand} className="absolute inset-x-0 top-0 z-10" />
-      <DiaHero variant="sunrise" brand={brand} animate={animate} className="pt-24" />
+      {/* Pinned to the top of whatever scrolls; h-0 so it takes no space. */}
+      <div className="sticky top-0 z-30 h-0">
+        <DiaNavbar variant="pill" brand={brand} />
+      </div>
+      {/* The hero's button lives in the sticky dock below instead. */}
+      <DiaHero variant="sunrise" brand={brand} primaryCta="" animate={animate} className="pt-24 pb-10" />
       <DiaSteps animate={animate} />
       <DiaBento />
       <DiaControls animate={animate} />

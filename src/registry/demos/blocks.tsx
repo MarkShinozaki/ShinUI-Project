@@ -635,7 +635,14 @@ export function DiaFooterDemo() {
   const props = { variant: "cta", brand: "shinUI", headline: "Ready for an easier build?", ctaLabel: "Start building", animate: true } as const
   return (
     <BlockPreview height={720}>
-      <DiaRoot className="flex flex-1 flex-col justify-end">
+      {/* A scrolling box of its own, so the arch dock can be seen sticking. */}
+      <DiaRoot className="h-[720px] overflow-y-auto overscroll-contain">
+        <div className="flex flex-col gap-4 px-6 pt-10 pb-24">
+          <DiaEyebrow className="text-center">Scroll inside the preview</DiaEyebrow>
+          {Array.from({ length: 6 }, (_, i) => (
+            <div key={i} className="mx-auto h-40 w-full max-w-4xl rounded-2xl border border-(--di-line) bg-(--di-card)" />
+          ))}
+        </div>
         <DiaFooter {...props} />
       </DiaRoot>
     </BlockPreview>
