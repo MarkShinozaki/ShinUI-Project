@@ -46,6 +46,9 @@ import { AsciiField } from "@/registry/backgrounds/ascii-field";
 import { SpotlightVeil } from "@/registry/backgrounds/spotlight-veil";
 import { HorizonBeam } from "@/registry/backgrounds/horizon-beam";
 import { GridLines } from "@/registry/backgrounds/grid-lines";
+import { FireflyField } from "@/registry/backgrounds/firefly-field";
+import { RippleTiles } from "@/registry/backgrounds/ripple-tiles";
+import { LavaLamp } from "@/registry/backgrounds/lava-lamp";
 
 export function SpotlightCardDemo() {
   return (
@@ -407,5 +410,31 @@ export function GridLinesDemo() {
     <GridLines cellSize={40} className="grid h-56 w-full place-items-center">
       <BackgroundLabel eyebrow="Blueprint" title="Grid Lines" />
     </GridLines>
+  );
+}
+
+export function FireflyFieldDemo() {
+  return (
+    <FireflyField className="dark grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Rest your cursor" title="Firefly Field" />
+    </FireflyField>
+  );
+}
+
+export function RippleTilesDemo() {
+  return (
+    <RippleTiles className="grid h-56 w-full place-items-center">
+      <div className="rounded-xl bg-white/80 px-4 py-2 text-neutral-900 backdrop-blur">
+        <BackgroundLabel eyebrow="Click to drop a pebble" title="Ripple Tiles" />
+      </div>
+    </RippleTiles>
+  );
+}
+
+export function LavaLampDemo() {
+  return (
+    <LavaLamp className="dark grid h-56 w-full place-items-center">
+      <BackgroundLabel eyebrow="Groovy" title="Lava Lamp" />
+    </LavaLamp>
   );
 }

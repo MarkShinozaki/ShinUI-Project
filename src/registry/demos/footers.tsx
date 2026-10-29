@@ -4,6 +4,9 @@
 import { BlockPreview } from "@/registry/demos/block-preview";
 import { FooterAscii } from "@/registry/footers/footer-ascii";
 import { FooterDots } from "@/registry/footers/footer-dots";
+import { FooterEqualizer } from "@/registry/footers/footer-equalizer";
+import { FooterFizz } from "@/registry/footers/footer-fizz";
+import { FooterStickers } from "@/registry/footers/footer-stickers";
 import { FooterGradient } from "@/registry/footers/footer-gradient";
 import { BottomBar, Brand, FooterColumns, FooterRoot, FooterStage } from "@/registry/footers/footer-kit";
 import { FooterMotion } from "@/registry/footers/footer-motion";
@@ -114,6 +117,39 @@ export function FooterKitDemo() {
             <BottomBar brand={String(props.brand)} className="mt-12 border-t border-(--ft-line) pt-5" />
           </div>
         </FooterRoot>
+      </FooterStage>
+    </BlockPreview>
+  )
+}
+
+export function FooterFizzDemo() {
+  const props = { brand: "lumen", tagline: "Refreshingly simple tools.", accent: "#f43f5e", count: 70, animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <FooterStage>
+        <FooterFizz {...props} />
+      </FooterStage>
+    </BlockPreview>
+  )
+}
+
+export function FooterStickersDemo() {
+  const props = { brand: "lumen", tagline: "Stick around. It gets better.", animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <FooterStage>
+        <FooterStickers {...props} />
+      </FooterStage>
+    </BlockPreview>
+  )
+}
+
+export function FooterEqualizerDemo() {
+  const props = { brand: "lumen", tagline: "Ship to the rhythm.", accent: "#8b5cf6", bars: 48, animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      <FooterStage>
+        <FooterEqualizer {...props} />
       </FooterStage>
     </BlockPreview>
   )

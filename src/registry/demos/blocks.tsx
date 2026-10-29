@@ -68,6 +68,9 @@ import { HexIntegrations } from "@/registry/blocks/hex-integrations";
 import { Card as HexCard, Chip as HexChip, GridPaper, HexButton, HexMark, HexRoot, Mono as HexMono, Serif as HexSerif } from "@/registry/blocks/hex-kit";
 import { HexLanding } from "@/registry/blocks/hex-landing";
 import { HexNavbar } from "@/registry/blocks/hex-navbar";
+import { HeroMagnet } from "@/registry/blocks/hero-magnet";
+import { HeroMarquee } from "@/registry/blocks/hero-marquee";
+import { HeroParallax } from "@/registry/blocks/hero-parallax";
 import { HexOrbit } from "@/registry/blocks/hex-orbit";
 import { AsideBenchmarks } from "@/registry/blocks/aside-benchmarks";
 import { AsideCapabilities } from "@/registry/blocks/aside-capabilities";
@@ -1171,6 +1174,40 @@ export function AsideKitDemo() {
           </AppWindow>
         </div>
       </AsideRoot>
+    </BlockPreview>
+  )
+}
+
+export function HeroMagnetDemo() {
+  const props = { kicker: "Fresh out of the oven", title: "Make it move.", mode: "push", radius: 140, accent: "#ff5c39" } as const
+  return (
+    <BlockPreview height={640}>
+      <HeroMagnet {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function HeroParallaxDemo() {
+  const props = { title: "Interfaces that feel", depth: 30, animate: true } as const
+  return (
+    <BlockPreview height={680}>
+      {/* Scrolls on its own so the shapes can drift with scroll. */}
+      <div className="h-[680px] overflow-y-auto overscroll-contain">
+        <HeroParallax {...props} className="min-h-[680px]" />
+        <div className="h-[400px]" />
+      </div>
+    </BlockPreview>
+  )
+}
+
+export function HeroMarqueeDemo() {
+  const props = { kicker: "Now shipping", title: "Loud launches, made easy.", speed: 1, animate: true } as const
+  return (
+    <BlockPreview height={680}>
+      <div className="h-[680px] overflow-y-auto overscroll-contain">
+        <HeroMarquee {...props} className="min-h-[680px]" />
+        <div className="h-[400px]" />
+      </div>
     </BlockPreview>
   )
 }
