@@ -5,6 +5,7 @@ import type { ComponentType } from "react";
 
 import * as demos from "./demos";
 import * as blockDemos from "./demos/blocks";
+import * as dsComponentDemos from "./demos/ds-components";
 import * as footerDemos from "./demos/footers";
 
 // Pixel-art scenes pull in three.js, so they load on the client only, on demand.
@@ -41,6 +42,7 @@ const demoMap = {
   ...demos,
   ...footerDemos,
   ...blockDemos,
+  ...dsComponentDemos,
   ...pixelArtDemos,
 } as unknown as Record<string, ComponentType>;
 
