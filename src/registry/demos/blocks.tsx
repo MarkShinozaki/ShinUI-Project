@@ -60,6 +60,15 @@ import { ScoutLanding } from "@/registry/blocks/scout-landing";
 import { ScoutNavbar } from "@/registry/blocks/scout-navbar";
 import { ScoutPinned } from "@/registry/blocks/scout-pinned";
 import { ScoutProduct } from "@/registry/blocks/scout-product";
+import { HexAgent } from "@/registry/blocks/hex-agent";
+import { HexFaq } from "@/registry/blocks/hex-faq";
+import { HexFooter } from "@/registry/blocks/hex-footer";
+import { HexHero } from "@/registry/blocks/hex-hero";
+import { HexIntegrations } from "@/registry/blocks/hex-integrations";
+import { Card as HexCard, Chip as HexChip, GridPaper, HexButton, HexMark, HexRoot, Mono as HexMono, Serif as HexSerif } from "@/registry/blocks/hex-kit";
+import { HexLanding } from "@/registry/blocks/hex-landing";
+import { HexNavbar } from "@/registry/blocks/hex-navbar";
+import { HexOrbit } from "@/registry/blocks/hex-orbit";
 import { RomaCards } from "@/registry/blocks/roma-cards";
 import { RomaFooter } from "@/registry/blocks/roma-footer";
 import { RomaHero } from "@/registry/blocks/roma-hero";
@@ -897,6 +906,132 @@ export function ScoutKitDemo() {
           <Cross className="top-1/2 left-1/4" />
         </GridBand>
       </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexLandingDemo() {
+  const props = { brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <HexLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function HexNavbarDemo() {
+  const props = { brand: "shinUI", links: "Product, Solutions, Teams, Docs, Pricing", ctaLabel: "Start free" } as const
+  return (
+    <BlockPreview height={420}>
+      {/* Scrolls on its own so the header can fold. */}
+      <HexRoot className="relative h-[420px] overflow-y-auto overscroll-contain">
+        <div className="sticky top-0 z-10">
+          <HexNavbar {...props} />
+        </div>
+        <div className="relative h-[900px]">
+          <GridPaper />
+          <HexMono className="relative block pt-16 text-center text-(--hx-faint)">Scroll inside the preview</HexMono>
+        </div>
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexHeroDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={760}>
+      <HexRoot className="flex flex-1 flex-col">
+        <HexHero {...props} className="flex-1" />
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexAgentDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      {/* Scrolls on its own so the pinning can be seen. */}
+      <HexRoot className="h-[720px] overflow-y-auto overscroll-contain">
+        <HexAgent {...props} />
+        <div className="h-40" />
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexOrbitDemo() {
+  const props = { heading: "Every answer makes the next one better" } as const
+  return (
+    <BlockPreview height={640}>
+      <HexRoot className="h-[640px] overflow-y-auto overscroll-contain">
+        <HexMono className="block px-6 pt-8 text-center text-(--hx-faint)">Scroll to turn the ring</HexMono>
+        <div className="h-48" />
+        <HexOrbit {...props} />
+        <div className="h-64" />
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexIntegrationsDemo() {
+  const props = { heading: "Fits into the stack" } as const
+  return (
+    <BlockPreview height={760}>
+      <HexRoot className="flex flex-1 flex-col justify-center">
+        <HexIntegrations {...props} />
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexFaqDemo() {
+  const props = { heading: "Questions" } as const
+  return (
+    <BlockPreview height={760}>
+      <HexRoot className="flex flex-1 flex-col justify-center">
+        <HexFaq {...props} />
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexFooterDemo() {
+  const props = { brand: "shinUI" } as const
+  return (
+    <BlockPreview height={560}>
+      <HexRoot className="flex flex-1 flex-col justify-end">
+        <HexFooter {...props} />
+      </HexRoot>
+    </BlockPreview>
+  )
+}
+
+export function HexKitDemo() {
+  const props = { note: "Paper cards, graph-paper grounds, corner ticks and scroll hooks." } as const
+  return (
+    <BlockPreview height={520}>
+      <HexRoot className="relative isolate grid flex-1 items-center gap-10 overflow-hidden p-10 md:grid-cols-2">
+        <GridPaper />
+        <div className="relative flex flex-col items-start gap-5">
+          <HexMono className="text-(--hx-accent)">Hex kit</HexMono>
+          <h3 className="flex items-center gap-3 text-5xl font-semibold tracking-[-0.04em]">
+            <HexMark className="size-10" /> Plain <HexSerif>and calm</HexSerif>
+          </h3>
+          <p className="text-lg text-(--hx-dim)">
+            Mix <HexChip icon="◆">chips</HexChip> into a sentence.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <HexButton>Primary</HexButton>
+            <HexButton variant="ghost">Ghost</HexButton>
+          </div>
+        </div>
+        <HexCard className="relative p-6">
+          <HexMono className="text-(--hx-faint)">Card</HexMono>
+          <p className="mt-2 text-[15px] text-(--hx-dim)">{props.note}</p>
+        </HexCard>
+      </HexRoot>
     </BlockPreview>
   )
 }
