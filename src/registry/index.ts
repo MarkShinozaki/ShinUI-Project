@@ -1436,6 +1436,42 @@ export const registry: RegistryItem[] = [
     authorId: "shinozaki",
     group: "Pixel Art 2D",
   },
+  {
+    slug: "button",
+    name: "Button",
+    description:
+      "Three variants (primary, secondary, ghost) in three sizes, with focus ring and press feedback.",
+    category: "component-libraries",
+    tags: ["action", "form"],
+    file: "registry/components/button.tsx",
+    demoExport: "ButtonDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "badge",
+    name: "Badge",
+    description:
+      "Small status label with six tones and an optional pulsing dot.",
+    category: "component-libraries",
+    tags: ["status", "label"],
+    file: "registry/components/badge.tsx",
+    demoExport: "BadgeDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+  },
+  {
+    slug: "marquee-chip",
+    name: "Marquee Chip",
+    description:
+      "Compact chip with a monospaced mark — for indexes, tags, and editorial rails.",
+    category: "component-libraries",
+    tags: ["label", "editorial"],
+    file: "registry/components/marquee-chip.tsx",
+    demoExport: "MarqueeChipDemo",
+    dependencies: ["react"],
+    authorId: "shinozaki",
+  },
 ];
 
 export const registryBySlug = new Map(registry.map((item) => [item.slug, item]));
