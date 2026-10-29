@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
-import { PixelCanvas, bands, drawSprite, hash, rect, sprite, wrap, type Frame, type PixelCanvasProps } from '@/registry/pixel-art/pixel-2d'
+import { PixelCanvas, bands, drawSprite, frameAt, hash, rect, sprite, wrap, type Frame, type PixelCanvasProps } from '@/registry/pixel-art/pixel-2d'
 
 /* -------------------------------------------------------------------------------------------------
  * Campfire Night: a flat 2D pixel-art campsite. A fire flickers through hand-drawn flame frames,
@@ -129,7 +129,7 @@ function drawScene({ ctx, w, h, t }: Frame, fire: CampfireFire, shootingStars: b
     drawSprite(ctx, sprite(STONE, { s: '#3a3a46', g: '#5a5a66' }), fx - 2 + Math.cos(a) * 9, fy - 1 + Math.sin(a) * 3)
   }
   drawSprite(ctx, sprite(LOGS, { k: '#2a1a16', w: '#6e4426', y: '#c08a54' }), fx - 6, fy - 5)
-  const flame = sprite(FLAME[Math.floor(t * 10) % FLAME.length], f)
+  const flame = sprite(FLAME[frameAt(t * 10, FLAME.length)], f)
   drawSprite(ctx, flame, fx - 5, fy - 16, Math.floor(t * 2.5) % 2 === 1)
 
   // Sparks rise, drift and wink out.
