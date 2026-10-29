@@ -18,6 +18,7 @@ import { DitherField, FolioButton, FolioCommand, FolioLabel, FolioRoot, PixelBar
 import { FolioLanding } from "@/registry/blocks/folio-landing";
 import { FolioMetrics } from "@/registry/blocks/folio-metrics";
 import { FolioNavbar } from "@/registry/blocks/folio-navbar";
+import { GeneralLanding } from "@/registry/blocks/general-landing";
 import { GridFeatures } from "@/registry/blocks/grid-features";
 import { GridFooter } from "@/registry/blocks/grid-footer";
 import { GridCell, GridCells, GridLabel, GridRule, GridSection } from "@/registry/blocks/grid-frame";
@@ -58,6 +59,15 @@ export function SplitHeroDemo() {
   return (
     <BlockPreview height={640}>
       <SplitHero {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function GeneralLandingDemo() {
+  const props = { brand: "shinUI", nav: "glass", background: "vivid", showSplit: true } as const
+  return (
+    <BlockPreview height={960}>
+      <GeneralLanding {...props} className="flex-1" />
     </BlockPreview>
   )
 }

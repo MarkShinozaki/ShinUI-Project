@@ -22,12 +22,18 @@ export function ComponentPreview({
   filename,
   previewClassName,
   align = "center",
+  fullPage = false,
 }: {
   demoName: string;
   code: string | null;
   filename: string;
   previewClassName?: string;
   align?: "center" | "start";
+  /**
+   * A whole page composed from blocks: rendered at full width in a tall,
+   * scrollable frame instead of a centred stage.
+   */
+  fullPage?: boolean;
 }) {
   const [tab, setTab] = React.useState<"preview" | "code">("preview");
   const [viewport, setViewport] = React.useState<ViewportId>("full");
@@ -98,7 +104,20 @@ export function ComponentPreview({
         </div>
       </div>
 
-      {tab === "preview" ? (
+      {tab === "preview" && fullPage ? (
+        <div className="checker-pattern flex justify-center p-2 sm:p-4">
+          <div
+            className="bg-background h-[min(80vh,900px)] w-full overflow-y-auto overscroll-contain rounded-lg border transition-[max-width] duration-300"
+            style={{ maxWidth: width ?? undefined }}
+            tabIndex={0}
+            aria-label="Full page preview, scrollable"
+          >
+            <div key={replayKey} className="flex min-h-full w-full flex-col">
+              <RegistryDemo name={demoName} />
+            </div>
+          </div>
+        </div>
+      ) : tab === "preview" ? (
         <div className="checker-pattern flex justify-center overflow-auto p-4 sm:p-8">
           <div
             className={cn(

@@ -22,6 +22,11 @@ export type RegistryItem = {
    * DEFAULT_REGISTRY_GROUP.
    */
   group?: string;
+  /**
+   * "page" marks a full page composed from a family's blocks. It is listed
+   * first in its section and previewed in a scrollable desktop frame.
+   */
+  layout?: "page";
 };
 
 export const DEFAULT_REGISTRY_GROUP = "Components";
@@ -57,8 +62,23 @@ export function groupRegistry(items: RegistryItem[]): RegistryGroup[] {
     return i === -1 ? REGISTRY_GROUP_ORDER.length : i;
   };
   return [...buckets.entries()]
-    .map(([name, groupItems]) => ({ name, items: groupItems }))
+    .map(([name, groupItems]) => ({
+      name,
+      // Full-page compositions lead their section; the rest keep their order.
+      items: [
+        ...groupItems.filter((item) => item.layout === "page"),
+        ...groupItems.filter((item) => item.layout !== "page"),
+      ],
+    }))
     .sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name));
+}
+
+/** URL-safe id for a section, e.g. "Blocks · Grid" -> "blocks-grid". */
+export function registryGroupSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export const registry: RegistryItem[] = [
@@ -648,6 +668,22 @@ export const registry: RegistryItem[] = [
     group: "Blocks · General",
   },
   {
+    slug: "general-landing",
+    name: "General · Full page",
+    description:
+      "The general blocks stacked into one page: glass navbar, aurora hero, split hero with a horizon beam, and the gradient footer.",
+    category: "blocks-templates",
+    tags: ["landing", "page", "template", "hero", "navbar"],
+    file: "registry/blocks/general-landing.tsx",
+    files: ["registry/blocks/navbar.tsx", "registry/blocks/hero.tsx", "registry/blocks/split-hero.tsx", "registry/footers/footer-gradient.tsx", "registry/footers/footer-kit.tsx", "registry/components/button.tsx", "registry/backgrounds/aurora.tsx", "registry/backgrounds/horizon-beam.tsx"],
+    demoExport: "GeneralLandingDemo",
+    dependencies: ["react"],
+    previewClassName: "p-0 overflow-hidden",
+    authorId: "shinozaki",
+    group: "Blocks · General",
+    layout: "page",
+  },
+  {
     slug: "grid-navbar",
     name: "Grid Navbar",
     description:
@@ -739,7 +775,7 @@ export const registry: RegistryItem[] = [
   },
   {
     slug: "grid-landing",
-    name: "Grid Landing",
+    name: "Grid · Full page",
     description:
       "A full page stacked from the grid blocks (nav, hero, strip, features, steps, footer) in three presets.",
     category: "blocks-templates",
@@ -751,6 +787,7 @@ export const registry: RegistryItem[] = [
     previewClassName: "p-0 overflow-hidden",
     authorId: "shinozaki",
     group: "Blocks · Grid",
+    layout: "page",
   },
   {
     slug: "grid-frame",
@@ -864,7 +901,7 @@ export const registry: RegistryItem[] = [
   },
   {
     slug: "folio-landing",
-    name: "Folio Landing",
+    name: "Folio · Full page",
     description:
       "A full page stacked from the Folio blocks: docs (sidebar + scrollspy), classic (top bar, split hero) or manifesto.",
     category: "blocks-templates",
@@ -877,6 +914,7 @@ export const registry: RegistryItem[] = [
     authorId: "shinozaki",
     inspiredBy: { name: "Supermemory", url: "https://supermemory.ai" },
     group: "Blocks · Folio",
+    layout: "page",
   },
   {
     slug: "folio-kit",
@@ -975,7 +1013,7 @@ export const registry: RegistryItem[] = [
   },
   {
     slug: "context-landing",
-    name: "Context Landing",
+    name: "Context · Full page",
     description:
       "A full page from the Context blocks: console (search-first), split (code-first) or compact.",
     category: "blocks-templates",
@@ -988,6 +1026,7 @@ export const registry: RegistryItem[] = [
     authorId: "shinozaki",
     inspiredBy: { name: "Context.dev", url: "https://context.dev" },
     group: "Blocks · Context",
+    layout: "page",
   },
   {
     slug: "context-kit",
@@ -1086,7 +1125,7 @@ export const registry: RegistryItem[] = [
   },
   {
     slug: "oro-landing",
-    name: "ORO Landing",
+    name: "ORO · Full page",
     description:
       "A full page from the ORO blocks: research (leaderboard + chart), launch (centered + tabs) or numbers (counter-first).",
     category: "blocks-templates",
@@ -1099,6 +1138,7 @@ export const registry: RegistryItem[] = [
     authorId: "shinozaki",
     inspiredBy: { name: "ORO", url: "https://oroagents.com" },
     group: "Blocks · ORO",
+    layout: "page",
   },
   {
     slug: "oro-kit",
@@ -1197,7 +1237,7 @@ export const registry: RegistryItem[] = [
   },
   {
     slug: "roma-landing",
-    name: "Roma Landing",
+    name: "Roma · Full page",
     description:
       "A full page from the Roma blocks: app (mosaic + orange + window), agent (orange + manifesto + chat) or minimal (light window).",
     category: "blocks-templates",
@@ -1210,6 +1250,7 @@ export const registry: RegistryItem[] = [
     authorId: "shinozaki",
     inspiredBy: { name: "Roma", url: "https://roma.app" },
     group: "Blocks · Roma",
+    layout: "page",
   },
   {
     slug: "roma-kit",
