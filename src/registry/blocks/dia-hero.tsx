@@ -104,10 +104,12 @@ export function DiaHero({
           </p>
         )}
         <HeroWindow prompt={prompt} animate={animate} />
-        <div className="mt-10 flex flex-col items-center gap-2">
-          <DiaButton>{primaryCta}</DiaButton>
-          <span className="text-[12px] text-(--di-faint)">{note}</span>
-        </div>
+        {primaryCta && (
+          <div className="mt-10 flex flex-col items-center gap-2">
+            <DiaButton>{primaryCta}</DiaButton>
+            <span className="text-[12px] text-(--di-faint)">{note}</span>
+          </div>
+        )}
       </div>
     </section>
   )
