@@ -52,6 +52,14 @@ import { CommandBar, Eyebrow as NousEyebrow, Halftone, NousButton, NousDisplay, 
 import { NousLanding } from "@/registry/blocks/nous-landing";
 import { NousNavbar } from "@/registry/blocks/nous-navbar";
 import { NousPillars } from "@/registry/blocks/nous-pillars";
+import { ScoutFeatures } from "@/registry/blocks/scout-features";
+import { ScoutFooter } from "@/registry/blocks/scout-footer";
+import { ScoutHero } from "@/registry/blocks/scout-hero";
+import { Cross, GridBand, Mono, Reticle, ScoutButton, ScoutMark, ScoutRoot, Terrain } from "@/registry/blocks/scout-kit";
+import { ScoutLanding } from "@/registry/blocks/scout-landing";
+import { ScoutNavbar } from "@/registry/blocks/scout-navbar";
+import { ScoutPinned } from "@/registry/blocks/scout-pinned";
+import { ScoutProduct } from "@/registry/blocks/scout-product";
 import { RomaCards } from "@/registry/blocks/roma-cards";
 import { RomaFooter } from "@/registry/blocks/roma-footer";
 import { RomaHero } from "@/registry/blocks/roma-hero";
@@ -786,6 +794,109 @@ export function NousKitDemo() {
           <NousMark className="absolute top-4 left-4 h-10" />
         </div>
       </NousRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutLandingDemo() {
+  const props = { brand: "shinUI", animate: true } as const
+  return (
+    <BlockPreview height={960}>
+      <ScoutLanding {...props} className="flex-1" />
+    </BlockPreview>
+  )
+}
+
+export function ScoutNavbarDemo() {
+  const props = { brand: "shinUI", links: "Blocks, Kits, Changelog", ctaLabel: "Contact" } as const
+  return (
+    <BlockPreview height={240}>
+      <ScoutRoot className="flex flex-1 flex-col">
+        <ScoutNavbar {...props} />
+      </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutHeroDemo() {
+  const props = { ctaLabel: "Watch the tour", animate: true } as const
+  return (
+    <BlockPreview height={640}>
+      <ScoutRoot className="flex flex-1 flex-col">
+        <ScoutHero {...props} className="flex-1" />
+      </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutPinnedDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={720}>
+      {/* Scrolls on its own so the pinning can be seen. */}
+      <ScoutRoot className="h-[720px] overflow-y-auto overscroll-contain">
+        <Mono className="block px-6 pt-8 text-(--sc-dim)">Scroll inside the preview</Mono>
+        <ScoutPinned {...props} />
+        <div className="h-40" />
+      </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutProductDemo() {
+  const props = { name: "Field Kit" } as const
+  return (
+    <BlockPreview height={700}>
+      <ScoutRoot className="flex flex-1 flex-col justify-center">
+        <ScoutProduct {...props} />
+      </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutFeaturesDemo() {
+  const props = { heading: "Built to hold up" } as const
+  return (
+    <BlockPreview height={560}>
+      <ScoutRoot className="flex flex-1 flex-col justify-center">
+        <ScoutFeatures {...props} />
+      </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutFooterDemo() {
+  const props = { brand: "shinUI" } as const
+  return (
+    <BlockPreview height={420}>
+      <ScoutRoot className="flex flex-1 flex-col justify-end">
+        <ScoutFooter {...props} />
+      </ScoutRoot>
+    </BlockPreview>
+  )
+}
+
+export function ScoutKitDemo() {
+  const props = { animate: true } as const
+  return (
+    <BlockPreview height={560}>
+      <ScoutRoot className="relative isolate grid flex-1 items-center gap-10 overflow-hidden p-10 md:grid-cols-2">
+        <div className="flex flex-col items-start gap-5">
+          <Mono className="text-(--sc-accent)">Scout kit</Mono>
+          <h3 className="flex items-center gap-3 text-5xl tracking-[-0.03em]">
+            <ScoutMark className="size-10" /> Field ready
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            <ScoutButton>Outline</ScoutButton>
+            <ScoutButton variant="accent">Accent</ScoutButton>
+          </div>
+        </div>
+        <GridBand className="relative h-72 overflow-hidden">
+          <Terrain animate={props.animate} />
+          <Reticle animate={props.animate} className="top-1/3 left-1/2" />
+          <Cross className="top-1/2 left-1/4" />
+        </GridBand>
+      </ScoutRoot>
     </BlockPreview>
   )
 }
