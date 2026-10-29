@@ -20,7 +20,12 @@ export function RegistryComponentCard({
 
   return (
     <div className="group relative flex h-full w-full flex-col border border-(--fo-line) bg-(--fo-paper) p-3 transition-colors duration-200 hover:border-(--fo-accent)">
-      <Link href={`/components/${item.slug}`} className="flex flex-1 flex-col">
+      <Link
+        href={`/components/${item.slug}`}
+        className="absolute inset-0 z-0"
+        aria-label={item.name}
+      />
+      <div className="relative z-[1] flex flex-1 flex-col pointer-events-none">
         <div className="flex items-start justify-between gap-2 px-1 pt-1 pr-9">
           <div className="min-w-0">
             <h3 className="text-[14.5px] leading-snug font-medium">{item.name}</h3>
@@ -38,7 +43,7 @@ export function RegistryComponentCard({
         </div>
         <div className="relative mt-4 p-2.5">
           <FolioBrackets />
-          <div className="fo-dots pointer-events-none flex min-h-48 items-center justify-center overflow-hidden bg-(--fo-well)/60 p-6">
+          <div className="fo-dots flex min-h-48 items-center justify-center overflow-hidden bg-(--fo-well)/60 p-6">
             <div className="flex w-full justify-center">
               <RegistryDemo name={item.demoExport} />
             </div>
@@ -50,7 +55,7 @@ export function RegistryComponentCard({
           </p>
           <ArrowUpRight className="mt-1 text-(--fo-faint) transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-(--fo-accent)" />
         </div>
-      </Link>
+      </div>
       <div className="absolute top-3 right-3 z-10">
         <SaveButton kind="component" id={item.slug} />
       </div>

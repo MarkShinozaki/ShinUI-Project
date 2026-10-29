@@ -6,7 +6,6 @@ import { FolioCommand } from "@/components/folio/command";
 import { GreatWave } from "@/components/folio/great-wave";
 import { ArrowUpRight, FolioButton, FolioLabel, FolioMark } from "@/components/folio/kit";
 import { categories } from "@/data/categories";
-import { resources } from "@/data/resources";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
 
@@ -28,15 +27,6 @@ const COLUMNS: { head: string; links: { href: string; label: string }[] }[] = [
     ],
   },
 ];
-
-function Status({ label }: { label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 font-mono text-[10.5px] tracking-[0.1em] text-(--fo-soft) uppercase">
-      <span className="fo-anim size-1.5 rounded-full bg-(--fo-ok) [animation:fo-pulse_2.4s_ease-in-out_infinite]" />
-      {label}
-    </span>
-  );
-}
 
 /**
  * Folio footer, `cta` variant (Design Studio `FolioFooter`): closing call to
@@ -118,19 +108,10 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-(--fo-line) py-6 text-[12px] text-(--fo-faint) sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-t border-(--fo-line) py-6 text-[12px] text-(--fo-faint)">
           <span>
-            © {YEAR} {SITE.name} · {SITE.author.name}
+            © {YEAR} {SITE.name}
           </span>
-          <div className="flex flex-wrap items-center gap-5">
-            <Status label={`${resources.length} resources indexed`} />
-            <a href={SITE.author.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-(--fo-ink)">
-              Author
-            </a>
-            <a href={SITE.repo} target="_blank" rel="noreferrer" className="transition-colors hover:text-(--fo-ink)">
-              License
-            </a>
-          </div>
         </div>
       </footer>
       <div className="h-48 w-full overflow-hidden sm:h-96 xl:h-[576px]">

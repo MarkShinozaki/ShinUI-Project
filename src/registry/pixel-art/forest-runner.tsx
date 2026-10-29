@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
-import { PixelCanvas, bands, drawSprite, hash, rect, sprite, wrap, type Frame, type PixelCanvasProps } from '@/registry/pixel-art/pixel-2d'
+import { PixelCanvas, bands, drawSprite, frameAt, hash, rect, sprite, wrap, type Frame, type PixelCanvasProps } from '@/registry/pixel-art/pixel-2d'
 
 /* -------------------------------------------------------------------------------------------------
  * Forest Runner: a flat 2D side-scroller loop. A little runner jogs through a forest on a
@@ -137,7 +137,7 @@ function drawScene({ ctx, w, h, t }: Frame, timeOfDay: ForestRunnerTimeOfDay, sh
   }
 
   const colors = { h: '#3a2a26', s: '#f2c29b', k: '#2a2230', c: shirt, r: '#d9a77f', p: '#3a4a7a', q: '#2a365c', f: '#f4f1ea' }
-  const rows = lift > 0.5 ? JUMP : RUN[Math.floor(t * 10) % 4]
+  const rows = lift > 0.5 ? JUMP : RUN[frameAt(t * 10, RUN.length)]
   const runner = sprite(rows, colors)
   const bob = lift > 0.5 ? 0 : Math.floor(t * 10) % 2
   // Shadow on the ground that shrinks while airborne.

@@ -186,21 +186,28 @@ export interface Sprite {
 
 const spriteCache = new Map<string, Sprite>()
 
+/** Positive frame index into a sprite sheet of `count` frames (handles negative `t`). */
+export function frameAt(t: number, count: number) {
+  const n = Math.max(1, count | 0)
+  return ((Math.floor(t) % n) + n) % n
+}
+
 /**
  * Build a sprite from rows of characters. Each char is looked up in `colors`; anything else
  * (use '.') is transparent. Cached, so it is fine to call every frame.
  */
-export function sprite(rows: readonly string[], colors: Record<string, string>): Sprite {
-  const key = `${rows.join('/')}|${JSON.stringify(colors)}`
+export function sprite(rows: readonly string[] | undefined, colors: Record<string, string>): Sprite {
+  const safe = rows?.length ? rows : ['.']
+  const key = `${safe.join('/')}|${JSON.stringify(colors)}`
   const hit = spriteCache.get(key)
   if (hit) return hit
-  const w = Math.max(...rows.map((r) => r.length))
-  const h = rows.length
+  const w = Math.max(1, ...safe.map((r) => r.length))
+  const h = safe.length
   const image = document.createElement('canvas')
   image.width = w
   image.height = h
   const ctx = image.getContext('2d')!
-  rows.forEach((row, y) => {
+  safe.forEach((row, y) => {
     for (let x = 0; x < row.length; x++) {
       const color = colors[row[x]]
       if (!color) continue

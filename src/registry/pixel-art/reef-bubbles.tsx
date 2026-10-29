@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
-import { PixelCanvas, bands, drawSprite, hash, rect, sprite, wrap, type Frame, type PixelCanvasProps } from '@/registry/pixel-art/pixel-2d'
+import { PixelCanvas, bands, drawSprite, frameAt, hash, rect, sprite, wrap, type Frame, type PixelCanvasProps } from '@/registry/pixel-art/pixel-2d'
 
 /* -------------------------------------------------------------------------------------------------
  * Reef Bubbles: a flat 2D pixel-art underwater scene. Fish swim past with a two-frame tail
@@ -114,13 +114,13 @@ function drawScene({ ctx, w, h, t }: Frame, paletteName: ReefPalette, fishCount:
     const x = dir > 0 ? wrap(hash(i, 16) * w + t * v, w + 30) - 15 : w + 15 - wrap(hash(i, 16) * w + t * v, w + 30)
     const y = lane + Math.round(Math.sin(t * 1.5 + i) * 2)
     const color = p.fish[i % p.fish.length]
-    const s = sprite(FISH[Math.floor(t * 6 + i) % 2], { b: color, s: '#ffffff', w: '#ffffffaa', k: '#1a1a2a' })
+    const s = sprite(FISH[frameAt(t * 6 + i, FISH.length)], { b: color, s: '#ffffff', w: '#ffffffaa', k: '#1a1a2a' })
     drawSprite(ctx, s, x, y, dir < 0)
   }
 
   // Crab shuffling side to side.
   const crabX = Math.round(w * 0.25 + Math.sin(t * 0.5) * w * 0.12)
-  drawSprite(ctx, sprite(CRAB[Math.floor(t * 6) % 2], { c: '#e0503a', k: '#1a1a2a' }), crabX, floor - 4)
+  drawSprite(ctx, sprite(CRAB[frameAt(t * 6, CRAB.length)], { c: '#e0503a', k: '#1a1a2a' }), crabX, floor - 4)
 }
 
 /** Flat 2D pixel-art underwater reef with fish and bubbles. Put any content inside it as children. */
