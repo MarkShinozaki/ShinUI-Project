@@ -24,8 +24,9 @@ import { cn } from '@/lib/utils'
  *                     the diorama, rendered at 1/pixelSize resolution and upscaled with
  *                     nearest-neighbour filtering (the "pixel" look), plus toon lights that
  *                     follow the site's light/dark theme.
- *                     `zoom` scales the fitted view; `interactiveZoom` adds wheel, pinch and
- *                     +/- buttons while the pointer is over the scene. Outlines are opt-in.
+ *                     `zoom` scales the fitted view; `interactiveZoom` adds wheel, pinch,
+ *                     +/- and 1:1 reset buttons (or double-click) while the pointer is over the scene.
+ *                     A `[data-preview-theme]` ancestor overrides the site theme for one preview. Outlines are opt-in.
  *  - <Part>           a low-poly box/cylinder/sphere/cone with a 3-band toon material and an
  *                     inverted-hull outline about 1.5 rendered pixels wide.
  *  - useLoop()        a speed-scaled animation clock, so changing speed never makes things jump.
@@ -151,15 +152,25 @@ export function ToonMaterial({ color }: { color: string }) {
 
 /* ------------------------------------------------------------------------------------- hooks -- */
 
-/** Follow the site theme (the `dark` class on <html>). */
-function useIsDark() {
+/**
+ * Follow the theme: the nearest `[data-preview-theme="light"|"dark"]` ancestor wins (a preview
+ * that was flipped on its own), otherwise the site theme (the `dark` class on <html>).
+ */
+function useIsDark(host: RefObject<HTMLElement | null>) {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   useEffect(() => {
     const root = document.documentElement
-    const observer = new MutationObserver(() => setDark(root.classList.contains('dark')))
+    const scope = host.current?.parentElement?.closest<HTMLElement>('[data-preview-theme]') ?? null
+    const read = () => {
+      const theme = scope?.dataset.previewTheme
+      setDark(theme === 'dark' ? true : theme === 'light' ? false : root.classList.contains('dark'))
+    }
+    read()
+    const observer = new MutationObserver(read)
     observer.observe(root, { attributes: true, attributeFilter: ['class'] })
+    if (scope) observer.observe(scope, { attributes: true, attributeFilter: ['data-preview-theme'] })
     return () => observer.disconnect()
-  }, [])
+  }, [host])
   return dark
 }
 
@@ -384,10 +395,10 @@ export function IsoPixelScene({
   night = false,
   ...props
 }: IsoPixelSceneProps) {
-  const dark = useIsDark() || night
+  const host = useRef<HTMLDivElement>(null)
+  const dark = useIsDark(host) || night
   const reducedMotion = usePrefersReducedMotion()
   const ramp = useToonRamp()
-  const host = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(true)
   // Inside an `inert` gallery thumbnail: no zoom UI and a throttled frame rate.
   const [thumbnail, setThumbnail] = useState(false)
@@ -418,7 +429,9 @@ export function IsoPixelScene({
     (factor: number) => setUserZoom((z) => clampZoom(baseZoom * z * factor) / baseZoom),
     [baseZoom],
   )
+  const resetZoom = useCallback(() => setUserZoom(1), [])
   useInteractiveZoom(host, interactiveZoom, effectiveZoom, zoomBy)
+  const zoomUi = interactiveZoom && !thumbnail
   const settings = useMemo<IsoSettings>(
     () => ({ ramp, outlines: showOutlines, outlineColor, thickness: 0.04, speed: reducedMotion ? 0 : speed, dark }),
     [ramp, showOutlines, outlineColor, speed, reducedMotion, dark],
@@ -430,6 +443,11 @@ export function IsoPixelScene({
       // With interactive zoom, one-finger panning still scrolls the page; two-finger pinches are ours.
       className={cn('relative isolate overflow-hidden bg-background', interactiveZoom && 'touch-pan-x touch-pan-y', className)}
       {...props}
+      onDoubleClick={(e) => {
+        props.onDoubleClick?.(e)
+        // Double-click the scene to go back to the fitted (1:1) view.
+        if (zoomUi && !e.defaultPrevented) resetZoom()
+      }}
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         {/* R3F disposes the renderer and force-loses the WebGL context when this unmounts. */}
@@ -462,8 +480,8 @@ export function IsoPixelScene({
         </Canvas>
       </div>
       {children}
-      {interactiveZoom && !thumbnail && (
-        <div className="absolute right-3 bottom-3 z-10 flex [[inert]_&]:hidden flex-col overflow-hidden rounded-md border border-border bg-background/80 text-sm shadow-sm backdrop-blur">
+      {zoomUi && (
+        <div className="absolute right-3 bottom-3 z-10 flex [[inert]_&]:hidden flex-col items-stretch overflow-hidden rounded-md border border-border bg-background/80 text-sm shadow-sm backdrop-blur">
           <button
             type="button"
             aria-label="Zoom in"
@@ -473,6 +491,13 @@ export function IsoPixelScene({
           >
             +
           </button>
+          <output
+            aria-live="polite"
+            aria-label="Zoom level"
+            className="border-t border-border py-0.5 text-center font-mono text-[9px] leading-none tabular-nums opacity-70"
+          >
+            {Math.round(effectiveZoom * 100)}%
+          </output>
           <button
             type="button"
             aria-label="Zoom out"
@@ -481,6 +506,16 @@ export function IsoPixelScene({
             className="size-7 cursor-pointer border-t border-border leading-none hover:bg-ds-muted/30 disabled:cursor-default disabled:opacity-40"
           >
             −
+          </button>
+          <button
+            type="button"
+            aria-label="Reset zoom"
+            title="Reset zoom (or double-click the scene)"
+            disabled={userZoom === 1}
+            onClick={resetZoom}
+            className="h-6 w-7 cursor-pointer border-t border-border font-mono text-[9px] leading-none hover:bg-ds-muted/30 disabled:cursor-default disabled:opacity-40"
+          >
+            1:1
           </button>
         </div>
       )}

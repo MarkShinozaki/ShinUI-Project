@@ -26,11 +26,13 @@ function Command({
 function CommandDialog({
   title = "Command Palette",
   description = "Search for a component or resource",
+  contentClassName,
   children,
   ...props
 }: React.ComponentProps<typeof Dialog> & {
   title?: string;
   description?: string;
+  contentClassName?: string;
 }) {
   return (
     <Dialog {...props}>
@@ -39,7 +41,7 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent
-        className="overflow-hidden p-0 sm:max-w-2xl"
+        className={cn("overflow-hidden p-0 sm:max-w-2xl", contentClassName)}
         showCloseButton={false}
       >
         <Command className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-input-wrapper]_svg]:size-4 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-2.5">

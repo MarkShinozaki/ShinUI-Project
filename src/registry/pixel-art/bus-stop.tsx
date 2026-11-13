@@ -65,6 +65,29 @@ export interface BusStopProps extends Omit<IsoPixelSceneProps, 'scene' | 'outlin
   waitTime?: number
   /** Color of the rider's coat. */
   coatColor?: string
+  /** Body color. Leave empty for the bus type's own livery. */
+  busColor?: string
+  /** Stripe/trim color. Leave empty for the bus type's own livery. */
+  trimColor?: string
+  /** Destination sign text, up to 10 characters (shown upper-case). Leave empty for the default. */
+  routeLabel?: string
+  /** Seconds the bus takes to brake into the stop. */
+  arriveDuration?: number
+  /** Extra seconds the bus waits with its doors open after the rider has boarded. */
+  dwellTime?: number
+}
+
+/** Default destination sign per bus type. */
+const ROUTE_LABELS: Record<BusType, string> = {
+  commuter: '12 HARBOR',
+  school: 'SCHOOL',
+  'double-decker': '24 CENTRE',
+}
+
+interface Livery {
+  body: string
+  trim: string
+  label: string
 }
 
 const LANE_Z = -0.55
@@ -76,6 +99,7 @@ const EDGE = 5.05
 
 // Timeline (seconds). The wait slot is the `waitTime` prop.
 const WALK_IN = 2.6
+/** Default arrival time; the `arriveDuration` prop overrides it. */
 const ARRIVE = 3
 const OPEN = 0.6
 const BOARD = 1.6
@@ -232,7 +256,19 @@ function Lamp({ position, color, on }: { position: [number, number, number]; col
   )
 }
 
-function BusModel({ type, door, spin, flash }: { type: BusType; door: RefObject<number>; spin: RefObject<number>; flash: RefObject<boolean> }) {
+function BusModel({
+  type,
+  livery,
+  door,
+  spin,
+  flash,
+}: {
+  type: BusType
+  livery: Livery
+  door: RefObject<number>
+  spin: RefObject<number>
+  flash: RefObject<boolean>
+}) {
   const { dark } = useIso()
   const spec = BUSES[type]
   const L = spec.length
@@ -247,18 +283,18 @@ function BusModel({ type, door, spin, flash }: { type: BusType; door: RefObject<
       ctx.fillStyle = type === 'school' ? '#ffd23a' : '#ffb02e'
       ctx.font = 'bold 9px monospace'
       ctx.textBaseline = 'middle'
-      ctx.fillText(type === 'school' ? 'SCHOOL' : type === 'double-decker' ? '24 CENTRE' : '12 HARBOR', 3, 6.5)
+      ctx.fillText(livery.label, 3, 6.5)
     },
-    type,
+    `${type}|${livery.label}`,
   )
 
   let body: ReactNode
   if (type === 'commuter') {
     body = (
       <>
-        <Part args={[L, spec.height, BUS_W]} position={[0, 0.22 + spec.height / 2, 0]} color={spec.body} />
-        <Part args={[L + 0.01, 0.12, BUS_W + 0.01]} position={[0, 0.5, 0]} color={spec.trim} outline={false} />
-        <Part args={[L + 0.01, 0.05, BUS_W + 0.01]} position={[0, 1.28, 0]} color={spec.trim} outline={false} />
+        <Part args={[L, spec.height, BUS_W]} position={[0, 0.22 + spec.height / 2, 0]} color={livery.body} />
+        <Part args={[L + 0.01, 0.12, BUS_W + 0.01]} position={[0, 0.5, 0]} color={livery.trim} outline={false} />
+        <Part args={[L + 0.01, 0.05, BUS_W + 0.01]} position={[0, 1.28, 0]} color={livery.trim} outline={false} />
         <WindowStrip from={-front + 0.2} to={front - 0.95} y={1.0} h={0.42} lit={dark} />
         {/* big flat windscreen and roof pod */}
         <Part args={[0.02, 0.55, BUS_W - 0.14]} position={[front + 0.005, 1.0, 0]} color={C.window} outline={false} />
@@ -277,12 +313,12 @@ function BusModel({ type, door, spin, flash }: { type: BusType; door: RefObject<
     const cabX = -0.375
     body = (
       <>
-        <Part args={[cab, spec.height, BUS_W]} position={[cabX, 0.22 + spec.height / 2, 0]} color={spec.body} />
-        <Part args={[0.75, 0.55, BUS_W - 0.16]} position={[front - 0.375, 0.5, 0]} color={spec.body} />
+        <Part args={[cab, spec.height, BUS_W]} position={[cabX, 0.22 + spec.height / 2, 0]} color={livery.body} />
+        <Part args={[0.75, 0.55, BUS_W - 0.16]} position={[front - 0.375, 0.5, 0]} color={livery.body} />
         <Part args={[0.06, 0.3, BUS_W - 0.3]} position={[front + 0.01, 0.48, 0]} color="#c9ced6" outline={false} />
         <Part args={[0.2, 0.08, BUS_W - 0.1]} position={[front - 0.05, 0.24, 0]} color={C.tire} outline={false} />
         {[0.42, 0.72, 1.32].map((y) => (
-          <Part key={y} args={[cab + 0.01, 0.04, BUS_W + 0.01]} position={[cabX, y, 0]} color={spec.trim} outline={false} />
+          <Part key={y} args={[cab + 0.01, 0.04, BUS_W + 0.01]} position={[cabX, y, 0]} color={livery.trim} outline={false} />
         ))}
         <WindowStrip from={cabX - cab / 2 + 0.15} to={cabX + cab / 2 - 0.7} y={1.04} h={0.34} pane={0.36} gap={0.1} lit={dark} />
         <Part args={[0.02, 0.45, BUS_W - 0.14]} position={[cabX + cab / 2 + 0.005, 1.05, 0]} color={C.window} outline={false} />
@@ -303,9 +339,9 @@ function BusModel({ type, door, spin, flash }: { type: BusType; door: RefObject<
   } else {
     body = (
       <>
-        <Part args={[L, spec.height, BUS_W]} position={[0, 0.22 + spec.height / 2, 0]} color={spec.body} />
-        <Part args={[L - 0.1, 0.08, BUS_W - 0.1]} position={[0, 0.22 + spec.height + 0.04, 0]} color={spec.body} />
-        <Part args={[L + 0.01, 0.1, BUS_W + 0.01]} position={[0, 1.33, 0]} color={spec.trim} outline={false} />
+        <Part args={[L, spec.height, BUS_W]} position={[0, 0.22 + spec.height / 2, 0]} color={livery.body} />
+        <Part args={[L - 0.1, 0.08, BUS_W - 0.1]} position={[0, 0.22 + spec.height + 0.04, 0]} color={livery.body} />
+        <Part args={[L + 0.01, 0.1, BUS_W + 0.01]} position={[0, 1.33, 0]} color={livery.trim} outline={false} />
         <WindowStrip from={-front + 0.15} to={front - 0.1} y={1.88} h={0.4} pane={0.5} gap={0.07} lit={dark} />
         <WindowStrip from={-front + 0.15} to={front - 0.85} y={1.0} h={0.4} pane={0.5} gap={0.07} lit={dark} />
         <Part args={[0.02, 0.42, BUS_W - 0.14]} position={[front + 0.005, 1.0, 0]} color={C.window} outline={false} />
@@ -428,7 +464,21 @@ function Street() {
   )
 }
 
-function Diorama({ busType, waitTime, coat }: { busType: BusType; waitTime: number; coat: string }) {
+function Diorama({
+  busType,
+  waitTime,
+  coat,
+  livery,
+  arriveDuration,
+  dwellTime,
+}: {
+  busType: BusType
+  waitTime: number
+  coat: string
+  livery: Livery
+  arriveDuration: number
+  dwellTime: number
+}) {
   const anchor = useRef<THREE.Group>(null)
   useEdgeClipping(anchor)
   const bus = useRef<THREE.Group>(null)
@@ -442,7 +492,9 @@ function Diorama({ busType, waitTime, coat }: { busType: BusType; waitTime: numb
 
   useLoop((t) => {
     const wait = Math.max(1, waitTime)
-    const cycle = WALK_IN + wait + ARRIVE + OPEN + BOARD + CLOSE + DEPART
+    const arrive = Math.max(0.5, arriveDuration)
+    const dwell = Math.max(0, dwellTime)
+    const cycle = WALK_IN + wait + arrive + OPEN + BOARD + dwell + CLOSE + DEPART
     let k = t % cycle
     const p = pose.current
     let busX = -12
@@ -468,15 +520,15 @@ function Diorama({ busType, waitTime, coat }: { busType: BusType; waitTime: numb
       p.walk = 0
       p.look = Math.sin(k * 1.4) > 0.3 ? 0.9 : 0
       p.watch = clamp01(Math.sin(k * 0.9 + 2) * 3 - 2)
-    } else if ((k -= wait) < ARRIVE) {
+    } else if ((k -= wait) < arrive) {
       // Bus brakes into the stop (ease-out).
-      const e = k / ARRIVE
+      const e = k / arrive
       busX = stopX - (1 - e) * (1 - e) * 11
       p.x = STOP_X
       p.z = RIDER_Z
       p.facing = Math.PI
       p.look = 0.9 * (1 - e)
-    } else if ((k -= ARRIVE) < OPEN) {
+    } else if ((k -= arrive) < OPEN) {
       busX = stopX
       door.current = ease(k / OPEN)
       p.x = STOP_X
@@ -492,7 +544,12 @@ function Diorama({ busType, waitTime, coat }: { busType: BusType; waitTime: numb
       p.z = RIDER_Z - e * (RIDER_Z - 0.05)
       p.y = 0.12 + clamp01((e - 0.6) / 0.3) * 0.14
       p.walk = k * 5
-    } else if ((k -= BOARD) < CLOSE) {
+    } else if ((k -= BOARD) < dwell) {
+      // Doors stay open for the dwell time.
+      busX = stopX
+      door.current = 1
+      p.visible = false
+    } else if ((k -= dwell) < CLOSE) {
       busX = stopX
       door.current = 1 - ease(k / CLOSE)
       p.visible = false
@@ -518,14 +575,31 @@ function Diorama({ busType, waitTime, coat }: { busType: BusType; waitTime: numb
       <Street />
       <Rider pose={pose} coat={coat} />
       <group ref={bus} position={[-12, 0, LANE_Z]}>
-        <BusModel key={busType} type={busType} door={door} spin={spin} flash={flash} />
+        <BusModel key={busType} type={busType} livery={livery} door={door} spin={spin} flash={flash} />
       </group>
     </group>
   )
 }
 
 /** Isometric pixel-art bus stop with an arriving bus. Put any content inside it as children. */
-export function BusStop({ busType = 'commuter', waitTime = 3, coatColor = C.coat, children, ...props }: BusStopProps) {
+export function BusStop({
+  busType = 'commuter',
+  waitTime = 3,
+  coatColor = C.coat,
+  busColor,
+  trimColor,
+  routeLabel,
+  arriveDuration = ARRIVE,
+  dwellTime = 0,
+  children,
+  ...props
+}: BusStopProps) {
+  const type: BusType = BUSES[busType] ? busType : 'commuter'
+  const spec = BUSES[type]
+  const label = (routeLabel ?? '').trim().toUpperCase().slice(0, 10) || ROUTE_LABELS[type]
+  const body = busColor || spec.body
+  const trim = trimColor || spec.trim
+  const livery = useMemo<Livery>(() => ({ body, trim, label }), [body, trim, label])
   return (
     <IsoPixelScene
       {...props}
@@ -533,7 +607,16 @@ export function BusStop({ busType = 'commuter', waitTime = 3, coatColor = C.coat
       groundColor={C.walk}
       extent={[11, 8.6]}
       target={[0, 0.8, 0]}
-      scene={<Diorama busType={busType} waitTime={waitTime} coat={coatColor} />}
+      scene={
+        <Diorama
+          busType={type}
+          waitTime={waitTime}
+          coat={coatColor || C.coat}
+          livery={livery}
+          arriveDuration={arriveDuration}
+          dwellTime={dwellTime}
+        />
+      }
     >
       {children}
     </IsoPixelScene>

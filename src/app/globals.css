@@ -1,9 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* `dark:` applies under .dark, except inside a preview flipped to light (see [data-preview-theme]). */
+@custom-variant dark (&:is(.dark *):not(:is([data-preview-theme="light"], [data-preview-theme="light"] *)));
 
-:root {
+/*
+ * Light tokens. Also scoped to [data-preview-theme="light"], so one component
+ * preview can be light while the site is dark. The .dark block below works on
+ * any element, which covers the opposite case.
+ */
+:root,
+[data-preview-theme="light"] {
   /* Design Studio palette, used by the ported backgrounds and blocks (src/registry). */
   --ds-primary: oklch(0.57 0.22 285);
   --ds-primary-hover: oklch(0.52 0.22 285);
@@ -311,7 +318,8 @@
     color-scheme: dark;
   }
 
-  :root {
+  :root,
+  [data-preview-theme="light"] {
     color-scheme: light;
   }
 

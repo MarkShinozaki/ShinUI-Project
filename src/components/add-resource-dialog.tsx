@@ -33,6 +33,7 @@ const pricingOptions: { value: Pricing; label: string }[] = [
   { value: "open-source", label: "Open source" },
   { value: "freemium", label: "Freemium" },
   { value: "paid", label: "Paid" },
+  { value: "unknown", label: "Unknown" },
 ];
 
 export function AddResourceDialog({ onAdded }: { onAdded?: () => void }) {

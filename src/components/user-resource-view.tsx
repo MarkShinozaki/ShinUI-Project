@@ -22,12 +22,13 @@ import {
 } from "@/lib/user-resources";
 import { faviconFor, hostnameOf } from "@/lib/utils";
 
-const pricingLabel = {
+const pricingLabel: Record<string, string> = {
   free: "Free",
   "open-source": "Open source",
   freemium: "Freemium",
   paid: "Paid",
-} as const;
+  unknown: "Unknown",
+};
 
 export function UserResourcePage({ slug }: { slug: string }) {
   const resources = React.useSyncExternalStore(
@@ -104,7 +105,7 @@ export function UserResourcePage({ slug }: { slug: string }) {
             <Link href={`/categories/${category.slug}`}>{category.name}</Link>
           </Badge>
         )}
-        <Badge variant="brand">{pricingLabel[item.pricing]}</Badge>
+        <Badge variant="brand">{pricingLabel[item.pricing] ?? "Unknown"}</Badge>
         {item.stack.map((stackItem) => (
           <Badge key={stackItem} variant="outline">
             {stackItem}

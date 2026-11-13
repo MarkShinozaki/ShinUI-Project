@@ -134,6 +134,7 @@ export function buildUserResource(input: {
     tags: input.tags ?? ["user-added"],
     stack: input.stack ?? ["Web"],
     pricing: input.pricing,
+    type: "tool",
     addedAt: new Date().toISOString().slice(0, 10),
     userSubmitted: true,
   };

@@ -49,8 +49,11 @@ export function BlockPreview({
   }
 
   if (fit === "fill") {
+    // `inert`: canvas scenes treat this as a thumbnail (no zoom buttons, throttled frames),
+    // and nothing inside a card can take focus away from the card's own link.
     return (
       <div
+        inert
         className={cn("flex w-full flex-col overflow-hidden", className)}
         style={{ height: CARD_FILL_HEIGHT }}
       >

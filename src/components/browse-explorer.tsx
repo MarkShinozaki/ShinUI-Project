@@ -7,7 +7,6 @@ import { AddResourceDialog } from "@/components/add-resource-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -34,9 +33,12 @@ const pricingOptions: { value: Pricing; label: string }[] = [
   { value: "free", label: "Free" },
   { value: "freemium", label: "Freemium" },
   { value: "paid", label: "Paid" },
+  { value: "unknown", label: "Unknown" },
 ];
 
 type Sort = "featured" | "saved" | "name" | "newest";
+
+const MAX_TAG_CHIPS = 22;
 
 export function BrowseExplorer({
   resources,
@@ -52,10 +54,13 @@ export function BrowseExplorer({
     initialCategory ? [initialCategory] : []
   );
   const [activePricing, setActivePricing] = React.useState<Pricing[]>([]);
-  const [activeStacks, setActiveStacks] = React.useState<string[]>([]);
+  const [activeTags, setActiveTags] = React.useState<string[]>([]);
   const [sort, setSort] = React.useState<Sort>("newest");
   const [savedOnly, setSavedOnly] = React.useState(false);
   const [refreshKey, setRefreshKey] = React.useState(0);
+  const [activeSection, setActiveSection] = React.useState<string | null>(
+    initialCategory ?? null
+  );
 
   const userResources = React.useSyncExternalStore(
     subscribeUserResources,
@@ -68,14 +73,6 @@ export function BrowseExplorer({
     void refreshKey;
     return mergeBrowsableResources(resources);
   }, [resources, userResources, refreshKey]);
-
-  const stacks = React.useMemo(
-    () =>
-      Array.from(new Set(allResources.flatMap((r) => r.stack)))
-        .sort()
-        .slice(0, 14),
-    [allResources]
-  );
 
   const availableCategories = React.useMemo(
     () =>
@@ -107,23 +104,25 @@ export function BrowseExplorer({
         return false;
       }
       if (
-        activeStacks.length > 0 &&
-        !resource.stack.some((s) => activeStacks.includes(s))
+        activeTags.length > 0 &&
+        !activeTags.every((tag) => resource.tags.includes(tag))
       ) {
         return false;
       }
       if (!q) return true;
 
-      return [
+      const haystack = [
         resource.name,
         resource.tagline,
         resource.description,
+        resource.notes ?? "",
         ...resource.tags,
         ...resource.stack,
       ]
         .join(" ")
-        .toLowerCase()
-        .includes(q);
+        .toLowerCase();
+
+      return haystack.includes(q);
     });
 
     return result.sort((a, b) => {
@@ -144,16 +143,50 @@ export function BrowseExplorer({
     query,
     activeCategories,
     activePricing,
-    activeStacks,
+    activeTags,
     sort,
     savedOnly,
     saved,
   ]);
 
+  const sections = React.useMemo(() => {
+    return availableCategories
+      .map((category) => ({
+        category,
+        items: filtered.filter((r) => r.category === category.slug),
+      }))
+      .filter((section) => section.items.length > 0);
+  }, [availableCategories, filtered]);
+
+  const tagCounts = React.useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const resource of filtered) {
+      for (const tag of resource.tags) {
+        counts.set(tag, (counts.get(tag) ?? 0) + 1);
+      }
+    }
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }, [filtered]);
+
+  const visibleTags = React.useMemo(() => {
+    const top = tagCounts.slice(0, MAX_TAG_CHIPS).map(([tag]) => tag);
+    const extra = activeTags.filter((tag) => !top.includes(tag));
+    return [...extra, ...top];
+  }, [tagCounts, activeTags]);
+
+  const categoryTotals = React.useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const resource of allResources) {
+      counts.set(resource.category, (counts.get(resource.category) ?? 0) + 1);
+    }
+    return counts;
+  }, [allResources]);
+
   const filterCount =
     (lockCategory ? 0 : activeCategories.length) +
     activePricing.length +
-    activeStacks.length +
+    activeTags.length +
     (savedOnly ? 1 : 0);
 
   const userCount = allResources.filter((r) => r.userSubmitted).length;
@@ -161,10 +194,58 @@ export function BrowseExplorer({
   function clearAll() {
     setActiveCategories(lockCategory && initialCategory ? [initialCategory] : []);
     setActivePricing([]);
-    setActiveStacks([]);
+    setActiveTags([]);
     setQuery("");
     setSavedOnly(false);
   }
+
+  function scrollToCategory(slug: string) {
+    const node = document.getElementById(`category-${slug}`);
+    if (!node) return;
+    setActiveSection(slug);
+    node.scrollIntoView({ behavior: "smooth", block: "start" });
+    const url = new URL(window.location.href);
+    url.hash = slug;
+    window.history.replaceState(null, "", url);
+  }
+
+  React.useEffect(() => {
+    if (lockCategory) return;
+    const hash = window.location.hash.replace(/^#/, "");
+    if (!hash) return;
+    const frame = window.requestAnimationFrame(() => {
+      const node = document.getElementById(`category-${hash}`);
+      if (node) {
+        setActiveSection(hash);
+        node.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [lockCategory, sections.length]);
+
+  React.useEffect(() => {
+    if (lockCategory || sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]?.target instanceof HTMLElement) {
+          const slug = visible[0].target.dataset.slug;
+          if (slug) setActiveSection(slug);
+        }
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.25, 0.5] }
+    );
+
+    for (const { category } of sections) {
+      const node = document.getElementById(`category-${category.slug}`);
+      if (node) observer.observe(node);
+    }
+
+    return () => observer.disconnect();
+  }, [lockCategory, sections]);
 
   const filterPanel = (
     <div className="space-y-6">
@@ -173,6 +254,7 @@ export function BrowseExplorer({
           <div className="flex flex-col gap-0.5">
             {availableCategories.map((category) => {
               const active = activeCategories.includes(category.slug);
+              const count = categoryTotals.get(category.slug) ?? 0;
               return (
                 <button
                   key={category.slug}
@@ -181,16 +263,16 @@ export function BrowseExplorer({
                     toggle(activeCategories, category.slug, setActiveCategories)
                   }
                   className={cn(
-                    "flex items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
+                    "flex items-center gap-2 px-2 py-1.5 text-left text-sm transition-colors",
                     active
-                      ? "bg-accent text-foreground font-medium"
-                      : "text-muted-foreground hover:bg-accent/50"
+                      ? "bg-(--fo-tint) font-medium text-(--fo-ink)"
+                      : "text-(--fo-soft) hover:bg-(--fo-tint) hover:text-(--fo-ink)"
                   )}
                 >
-                  <CategoryIcon name={category.icon} className="size-4" />
+                  <CategoryIcon name={category.icon} className="size-4 shrink-0" />
                   <span className="truncate">{category.short}</span>
-                  <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                    {allResources.filter((r) => r.category === category.slug).length}
+                  <span className="ml-auto font-mono text-[10.5px] text-(--fo-faint) tabular-nums">
+                    {count}
                   </span>
                 </button>
               );
@@ -215,20 +297,6 @@ export function BrowseExplorer({
         </div>
       </FilterGroup>
 
-      <FilterGroup title="Stack">
-        <div className="flex flex-wrap gap-1.5">
-          {stacks.map((stack) => (
-            <FilterChip
-              key={stack}
-              active={activeStacks.includes(stack)}
-              onClick={() => toggle(activeStacks, stack, setActiveStacks)}
-            >
-              {stack}
-            </FilterChip>
-          ))}
-        </div>
-      </FilterGroup>
-
       <FilterGroup title="Saved">
         <FilterChip active={savedOnly} onClick={() => setSavedOnly((v) => !v)}>
           Saved only
@@ -244,20 +312,68 @@ export function BrowseExplorer({
     </div>
   );
 
+  const jumpNav = !lockCategory && (
+    <nav aria-label="Resource categories" className="space-y-0.5">
+      <p className="mb-3 font-mono text-[10.5px] tracking-[0.12em] text-(--fo-faint) uppercase">
+        Jump to
+      </p>
+      {sections.length === 0 ? (
+        <p className="text-[12.5px] text-(--fo-faint)">No categories match.</p>
+      ) : (
+        sections.map(({ category, items }) => {
+          const active = activeSection === category.slug;
+          return (
+            <a
+              key={category.slug}
+              href={`#${category.slug}`}
+              onClick={(event) => {
+                event.preventDefault();
+                scrollToCategory(category.slug);
+              }}
+              className={cn(
+                "flex items-center gap-2 border-l px-2 py-1.5 text-left text-[13px] transition-colors",
+                active
+                  ? "border-(--fo-accent) bg-(--fo-tint) font-medium text-(--fo-ink)"
+                  : "border-transparent text-(--fo-soft) hover:border-(--fo-line-strong) hover:text-(--fo-ink)"
+              )}
+            >
+              <CategoryIcon name={category.icon} className="size-3.5 shrink-0" />
+              <span className="min-w-0 truncate">{category.short}</span>
+              <span className="ml-auto font-mono text-[10.5px] text-(--fo-faint) tabular-nums">
+                {items.length}
+              </span>
+            </a>
+          );
+        })
+      )}
+    </nav>
+  );
+
   return (
-    <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-8">
-      <aside className="hidden lg:block">
-        <div className="sticky top-20">{filterPanel}</div>
-      </aside>
+    <div
+      className={cn(
+        !lockCategory && "lg:grid lg:grid-cols-[220px_1fr] lg:gap-10"
+      )}
+    >
+      {!lockCategory && (
+        <aside className="hidden lg:block">
+          <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1">
+            {jumpNav}
+            <div className="mt-8 border-t border-dashed border-(--fo-line-strong) pt-6">
+              {filterPanel}
+            </div>
+          </div>
+        </aside>
+      )}
 
       <div>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
-            <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-(--fo-faint)" />
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by name, tag or stack…"
+              placeholder="Search by name, description or tag…"
               className="h-10 pl-9"
               type="search"
             />
@@ -282,7 +398,10 @@ export function BrowseExplorer({
                 <SheetHeader>
                   <SheetTitle>Filters</SheetTitle>
                 </SheetHeader>
-                <div className="overflow-y-auto px-4 pb-8">{filterPanel}</div>
+                <div className="overflow-y-auto px-4 pb-8">
+                  {!lockCategory && <div className="mb-6">{jumpNav}</div>}
+                  {filterPanel}
+                </div>
               </SheetContent>
             </Sheet>
 
@@ -290,7 +409,7 @@ export function BrowseExplorer({
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
               aria-label="Sort results"
-              className="border-input bg-background h-10 min-w-0 max-w-full rounded-md border px-3 text-sm shadow-xs outline-none"
+              className="h-10 min-w-0 max-w-full border border-(--fo-line) bg-(--fo-paper) px-3 text-sm text-(--fo-ink) outline-none"
             >
               <option value="newest">Newest</option>
               <option value="featured">Featured first</option>
@@ -300,38 +419,133 @@ export function BrowseExplorer({
           </div>
         </div>
 
-        <div className="text-muted-foreground mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">
+        {visibleTags.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-1.5">
+            <span className="mr-1 font-mono text-[10.5px] tracking-[0.12em] text-(--fo-faint) uppercase">
+              Tags
+            </span>
+            {visibleTags.map((tag) => (
+              <FilterChip
+                key={tag}
+                active={activeTags.includes(tag)}
+                onClick={() => toggle(activeTags, tag, setActiveTags)}
+              >
+                {tag}
+              </FilterChip>
+            ))}
+          </div>
+        )}
+
+        {!lockCategory && sections.length > 0 && (
+          <div className="sticky top-16 z-10 -mx-6 mt-4 border-y border-(--fo-line) bg-(--fo-paper)/90 px-6 py-2 backdrop-blur-md lg:hidden">
+            <div className="-mx-1 flex gap-1 overflow-x-auto">
+              {sections.map(({ category, items }) => {
+                const active = activeSection === category.slug;
+                return (
+                  <a
+                    key={category.slug}
+                    href={`#${category.slug}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      scrollToCategory(category.slug);
+                    }}
+                    className={cn(
+                      "shrink-0 border px-2 py-1 font-mono text-[10.5px] tracking-[0.08em] uppercase transition-colors",
+                      active
+                        ? "border-(--fo-accent) bg-(--fo-accent) text-(--fo-on-accent)"
+                        : "border-(--fo-line) text-(--fo-soft) hover:border-(--fo-accent) hover:text-(--fo-ink)"
+                    )}
+                  >
+                    {category.short}
+                    <span className="ml-1 tabular-nums opacity-70">{items.length}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm text-(--fo-soft)">
           <p>
-            <span className="text-foreground font-medium tabular-nums">
+            <span className="font-medium text-(--fo-ink) tabular-nums">
               {filtered.length}
             </span>{" "}
             {filtered.length === 1 ? "resource" : "resources"}
+            {!lockCategory && (
+              <>
+                {" "}
+                across{" "}
+                <span className="font-medium text-(--fo-ink) tabular-nums">
+                  {sections.length}
+                </span>{" "}
+                {sections.length === 1 ? "category" : "categories"}
+              </>
+            )}
             {userCount > 0 && (
               <span className="ml-2">
-                · <span className="text-foreground font-medium">{userCount}</span>{" "}
+                · <span className="font-medium text-(--fo-ink)">{userCount}</span>{" "}
                 added by you
               </span>
             )}
           </p>
-          <p className="text-xs">Bookmark sites — saved only in your browser on this device</p>
+          <p className="text-xs text-(--fo-faint)">
+            Bookmark sites — saved only in your browser on this device
+          </p>
         </div>
 
-        <Separator className="mt-3 mb-5" />
-
         {filtered.length === 0 ? (
-          <div className="rounded-xl border border-dashed py-16 text-center">
+          <div className="mt-5 border border-dashed border-(--fo-line) py-16 text-center">
             <p className="font-medium">No matches</p>
-            <p className="text-muted-foreground mt-1 text-sm">
+            <p className="mt-1 text-sm text-(--fo-soft)">
               Try a broader search or clear a filter.
             </p>
             <Button variant="outline" size="sm" onClick={clearAll} className="mt-4">
               Reset
             </Button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        ) : lockCategory ? (
+          <ol className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {filtered.map((resource) => (
-              <ResourceCard key={resource.slug} resource={resource} />
+              <li key={resource.slug} className="flex min-w-0">
+                <ResourceCard resource={resource} className="w-full" />
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <div className="mt-8 space-y-12">
+            {sections.map(({ category, items }) => (
+              <section
+                key={category.slug}
+                id={`category-${category.slug}`}
+                data-slug={category.slug}
+                className="scroll-mt-32"
+              >
+                <div className="mb-4 flex items-end justify-between gap-3 border-b border-(--fo-line) pb-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <span className="grid size-8 shrink-0 place-items-center border border-(--fo-line) bg-(--fo-well) text-(--fo-accent)">
+                      <CategoryIcon name={category.icon} className="size-4" />
+                    </span>
+                    <div className="min-w-0">
+                      <h2 className="text-[17px] leading-tight font-medium tracking-[-0.01em]">
+                        {category.name}
+                      </h2>
+                      <p className="mt-0.5 hidden truncate text-[12.5px] text-(--fo-faint) sm:block">
+                        {category.description}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="shrink-0 font-mono text-[10.5px] tracking-[0.12em] text-(--fo-faint) uppercase tabular-nums">
+                    {items.length} {items.length === 1 ? "resource" : "resources"}
+                  </p>
+                </div>
+                <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {items.map((resource) => (
+                    <li key={resource.slug} className="flex min-w-0">
+                      <ResourceCard resource={resource} className="w-full" />
+                    </li>
+                  ))}
+                </ol>
+              </section>
             ))}
           </div>
         )}

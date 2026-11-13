@@ -31,10 +31,13 @@ type PixelArtDemo = (typeof PIXEL_ART_DEMOS)[number];
 const pixelArtDemos = Object.fromEntries(
   PIXEL_ART_DEMOS.map((name: PixelArtDemo) => [
     name,
-    dynamic(() => import("./demos/pixel-art").then((m) => m[name]), {
-      ssr: false,
-      loading: () => <div className="min-h-36 w-full" />,
-    }),
+    dynamic<Record<string, unknown>>(
+      () => import("./demos/pixel-art").then((m) => m[name] as ComponentType<Record<string, unknown>>),
+      {
+        ssr: false,
+        loading: () => <div className="min-h-36 w-full" />,
+      },
+    ),
   ]),
 );
 
@@ -44,9 +47,13 @@ const demoMap = {
   ...blockDemos,
   ...dsComponentDemos,
   ...pixelArtDemos,
-} as unknown as Record<string, ComponentType>;
+} as unknown as Record<string, ComponentType<Record<string, unknown>>>;
 
-export function RegistryDemo({ name }: { name: string }) {
+/**
+ * Renders a registry demo by export name. `props` come from the playground on
+ * the detail page; demos without a playground ignore them.
+ */
+export function RegistryDemo({ name, props }: { name: string; props?: Record<string, unknown> }) {
   const Demo = demoMap[name];
   if (!Demo) {
     return (
@@ -55,5 +62,5 @@ export function RegistryDemo({ name }: { name: string }) {
       </p>
     );
   }
-  return <Demo />;
+  return <Demo {...props} />;
 }

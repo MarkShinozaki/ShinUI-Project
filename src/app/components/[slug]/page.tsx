@@ -14,6 +14,7 @@ import { getAuthor } from "@/data/authors";
 import { getCategory } from "@/data/categories";
 import { readRegistrySource } from "@/lib/registry-source";
 import { getRegistryItem, registry } from "@/registry";
+import { controlLabel, controlType } from "@/registry/playground";
 import { cn } from "@/lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -44,6 +45,9 @@ export default async function ComponentPage({ params }: Props) {
     .slice(0, 3);
 
   const usage = buildUsageSnippet(item.file, source);
+  const importPath = `@/${item.file.replace(/\.tsx?$/, "")}`;
+  const componentName = source?.match(/export function ([A-Z][\w]*)/)?.[1];
+  const controls = item.controls && Object.keys(item.controls).length > 0 ? item.controls : undefined;
   const extraFiles = await Promise.all(
     (item.files ?? []).map(async (file) => ({
       file,
@@ -96,6 +100,9 @@ export default async function ComponentPage({ params }: Props) {
           filename={filename}
           previewClassName={item.previewClassName}
           fullPage={item.layout === "page"}
+          controls={controls}
+          componentName={componentName}
+          importPath={importPath}
         />
       </div>
 
@@ -115,6 +122,46 @@ export default async function ComponentPage({ params }: Props) {
               className="mt-4"
             />
           </section>
+
+          {controls && (
+            <section>
+              <h2 className="text-lg font-semibold tracking-tight">Props</h2>
+              <p className="text-muted-foreground mt-1 text-sm">
+                Everything the playground above can change. Defaults are what the component renders with no props.
+              </p>
+              <div className="mt-4 overflow-x-auto border border-(--fo-line)">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-(--fo-tint) font-mono text-[10.5px] tracking-[0.08em] text-(--fo-soft) uppercase">
+                    <tr>
+                      <th scope="col" className="px-4 py-2.5 font-medium">Prop</th>
+                      <th scope="col" className="px-4 py-2.5 font-medium">Type</th>
+                      <th scope="col" className="px-4 py-2.5 font-medium">Default</th>
+                      <th scope="col" className="hidden px-4 py-2.5 font-medium sm:table-cell">Control</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(controls).map(([key, control]) => (
+                      <tr key={key} className="border-t border-(--fo-line) align-top">
+                        <td className="px-4 py-2.5 font-mono text-xs text-(--fo-accent)">{key}</td>
+                        <td className="px-4 py-2.5 font-mono text-xs text-(--fo-soft)">
+                          {controlType(control)}
+                          {control.type === "number" && (
+                            <span className="text-(--fo-faint)">{` (${control.min}–${control.max})`}</span>
+                          )}
+                        </td>
+                        <td className="max-w-xs truncate px-4 py-2.5 font-mono text-xs">
+                          {control.default === "" ? <span className="text-(--fo-faint)">auto</span> : JSON.stringify(control.default)}
+                        </td>
+                        <td className="hidden px-4 py-2.5 text-xs text-(--fo-soft) sm:table-cell">
+                          {controlLabel(key, control)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
 
           <section>
             <h2 className="text-lg font-semibold tracking-tight">
