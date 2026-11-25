@@ -7,11 +7,10 @@ import { usePathname } from "next/navigation";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { BrandMorph } from "@/components/brand-morph";
-import { FolioButton, FolioLabel } from "@/components/folio/kit";
+import { FolioButton } from "@/components/folio/kit";
 import { GridNavbar } from "@/components/grid/navbar";
 import { GitHubStarLink } from "@/components/github-stars";
 
-import { categories } from "@/data/categories";
 import { primaryNav } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
@@ -81,19 +80,6 @@ export function SiteHeader({ stars }: { stars: Promise<number | null> }) {
                 >
                   {isActive(item.href) && <span className="size-1.5 bg-(--fo-accent)" />}
                   {item.label}
-                </Link>
-              ))}
-            </nav>
-            <FolioLabel className="mt-6">Categories</FolioLabel>
-            <nav className="mt-2 grid grid-cols-2 gap-x-4">
-              {categories.map((category) => (
-                <Link
-                  key={category.slug}
-                  href={`/categories/${category.slug}`}
-                  onClick={() => setOpen(false)}
-                  className="truncate py-1.5 text-[13.5px] text-(--fo-soft) transition-colors hover:text-(--fo-ink)"
-                >
-                  {category.name}
                 </Link>
               ))}
             </nav>

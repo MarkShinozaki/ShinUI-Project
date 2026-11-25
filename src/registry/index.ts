@@ -1,3 +1,6 @@
+import { PIXEL_ART_CONTROLS } from "./controls/pixel-art";
+import type { Controls } from "./playground";
+
 export type RegistryItem = {
   slug: string;
   name: string;
@@ -27,6 +30,8 @@ export type RegistryItem = {
    * first in its section and previewed in a scrollable desktop frame.
    */
   layout?: "page";
+  /** Props you can tweak live in the playground on the detail page. */
+  controls?: Controls;
 };
 
 export const DEFAULT_REGISTRY_GROUP = "Components";
@@ -86,7 +91,7 @@ export function registryGroupSlug(name: string): string {
     .replace(/^-|-$/g, "");
 }
 
-export const registry: RegistryItem[] = [
+const baseRegistry: RegistryItem[] = [
   {
     slug: "spotlight-card",
     name: "Spotlight Card",
@@ -2336,6 +2341,13 @@ export const registry: RegistryItem[] = [
     authorId: "shinozaki",
   },
 ];
+
+/** Playground controls live next to their scenes (./controls) and are attached here. */
+const REGISTRY_CONTROLS: Record<string, Controls> = { ...PIXEL_ART_CONTROLS };
+
+export const registry: RegistryItem[] = baseRegistry.map((item) =>
+  item.controls || !REGISTRY_CONTROLS[item.slug] ? item : { ...item, controls: REGISTRY_CONTROLS[item.slug] }
+);
 
 export const registryBySlug = new Map(registry.map((item) => [item.slug, item]));
 

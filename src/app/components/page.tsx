@@ -7,7 +7,6 @@ import {
   type BrowserGroup,
 } from "@/components/components-browser";
 import { FolioContainer, FolioSection } from "@/components/folio-section";
-import { PageHeader } from "@/components/page-header";
 import { groupRegistry, registry, registryGroupSlug } from "@/registry";
 
 export const metadata: Metadata = {
@@ -65,13 +64,7 @@ export default function ComponentsPage() {
 
   return (
     <FolioSection>
-      <FolioContainer>
-        <PageHeader
-          eyebrow="Component library"
-          title="Components"
-          description={`${registry.length} run live on this site with copyable source.`}
-        />
-
+      <FolioContainer className="pt-6 md:pt-8">
         <Suspense fallback={<ComponentsBrowserFallback groups={groups} />}>
           <ComponentsBrowser groups={groups} />
         </Suspense>

@@ -2,6 +2,87 @@ import type { Category } from "./types";
 
 export const categories: Category[] = [
   {
+    slug: "design-manifestos",
+    name: "Design Manifestos",
+    short: "Manifestos",
+    description:
+      "Archives of design principles, declarations and writing that still shape how interfaces get made.",
+    icon: "ScrollText",
+    accent: "from-stone-500/20 to-neutral-500/5",
+  },
+  {
+    slug: "sound-services",
+    name: "Sound Services",
+    short: "Sound",
+    description:
+      "UI chimes, ambient players and sound packs for interfaces that need a click, a ding or a room tone.",
+    icon: "Volume2",
+    accent: "from-amber-500/20 to-yellow-500/5",
+  },
+  {
+    slug: "motion-video",
+    name: "Motion & Video",
+    short: "Motion / Video",
+    description:
+      "Interactive motion runtimes, programmatic video and frame tools for clusters, product shots and HMI-style motion.",
+    icon: "Clapperboard",
+    accent: "from-fuchsia-500/20 to-violet-500/5",
+  },
+  {
+    slug: "inspiration",
+    name: "Design Inspo",
+    short: "Inspo",
+    description:
+      "Galleries, pattern archives and single-interaction demos worth stealing from.",
+    icon: "Eye",
+    accent: "from-pink-500/20 to-rose-500/5",
+  },
+  {
+    slug: "data-viz",
+    name: "Charts",
+    short: "Charts",
+    description:
+      "Chart libraries, dashboard primitives and animated numeric feedback.",
+    icon: "ChartSpline",
+    accent: "from-teal-500/20 to-sky-500/5",
+  },
+  {
+    slug: "icons-assets",
+    name: "Icons",
+    short: "Icons",
+    description:
+      "Icon sets, SVG collections, 3D marks and loaders — from minimal strokes to full brand packs.",
+    icon: "Shapes",
+    accent: "from-lime-500/20 to-emerald-500/5",
+  },
+  {
+    slug: "agent",
+    name: "Agent",
+    short: "Agent",
+    description:
+      "Mascots, character kits and other agent presence you can drop onto a page.",
+    icon: "Bot",
+    accent: "from-indigo-500/20 to-violet-500/5",
+  },
+  {
+    slug: "buttons",
+    name: "Buttons",
+    short: "Buttons",
+    description:
+      "Dedicated button kits — loading states, unusual hover treatments and animated press feedback.",
+    icon: "RectangleHorizontal",
+    accent: "from-rose-500/20 to-red-500/5",
+  },
+  {
+    slug: "design-tools",
+    name: "Tools",
+    short: "Tools",
+    description:
+      "Where the design actually happens — canvases, extractors, PDF viewers and design-to-dev handoff.",
+    icon: "PenTool",
+    accent: "from-purple-500/20 to-fuchsia-500/5",
+  },
+  {
     slug: "component-libraries",
     name: "Component Libraries",
     short: "Libraries",
@@ -22,7 +103,7 @@ export const categories: Category[] = [
   {
     slug: "animation-motion",
     name: "Animation & Motion",
-    short: "Motion",
+    short: "Animation",
     description:
       "Animation engines, spring physics and motion component kits for interfaces that feel alive.",
     icon: "Sparkles",
@@ -57,21 +138,12 @@ export const categories: Category[] = [
   },
   {
     slug: "themes-color",
-    name: "Themes & Color",
-    short: "Themes",
+    name: "Colors & Themes",
+    short: "Colors",
     description:
       "Theme editors, palette generators and color systems — including drop-in shadcn theme tooling.",
     icon: "Palette",
     accent: "from-rose-500/20 to-orange-500/5",
-  },
-  {
-    slug: "icons-assets",
-    name: "Icons & Visual Assets",
-    short: "Icons",
-    description:
-      "Icon sets, SVG collections, 3D assets and loaders — from minimal strokes to full brand marks.",
-    icon: "Shapes",
-    accent: "from-lime-500/20 to-emerald-500/5",
   },
   {
     slug: "ios-mobile",
@@ -92,15 +164,6 @@ export const categories: Category[] = [
     accent: "from-amber-500/20 to-yellow-500/5",
   },
   {
-    slug: "data-viz",
-    name: "Data Visualization",
-    short: "Charts",
-    description:
-      "Chart libraries, dashboard primitives and animated numeric feedback.",
-    icon: "ChartSpline",
-    accent: "from-teal-500/20 to-sky-500/5",
-  },
-  {
     slug: "ai-chat-ui",
     name: "AI & Chat UI",
     short: "AI UI",
@@ -119,15 +182,6 @@ export const categories: Category[] = [
     accent: "from-stone-500/20 to-neutral-500/5",
   },
   {
-    slug: "design-tools",
-    name: "Design Tools",
-    short: "Tools",
-    description:
-      "Where the design actually happens — canvases, whiteboards and design-to-dev handoff.",
-    icon: "PenTool",
-    accent: "from-purple-500/20 to-fuchsia-500/5",
-  },
-  {
     slug: "no-code-webflow",
     name: "No-code & Webflow",
     short: "No-code",
@@ -144,15 +198,6 @@ export const categories: Category[] = [
       "8-bit, brutalist, terminal and other deliberately non-neutral aesthetics.",
     icon: "Gamepad2",
     accent: "from-green-500/20 to-lime-500/5",
-  },
-  {
-    slug: "inspiration",
-    name: "Inspiration & Demos",
-    short: "Inspiration",
-    description:
-      "Galleries, pattern archives and single-interaction demos worth stealing from.",
-    icon: "Eye",
-    accent: "from-pink-500/20 to-rose-500/5",
   },
 ];
 

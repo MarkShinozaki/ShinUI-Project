@@ -1,11 +1,11 @@
 import Link from "next/link";
 
+import { BrandMorph } from "@/components/brand-morph";
 import { GitHubIcon } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FolioCommand } from "@/components/folio/command";
 import { GreatWave } from "@/components/folio/great-wave";
-import { ArrowUpRight, FolioButton, FolioLabel, FolioMark } from "@/components/folio/kit";
-import { categories } from "@/data/categories";
+import { ArrowUpRight, FolioButton, FolioLabel } from "@/components/folio/kit";
 import { primaryNav } from "@/lib/nav";
 import { SITE } from "@/lib/site";
 
@@ -13,10 +13,6 @@ const YEAR = new Date().getFullYear();
 
 const COLUMNS: { head: string; links: { href: string; label: string }[] }[] = [
   { head: "Site", links: primaryNav.map(({ href, label }) => ({ href, label })) },
-  {
-    head: "Categories",
-    links: categories.slice(0, 6).map((c) => ({ href: `/categories/${c.slug}`, label: c.name })),
-  },
   {
     head: "Studio",
     links: [
@@ -59,10 +55,7 @@ export function SiteFooter() {
 
         <div className="grid gap-10 border-t border-(--fo-line) py-12 md:grid-cols-[1fr_1.6fr]">
           <div className="flex flex-col items-start gap-3">
-            <Link href="/" className="flex items-center gap-2 text-[17px] font-semibold tracking-[-0.02em]">
-              <FolioMark />
-              ShinUI
-            </Link>
+            <BrandMorph />
             <p className="max-w-xs text-[13.5px] leading-relaxed text-(--fo-soft)">{SITE.description}</p>
             <div className="mt-1 flex items-center gap-1">
               <ThemeToggle className="-ml-2" />
@@ -77,7 +70,7 @@ export function SiteFooter() {
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2">
             {COLUMNS.map(({ head, links }) => (
               <div key={head}>
                 <FolioLabel>{head}</FolioLabel>

@@ -1,8 +1,10 @@
 import {
   Aperture,
   ArrowLeftRight,
+  Bot,
   Boxes,
   ChartSpline,
+  Clapperboard,
   Eye,
   Frame,
   Gamepad2,
@@ -11,9 +13,12 @@ import {
   MousePointerClick,
   Palette,
   PenTool,
+  RectangleHorizontal,
+  ScrollText,
   Shapes,
   Smartphone,
   Sparkles,
+  Volume2,
   Waves,
   type LucideIcon,
 } from "lucide-react";
@@ -21,8 +26,10 @@ import {
 const icons: Record<string, LucideIcon> = {
   Aperture,
   ArrowLeftRight,
+  Bot,
   Boxes,
   ChartSpline,
+  Clapperboard,
   Eye,
   Frame,
   Gamepad2,
@@ -31,9 +38,12 @@ const icons: Record<string, LucideIcon> = {
   MousePointerClick,
   Palette,
   PenTool,
+  RectangleHorizontal,
+  ScrollText,
   Shapes,
   Smartphone,
   Sparkles,
+  Volume2,
   Waves,
 };
 

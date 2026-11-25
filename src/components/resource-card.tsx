@@ -15,6 +15,7 @@ const pricingLabel: Record<Resource["pricing"], string> = {
   "open-source": "Open source",
   freemium: "Freemium",
   paid: "Paid",
+  unknown: "Unknown",
 };
 
 export function ResourceCard({
@@ -56,7 +57,7 @@ export function ResourceCard({
 
         <div className="min-w-0 flex-1">
           <h3 className="text-[14.5px] leading-snug font-medium">
-            <Link href={href} className="after:absolute after:inset-0">
+            <Link href={href} className="transition-colors hover:text-(--fo-accent)">
               {resource.name}
             </Link>
           </h3>
@@ -65,12 +66,22 @@ export function ResourceCard({
           </p>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="relative z-10 flex shrink-0 items-center gap-1.5">
           {index !== undefined && (
             <span className="font-mono text-[10px] text-(--fo-faint) group-hover:text-(--fo-accent)">
               {String(index + 1).padStart(3, "0")}
             </span>
           )}
+          <a
+            href={resource.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${resource.name} in a new tab`}
+            className="inline-flex h-8 items-center gap-1 border border-(--fo-line) bg-(--fo-paper) px-2 font-mono text-[10px] tracking-[0.1em] text-(--fo-soft) uppercase transition-colors hover:border-(--fo-accent) hover:text-(--fo-ink)"
+          >
+            Open
+            <ArrowUpRight className="size-3" />
+          </a>
           <SaveButton kind="resource" id={resource.slug} url={resource.url} />
         </div>
       </div>
@@ -82,8 +93,18 @@ export function ResourceCard({
       <div className="mt-4 flex flex-wrap items-center gap-1.5">
         {resource.userSubmitted && <Badge variant="brand">Yours</Badge>}
         {category && <Badge variant="muted">{category.short}</Badge>}
+        {resource.linkStatus === "dead" && (
+          <Badge variant="outline" title={resource.notes}>
+            Link down
+          </Badge>
+        )}
+        {resource.linkStatus === "uncertain" && (
+          <Badge variant="outline" title={resource.notes}>
+            Unverified
+          </Badge>
+        )}
         <Badge variant={resource.pricing === "paid" || resource.pricing === "freemium" ? "outline" : "brand"}>
-          {pricingLabel[resource.pricing]}
+          {pricingLabel[resource.pricing] ?? "Unknown"}
         </Badge>
         {resource.stack.slice(0, 2).map((item) => (
           <Badge key={item} variant="outline">
@@ -103,7 +124,6 @@ export function ResourceCard({
             hostnameOf(resource.url)
           )}
         </p>
-        <ArrowUpRight className="mt-3 size-3.5 shrink-0 text-(--fo-faint) transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-(--fo-accent)" />
       </div>
     </article>
   );

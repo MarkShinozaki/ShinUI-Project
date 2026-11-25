@@ -35,12 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const pricingLabel = {
+const pricingLabel: Record<string, string> = {
   free: "Free",
   "open-source": "Open source",
   freemium: "Freemium",
   paid: "Paid",
-} as const;
+  unknown: "Unknown",
+};
 
 export default async function ResourcePage({ params }: Props) {
   const { slug } = await params;
@@ -112,7 +113,16 @@ export default async function ResourcePage({ params }: Props) {
             <Link href={`/categories/${category.slug}`}>{category.name}</Link>
           </Badge>
         )}
-        <Badge variant="brand">{pricingLabel[resource.pricing]}</Badge>
+        <Badge variant="brand">{pricingLabel[resource.pricing] ?? "Unknown"}</Badge>
+        {resource.linkStatus === "dead" && (
+          <Badge variant="outline">Link down</Badge>
+        )}
+        {resource.linkStatus === "uncertain" && (
+          <Badge variant="outline">Unverified</Badge>
+        )}
+        {resource.type && (
+          <Badge variant="muted">{resource.type}</Badge>
+        )}
         {resource.stack.map((item) => (
           <Badge key={item} variant="outline">
             {item}
@@ -131,6 +141,11 @@ export default async function ResourcePage({ params }: Props) {
             <p className="text-muted-foreground mt-2 text-sm leading-relaxed sm:text-base">
               {resource.description}
             </p>
+            {resource.notes && (
+              <p className="mt-3 border border-dashed border-(--fo-line) bg-(--fo-well) px-3 py-2 text-[13px] leading-relaxed text-(--fo-soft)">
+                {resource.notes}
+              </p>
+            )}
           </section>
 
           {resource.install && (

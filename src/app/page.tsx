@@ -106,11 +106,7 @@ export default function HomePage() {
 
   return (
     <>
-      <HomeHero
-        resourceCount={resources.length}
-        componentCount={registry.length}
-        categoryCount={categories.length}
-      />
+      <HomeHero />
 
       {/* FolioFeatures — list, wide */}
       <FolioWrap className="py-12 md:py-14">

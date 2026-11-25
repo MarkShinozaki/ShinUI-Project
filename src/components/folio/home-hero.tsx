@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { SakuraStream } from "@/components/folio/sakura-stream";
 import { CommandMenu } from "@/components/command-menu";
 import {
@@ -12,15 +14,7 @@ import {
  * Folio hero, `split` variant (Design Studio `FolioHero`): copy left, a
  * dotted figure right. The figure is a pixel sakura tree beside a stream.
  */
-export function HomeHero({
-  resourceCount,
-  componentCount,
-  categoryCount,
-}: {
-  resourceCount: number;
-  componentCount: number;
-  categoryCount: number;
-}) {
+export function HomeHero() {
   const worksWith = ["React 19", "Tailwind v4", "shadcn/ui", "Next.js"];
   return (
     <FolioWrap className="grid items-center gap-12 py-16 md:grid-cols-[1fr_1.05fr] md:py-24">
@@ -33,18 +27,13 @@ export function HomeHero({
         <h1 className="text-[clamp(2rem,5vw,3.1rem)] leading-[1.08] font-normal tracking-[-0.03em] text-balance">
           Every design resource you keep losing, in one place.
         </h1>
-        <p className="max-w-lg text-[16px] leading-relaxed text-(--fo-soft)">
-          {resourceCount} external tools and libraries, indexed, searchable and credited to whoever
-          built them. Plus {componentCount} components you can preview live and copy straight into
-          your project.
-        </p>
         <div className="flex w-full max-w-sm flex-col gap-2 sm:max-w-none">
           <div className="flex flex-col gap-2 sm:flex-row">
             <FolioButton href="/browse" size="lg">
               Browse resources
             </FolioButton>
             <FolioButton href="/components" variant="secondary" size="lg" className="justify-center">
-              See live components
+              See components
             </FolioButton>
           </div>
           <CommandMenu hotkey={false} className="fo-hatch w-full sm:w-full sm:max-w-[23rem]" />
@@ -63,7 +52,18 @@ export function HomeHero({
       </div>
 
       <FolioFigure
-        caption={`Figure 1. ${resourceCount} resources across ${categoryCount} categories, sorted, credited and one search away. A sakura tree drops petals on the stream below while a paper lantern sways from its branch.`}
+        caption={
+          <>
+            From the{" "}
+            <Link
+              href="/components?section=pixel-art"
+              className="text-(--fo-ink) underline decoration-(--fo-line-strong) underline-offset-3 transition-colors hover:text-(--fo-accent)"
+            >
+              Pixel Art
+            </Link>{" "}
+            library — 2D scenes and isometric 3D dioramas you can preview live.
+          </>
+        }
       >
         <SakuraStream />
       </FolioFigure>
