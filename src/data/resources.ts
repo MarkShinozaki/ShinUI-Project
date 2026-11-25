@@ -53,6 +53,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-29",
   },
 
+
+  {
+    slug: "earshot",
+    name: "Earshot",
+    tagline: "Code-rendered sound effects for agents",
+    description:
+      "An open-source library that renders sound effects in code — no audio model — for coding agents and motion-design films. Kits can time whooshes, hits and UI sounds to exact frames.",
+    url: "https://github.com/Leonxlnx/earshot",
+    category: "sound-services",
+    tags: ["sounds", "sfx", "agents", "motion-design", "open-source"],
+    stack: ["Python", "DSP"],
+    pricing: "open-source",
+    type: "tool",
+    addedAt: "2026-11-25",
+  },
   // ── Motion & Video ────────────────────────────────────────────────
   {
     slug: "jitter",
@@ -112,6 +127,22 @@ export const resources: Resource[] = [
     addedAt: "2026-09-26",
   },
 
+
+  {
+    slug: "cinetic",
+    name: "Cinetic",
+    tagline: "Launch films directed by your coding agent",
+    description:
+      "An agent skill for cinematic launch films, update videos and motion design from code. It writes a script first, then renders with Remotion or HyperFrames, with gates for motion, typography and sound.",
+    url: "https://github.com/Leonxlnx/cinetic",
+    category: "motion-video",
+    tags: ["motion-design", "agents", "video", "skills", "open-source"],
+    stack: ["React", "Remotion"],
+    pricing: "open-source",
+    type: "tool",
+    install: "npx skills add Leonxlnx/cinetic",
+    addedAt: "2026-11-25",
+  },
   // ── Design Inspo ──────────────────────────────────────────────────
   {
     slug: "codrops",
@@ -488,6 +519,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-25",
   },
 
+
+  {
+    slug: "peng-zheng",
+    name: "Peng Zheng",
+    tagline: "A portfolio with a date-tick scrollbar worth stealing",
+    description:
+      "Peng Zheng's personal site — a product designer obsessed with craft and fluid interaction. The custom scrollbar uses month and date ticks, snaps to the cursor, scrubs on drag and works on touch.",
+    url: "https://www.pengzhe.ng/",
+    category: "inspiration",
+    tags: ["portfolio", "scrollbar", "interaction", "craft"],
+    stack: ["Web"],
+    pricing: "free",
+    type: "inspiration",
+    addedAt: "2026-11-25",
+  },
   // ── Charts ────────────────────────────────────────────────────────
   {
     slug: "numberflow",
@@ -627,6 +673,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-21",
   },
 
+
+  {
+    slug: "gauge-ui",
+    name: "Gauge UI",
+    tagline: "Composable SVG gauges for React",
+    description:
+      "SVG gauge primitives you compose into speedometers, dials, meters and clocks — arcs, ticks, zones and needles. Distributed as a shadcn registry, so the source lands in your project.",
+    url: "https://www.gauge-ui.dev/",
+    category: "data-viz",
+    tags: ["gauges", "svg", "shadcn-compatible", "react", "copy-paste"],
+    stack: ["React", "SVG", "shadcn/ui"],
+    pricing: "open-source",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
   // ── Icons ─────────────────────────────────────────────────────────
   {
     slug: "lucide",
@@ -1097,6 +1158,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-23",
   },
 
+
+  {
+    slug: "trazo",
+    name: "Trazo",
+    tagline: "Hand-drawn crayon sticker SVGs",
+    description:
+      "Bold, wax-textured crayon sticker SVGs baked into clean vector paths. Use them as tree-shakeable React components or as standalone SVG strings.",
+    url: "https://trazo.akoder.xyz/",
+    category: "icons-assets",
+    tags: ["stickers", "svg", "hand-drawn", "crayon", "react"],
+    stack: ["React", "SVG"],
+    pricing: "free",
+    type: "asset",
+    addedAt: "2026-11-25",
+  },
   // ── Agent ─────────────────────────────────────────────────────────
   {
     slug: "koboyo-mascot",
@@ -1355,6 +1431,108 @@ export const resources: Resource[] = [
     addedAt: "2026-09-26",
   },
 
+
+  {
+    slug: "uizze",
+    name: "Uizze",
+    tagline: "UI taste for AI coding agents",
+    description:
+      "Gives Claude Code, Codex and Cursor real app references, fonts and icons, so the UI they build looks designed rather than generic.",
+    url: "https://uizze.com/",
+    category: "design-tools",
+    tags: ["agents", "references", "taste", "ai"],
+    stack: ["AI", "Web"],
+    pricing: "unknown",
+    type: "tool",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "thinkui",
+    name: "ThinkUI",
+    tagline: "UI references for your coding agent, over MCP",
+    description:
+      "An MCP server that answers design questions with evidence — the screen, the flow, the component, the font — each result traceable to its source.",
+    url: "https://thinkui.xyz/",
+    category: "design-tools",
+    tags: ["mcp", "agents", "references", "ai"],
+    stack: ["MCP", "AI"],
+    pricing: "unknown",
+    type: "tool",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "taste-skill",
+    name: "Taste Skill",
+    tagline: "The design skill for AI coding agents",
+    description:
+      "An open-source agent skill that gives coding agents an art direction, real photographs and a real-browser quality check instead of generic AI pages.",
+    url: "https://www.tasteskill.dev/",
+    category: "design-tools",
+    tags: ["agents", "skills", "taste", "open-source"],
+    stack: ["AI", "Web"],
+    pricing: "open-source",
+    type: "tool",
+    install: "npx skills add Leonxlnx/taste-skill",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "emil-kowalski-skills",
+    name: "Emil Kowalski Skills",
+    tagline: "Design-engineering skills from Emil Kowalski",
+    description:
+      "Agent skills for designers and engineers, including emil-design-eng — animation decisions, press and hover polish, and when not to animate. Distinct from Emil's animations.dev course already in the catalog.",
+    url: "https://github.com/emilkowalski/skills",
+    category: "design-tools",
+    tags: ["agents", "skills", "animation", "design-engineering", "open-source"],
+    stack: ["AI", "CSS"],
+    pricing: "open-source",
+    type: "tool",
+    install: "npx skills@latest add emilkowalski/skills",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "vercel-web-design-guidelines",
+    name: "Vercel Web Design Guidelines",
+    tagline: "Agent skills that audit UI against Vercel's guidelines",
+    description:
+      "Vercel's official agent-skills collection, including a web-design-guidelines skill that reviews interfaces against 100+ accessibility, performance and UX rules.",
+    url: "https://github.com/vercel-labs/agent-skills",
+    category: "design-tools",
+    tags: ["agents", "skills", "accessibility", "guidelines", "open-source"],
+    stack: ["AI", "Web"],
+    pricing: "open-source",
+    type: "tool",
+    install: "npx skills add vercel-labs/agent-skills",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "graphical",
+    name: "Graphical",
+    tagline: "Design visual languages with coding agents",
+    description:
+      "A tool to design visual languages, style components and work with coding agents to create interfaces that look memorable rather than generic.",
+    url: "https://www.graphicalui.com/",
+    category: "design-tools",
+    tags: ["visual-language", "agents", "design-tool", "components"],
+    stack: ["Design", "AI"],
+    pricing: "unknown",
+    type: "tool",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "shoogle",
+    name: "Shoogle",
+    tagline: "Search engine for shadcn blocks and components",
+    description:
+      "Search shadcn UI blocks, components and templates across shadcn registries in one place, instead of hopping between individual catalogs.",
+    url: "https://shoogle.dev/",
+    category: "design-tools",
+    tags: ["shadcn", "search", "blocks", "registry"],
+    stack: ["shadcn/ui", "Web"],
+    pricing: "free",
+    type: "tool",
+    addedAt: "2026-11-25",
+  },
   // ── Component Libraries ───────────────────────────────────────────
   {
     slug: "shadcn-ui",
@@ -1952,6 +2130,77 @@ export const resources: Resource[] = [
     addedAt: "2026-09-29",
   },
 
+
+  {
+    slug: "uimaxxing",
+    name: "UImaxxing",
+    tagline: "A design system library of playful UI templates",
+    description:
+      "A design-system library of UI templates and interactions — including a spin-to-reveal reward component — aimed at interfaces that want more personality than a default kit.",
+    url: "https://uimaxx.ing/",
+    category: "component-libraries",
+    tags: ["templates", "design-system", "interactions", "rewards"],
+    stack: ["React"],
+    pricing: "unknown",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "easyui",
+    name: "EasyUI",
+    tagline: "Animated React components for Tailwind",
+    description:
+      "An open-source React UI library with copy-paste Tailwind components, Framer Motion animations, live demos and TypeScript source — including an AI image-reveal component.",
+    url: "https://easyui.site/",
+    category: "component-libraries",
+    tags: ["animated", "tailwind", "copy-paste", "framer-motion", "open-source"],
+    stack: ["React", "Tailwind", "Framer Motion"],
+    pricing: "open-source",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "pin-ui",
+    name: "Pin UI",
+    tagline: "React components built from Pinterest designs",
+    description:
+      "Free, open-source React components inspired by Pinterest interfaces — animated, in light and dark, ready to copy into a project.",
+    url: "https://www.pinui.xyz/",
+    category: "component-libraries",
+    tags: ["react", "pinterest", "animated", "copy-paste", "open-source"],
+    stack: ["React"],
+    pricing: "open-source",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "planes",
+    name: "Planes",
+    tagline: "Animated React components for shadcn/ui",
+    description:
+      "Animated React components for shadcn/ui and Next.js, built with Motion and Tailwind CSS v4 and installed as source via the shadcn CLI.",
+    url: "https://useplanes.com/",
+    category: "component-libraries",
+    tags: ["animated", "shadcn-compatible", "motion", "nextjs", "copy-paste"],
+    stack: ["React", "Next.js", "Tailwind", "Motion"],
+    pricing: "open-source",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "liquid-glass",
+    name: "Liquid Glass for the Web",
+    tagline: "Real refraction glass materials in every browser",
+    description:
+      "Open-source Liquid Glass materials for the web and Electron, with real refraction in Chrome, Safari and Firefox — plus glass switches, sliders, navbars, menus and toasts.",
+    url: "https://liquidglass.dev/",
+    category: "component-libraries",
+    tags: ["glass", "refraction", "webgpu", "open-source", "components"],
+    stack: ["React", "WebGPU"],
+    pricing: "open-source",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
   // ── Blocks & Templates ────────────────────────────────────────────
   {
     slug: "serp-blocks",
@@ -2391,6 +2640,35 @@ export const resources: Resource[] = [
     addedAt: "2026-09-29",
   },
 
+
+  {
+    slug: "kinetik",
+    name: "Kinetik",
+    tagline: "Animated React components with Tailwind and Motion",
+    description:
+      "Animated React components built with Tailwind CSS and Motion. Install with the shadcn CLI or copy the code — free and open source, with optional Pro components.",
+    url: "https://kinetikui.singhgourav.site/",
+    category: "animation-motion",
+    tags: ["animated", "motion", "shadcn-compatible", "copy-paste", "tailwind"],
+    stack: ["React", "Tailwind", "Motion"],
+    pricing: "freemium",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
+  {
+    slug: "torph",
+    name: "Torph",
+    tagline: "Dependency-free text morphing",
+    description:
+      "A small, dependency-free animated text-morphing component — useful when a heading or label should interpolate from one word to the next instead of cutting.",
+    url: "https://torph.dev/",
+    category: "animation-motion",
+    tags: ["text", "morph", "animation", "lightweight"],
+    stack: ["Web"],
+    pricing: "free",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
   // ── Transitions & Scroll ──────────────────────────────────────────
   {
     slug: "view-transitions-api",
@@ -2724,6 +3002,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-26",
   },
 
+
+  {
+    slug: "shaders",
+    name: "Shaders",
+    tagline: "Open-source WebGPU shader components and editor",
+    description:
+      "A library of 200+ WebGPU shader components for React, Vue, Svelte, Solid and JS, plus a free editor to compose and export them. The source is MIT-licensed on GitHub.",
+    url: "https://shaders.com/",
+    category: "shaders-webgl",
+    tags: ["webgpu", "shaders", "components", "editor", "open-source"],
+    stack: ["WebGPU", "React", "Vue", "Svelte"],
+    pricing: "open-source",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
   // ── Backgrounds & Atmosphere ──────────────────────────────────────
   {
     slug: "bg-ibelick",
@@ -3236,6 +3529,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-03",
   },
 
+
+  {
+    slug: "slidshift",
+    name: "Slidshift",
+    tagline: "Company deck gallery and slide generation",
+    description:
+      "A gallery of recent company decks — investor days, earnings, brand guidelines — plus a tool that turns a written idea into designed PowerPoint and Google Slides files.",
+    url: "https://slidshift.com/",
+    category: "mockups",
+    tags: ["decks", "slides", "presentation", "gallery"],
+    stack: ["Web"],
+    pricing: "unknown",
+    type: "service",
+    addedAt: "2026-11-25",
+  },
   // ── AI & Chat UI ──────────────────────────────────────────────────
   {
     slug: "assistant-ui",
@@ -3300,6 +3608,21 @@ export const resources: Resource[] = [
     addedAt: "2026-09-21",
   },
 
+
+  {
+    slug: "agentic-ui",
+    name: "Agentic UI",
+    tagline: "UI components and foundations for agentic products",
+    description:
+      "Agentic UI components and foundations, rendered live from Storybook stories — a starting kit for interfaces built around agents rather than a classic form-and-table app.",
+    url: "https://agenticui.dev/",
+    category: "ai-chat-ui",
+    tags: ["agents", "components", "storybook", "ai"],
+    stack: ["React", "Storybook"],
+    pricing: "unknown",
+    type: "library",
+    addedAt: "2026-11-25",
+  },
   // ── Product Infra UI ──────────────────────────────────────────────
   {
     slug: "billing-sdk",
